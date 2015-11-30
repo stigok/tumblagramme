@@ -1,0 +1,9 @@
+block scripts
+  style
+    | nomargin { margin:0; padding:0; }
+
+block content
+  h3(class="nomargin")= pwd
+  h4(class="nomargin")= error.status
+  pre(style="font-weight:bold;background:#eee;padding:2em;margin:0")= message
+  pre(style="background:#efefef;margin:0;border-top:1px solid #000;padding:2em") #{error.stack}

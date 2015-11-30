@@ -1,0 +1,33 @@
+doctype html
+html(ng-app="tumblagramme")
+  head
+    title= title
+    link(rel='stylesheet', href='/css/style.css')
+    block scripts
+  body
+    nav#nav
+      ul
+        li
+          a(href="/") Home
+        li
+          a(href="/quicktags") Instagram Feed
+        li
+          a(href="/tumblr") Tumblr Stuff
+        if (user)
+          li
+            a(href="/account") Account Settings
+          li
+            a(href="/logout") Logout
+        else
+          li
+            a(href="/register") Register
+          li
+            a(href="/login") Login
+    if (user)    
+      section#accountChanger
+        ul
+          for a, index in user.accounts
+            li
+              a(href="/tumblr/setActiveAccount/#{index}?returnPath=#{currentRoute}")= a.name
+
+    block content

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 tumblagramme
+  h2= title
+
+  div
+    if (user)
+      span Welcome, dear #{user.username}!
+    else
+      span Welcome, anonymous. Please log in

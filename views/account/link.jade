@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  h1 Link account
+
+  if (error)
+    h3=error
+
+  form(action="/account/link/instagram" method="post")
+    input(type="submit" value="Link Instagram")
+
+  form(action="/account/link/tumblr" method="post")
+    input(type="submit" value="Link Tumblr")

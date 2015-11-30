@@ -1,0 +1,19 @@
+{
+  "name": "tumblagramme",
+  "version": "0.0.0",
+  "authors": [
+    "stigok <stig@stigok.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.20"
+  }
+}
+

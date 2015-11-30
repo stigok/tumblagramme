@@ -1,0 +1,31 @@
+extends layout
+
+block scripts
+  script(src="/js/jquery-1.11.3.js")
+  script(src="/js/ig.js")
+  script(src="/js/require.js", data-main="/js/main")
+  script.
+    var size = !{imageSize};
+    $(function() {
+      handleData(!{posts});
+    });
+
+block content
+  h1 tumblagramme
+  h2= title
+  h3
+    a(href='/quicktags') Quick tags
+  ul
+    for t in quickTags
+      li
+        a(href='/tag/' + t)= t
+
+  #images
+
+  hr
+  ul
+    for t in quickTags
+      li
+        a(href='/tag/' + t)= t
+        
+  include ./includes/post-status.jade

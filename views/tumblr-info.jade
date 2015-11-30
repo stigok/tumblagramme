@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 tumblagramme
+  h2 Tumblr Queue (#{blog.name})
+  h3 #{blog.queue} item(s)
+
+  div
+    for post in queue.posts
+      div= post.id

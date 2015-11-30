@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1 Musicpost
+
+  if (error)
+    h3=error
+
+  form(action="/tumblr/musicpost", method="post")
+    div
+      label Tags
+      input(type="text",name="tags")
+    div
+      label Caption
+      textarea(name="caption" style="width:400px;height:200px;")
+    div
+      label Source
+      input(type="text" name="source")
+    div
+      label Link
+      input(type="text" name="link")
+    div
+      input(type="submit",value="Post to #{account.name}")

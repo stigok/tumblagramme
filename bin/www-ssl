@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+
+var debug = require('debug')('www-ssl');
+var app = require('../app');
+var _ = require('underscore');
+var http2s = require('http2s');
+var https = require('https');
+var fs = require('fs');
+
+// Fill app.locals with settings from file
+var settings = require("../settings.json");
+var locals = {};
+_.extend(locals, app.locals);
+_.extend(locals, settings);
+_.extend(locals.settings, settings.appSettings);
+app.locals = locals;
+
+// Setup SSL
+var options = {
+  cert: fs.readFileSync(app.locals.settings.certPath),
+  key: fs.readFileSync(app.locals.settings.keyPath)
+};
+
+var server = https.createServer(options, app);
+server.listen(app.get('httpsPort'), app.get('hostname'), function() {
+  var msg = 'Express server listening on https://'
+          + server.address().address
+          + ':'
+          + server.address().port;
+  console.log(msg);
+  debug(msg);
+})
+
+// Start redirection service
+var h2sOptions = {
+  http: app.get('httpPort'),
+  https: app.get('httpsPort'),
+  hostname: app.get('hostname'),
+  auto: false,
+  logLevel: 5
+};
+
+http2s(h2sOptions);
