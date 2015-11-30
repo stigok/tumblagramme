@@ -1,22 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var helpers = require('utils');
-var passport = require('passport');
-var Account = require('./models/account');
 
-router.get('/', function(req, res) {
-
+router.get('/', function (req, res) {
   res.render('index', {
-    title: "This is the index page",
+    title: 'This is the index page, brother',
     user: req.user
   });
-
 });
 
-router.get('/debug', function(req, res) {
-  res.render('debug', {
-    req: JSON.stringify(req, helpers.censor(req))
-  });
+router.get('/partials/:name', function (req, res) {
+  res.render('partials/' + req.params.name);
 });
 
 module.exports = router;
