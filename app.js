@@ -7,14 +7,16 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var settings = require('./settings.json');
+var _ = require('underscore');
+var http = require('http');
 
 // Login implementation with PassportJS
 // https://github.com/saintedlama/passport-local-mongoose/blob/master/examples/login/app.js
 // http://mherman.org/blog/2013/11/11/user-authentication-with-passport-dot-js/#.VYqWLvmqpBf
 var mongoose = require('mongoose');
 var passport = require('passport');
-var connectEnsureLogin = require('connect-ensure-login');
-var ensureLoggedIn = connectEnsureLogin.ensureLoggedIn;
+// var connectEnsureLogin = require('connect-ensure-login');
+// var ensureLoggedIn = connectEnsureLogin.ensureLoggedIn;
 // var ensureLoggedOut = connectEnsureLogin.ensureLoggedOut;
 
 var app = express();
@@ -87,10 +89,10 @@ app.use('/*', function (req, res, next) {
 });
 
 // Authentication specific routes and settings
-app.use('/', require('./routes/account'));
-app.use('/account/link', require('./routes/account/link'))
-app.use('/', ensureLoggedIn('/login'), require('./routes/posts'));
-app.use('/tumblr', ensureLoggedIn('/login'), require('./routes/tumblr'));
+app.use('/', require('./routes/index'));
+// app.use('/account/link', require('./routes/account/link'));
+// app.use('/', ensureLoggedIn('/login'), require('./routes/posts'));
+// app.use('/tumblr', ensureLoggedIn('/login'), require('./routes/tumblr'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -129,4 +131,14 @@ app.use(function (err, req, res, next) {
   });
 });
 
-module.exports = app;
+// Fill app.locals with settings from file
+var locals = {};
+_.extend(locals, app.locals);
+_.extend(locals, settings);
+_.extend(locals.settings, settings.appSettings);
+app.locals = locals;
+
+http.createServer(app).listen(3000, function () {
+  var msg = 'Express server started on 3000';
+  console.log(msg);
+});
