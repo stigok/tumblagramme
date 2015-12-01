@@ -1,6 +1,6 @@
 describe("IndexController", function () {
 
-  beforeEach(module('tumblagramme'))
+  beforeEach(module('tg'))
 
   it("says hello world", inject(function ($controller) {
     var scope = {}

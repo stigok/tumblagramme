@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('tumblagramme', []);
+  var app = angular.module('tgDirectives', []);
 
   app.directive('navigation', function () {
     return {

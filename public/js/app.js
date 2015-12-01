@@ -1,5 +1,7 @@
 (function () {
-  var app = angular.module('tumblagramme', ['ngRoute', 'tumblagramme.controllers']);
+  var app = angular.module('tg', [
+    'ngRoute', 'tgControllers', 'tgDirectives'
+  ]);
 
   app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
