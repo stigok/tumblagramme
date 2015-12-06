@@ -1,10 +1,9 @@
-describe("IndexController", function () {
+describe('IndexController', function () {
+  beforeEach(module('tg'));
 
-  beforeEach(module('tg'))
-
-  it("says hello world", inject(function ($controller) {
-    var scope = {}
-    var ctrl = $controller("IndexController", {$scope : scope});
-    expect(scope.message).to.equal("hello")
-  }))
-})
+  it('says hello world', inject(function ($controller) {
+    let scope = {};
+    let ctrl = $controller('IndexController', {$scope: scope});
+    scope.message.should.equal('Hello, world!');
+  }));
+});
