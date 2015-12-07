@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title Tumblagramme
+    link(href="/css/style.css" rel="stylesheet")
+    script(src="/js/vendor/angular.js")
+    script(src="/js/vendor/angular-route.js")
+    script(src="/js/vendor/angular-resource.js")
+    script(src="/js/controllers.js")
+    script(src="/js/directives.js")
+    script(src="/js/services.js")
+    script(src="/js/app.js")      
+    block head
+
+  body(ng-app="tg")
+    h1 Tumblagramme
+    navigation
+    block content
+
+  block scripts

@@ -11,12 +11,14 @@ describe('FeedController', function () {
   }));
 
   it('should have its scope set', function () {
+    scope.should.be.an.Object();
     scope.should.not.be.equal({});
   });
 
-  it('gets the latest posts', function () {
+  it('scope should contain a filled posts array', function () {
     scope.posts.should.be.ok();
     scope.posts.should.be.an.Array();
+    scope.posts.should.not.equal([]);
     scope.posts.length.should.equal(1);
   });
 });

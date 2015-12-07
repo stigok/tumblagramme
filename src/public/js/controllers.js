@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('tgControllers', []);
+  var app = angular.module('tg.Controllers', []);
 
   app.controller('IndexController', function ($scope) {
     $scope.message = 'Hello, world!';

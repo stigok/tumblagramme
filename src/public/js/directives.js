@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('tgDirectives', []);
+  var app = angular.module('tg.Directives', []);
 
   app.directive('navigation', function () {
     return {

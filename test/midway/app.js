@@ -21,15 +21,15 @@ describe("Midway: Testing Modules", function() {
       });
 
       it('should depend on Controllers', function () {
-        hasModule('Controllers').should.equal(true);
+        hasModule('tg.Controllers').should.equal(true);
       });
 
       it('should depend on Directives', function () {
-        hasModule('Directives').should.equal(true);
+        hasModule('tg.Directives').should.equal(true);
       });
 
       it('should depend on Services', function () {
-        hasModule('Services').should.equal(true);
+        hasModule('tg.Services').should.equal(true);
       });
     });
   });

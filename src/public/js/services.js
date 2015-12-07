@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('tgServices', ['ngResource']);
+  var app = angular.module('tg.Services', ['ngResource']);
 
   app.factory('Instagram', ['$resource', function ($resource) {
     return $resource('data/media-recent.json', {}, {
