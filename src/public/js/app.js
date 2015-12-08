@@ -6,16 +6,20 @@
   app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/partials/index',
-        controller: 'IndexController'
+        controller: 'IndexController',
+        templateUrl: '/www/partials/index'
       })
       .when('/feed', {
-        templateUrl: 'views/partials/feed',
-        controller: 'FeedController'
+        controller: 'FeedController',
+        templateUrl: '/www/partials/feed'
       })
-      .otherwise({
-        redirectTo: '/'
+      .when('/message', {
+        controller: 'MessageViewerController',
+        templateUrl: '/www/partials/message'
       });
+      // .otherwise({
+      //   redirectTo: '/'
+      // });
     $locationProvider.html5Mode(true);
   }]);
 })();

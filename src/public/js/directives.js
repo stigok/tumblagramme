@@ -4,14 +4,14 @@
   app.directive('navigation', function () {
     return {
       restrict: 'E',
-      templateUrl: '/partials/navigation'
+      templateUrl: '/www/partials/navigation'
     };
   });
 
   app.directive('accountChanger', function () {
     return {
       restrict: 'E',
-      templateUrl: '/partials/accountChanger'
+      templateUrl: '/www/partials/accountChanger'
     };
   });
 })();

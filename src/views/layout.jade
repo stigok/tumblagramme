@@ -2,19 +2,23 @@ doctype html
 html
   head
     title Tumblagramme
-    link(href="/css/style.css" rel="stylesheet")
-    script(src="/js/vendor/angular.js")
-    script(src="/js/vendor/angular-route.js")
-    script(src="/js/vendor/angular-resource.js")
-    script(src="/js/controllers.js")
-    script(src="/js/directives.js")
-    script(src="/js/services.js")
-    script(src="/js/app.js")      
+    base(href="/www/")
+    link(href="/www/css/style.css" rel="stylesheet")
+    script(src="/www/js/vendor/angular.js")
+    script(src="/www/js/vendor/angular-route.js")
+    script(src="/www/js/vendor/angular-resource.js")
+    script(src="/www/js/controllers.js")
+    script(src="/www/js/directives.js")
+    script(src="/www/js/services.js")
+    script(src="/www/js/app.js")      
     block head
 
   body(ng-app="tg")
     h1 Tumblagramme
+
     navigation
+
+    h2 Express content
     block content
 
   block scripts
