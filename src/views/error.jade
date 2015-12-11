@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title= title
+    style
+      | .nomargin { margin:0; padding:0; }
+      | pre.message { font-weight:bold; background:#eee; padding:2em; margin:0; }
+      | pre.stacktrace { background:#efefef; margin:0; border-top:1px solid #000; padding:2em; }
+  body
+    h1.nomargin= error.status || '(no status code set)'
+    h3= pwd
+    pre.message= message
+    pre.stacktrace= full
+    pre.stacktrace= error.stack
