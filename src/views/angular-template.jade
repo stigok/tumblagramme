@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+
+    title= title
+    
+    link(href="/www/css/bootstrap.css" rel="stylesheet")
+    //link(href="/www/css/style.css" rel="stylesheet")
+      
+    base(href="/www/")
+  body(ng-app="#{ngApp}")
+    .container-fluid
+      navigation(ng-controller="NavigationController")
+      h1= title
+      div(ng-view)
+
+    script(src="/www/js/vendor/angular.js")
+    script(src="/www/js/vendor/angular-route.js")
+    script(src="/www/js/vendor/angular-resource.js")
+    script(src="/www/js/vendor/ui-bootstrap-tpls-0.14.3.js")
+    script(src="/www/js/controllers.js")
+    script(src="/www/js/directives.js")
+    script(src="/www/js/services.js")
+    script(src="/www/js/app.js")

@@ -14,11 +14,12 @@ app.disable('x-powered-by');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(require('less-middleware')(path.join(__dirname, 'public')));
+app.use('/www', require('less-middleware')(path.join(__dirname, 'public')));
 app.use('/www', express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.use('/instagram', instagramApi);
+app.use('/api/instagram', instagramApi);
+app.use('/api/db', require('./routes/db-api.js'));
 app.use('/www', require('./routes/index'));
 
 // catch 404 and forward to error handler

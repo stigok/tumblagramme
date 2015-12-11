@@ -1,4 +1,11 @@
-div
-  h2 Posts in tag "#{tag}"
-  pre
-    {{apiResponse | json : 2}}
+h2 Posts in tag "{{tag}}"
+div#posts.container-fluid
+  div.row(ng-repeat="chunk in chunkedPosts")
+    div.col-md-4(ng-repeat="post in chunk")
+      img(
+        ng-src="{{post.images.low_resolution.url}}"
+        uib-popover="{{post.caption.text.length}}"
+        popover-title="{{post.user.username}}"
+        popover-animation="true"
+        popover-trigger="mouseenter"
+      )

@@ -1,6 +1,29 @@
-nav.navigation
-  ul
-    li
-      a(href="/www") Home
-    li
-      a(href="/www/feed") Feed
+nav(class="navbar navbar-default" ng-controller="NavigationController")
+  .container-fluid
+    .navbar-header
+      button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a(href="#" class="navbar-brand") #{title}
+    #navbar(class="navbar-collapse collapse")
+      ul.nav.navbar-nav
+        li.active
+          a(href="/www") Home
+        li(class="tagDropdown" uib-dropdown uib-keyboard-nav is-open="tagDropdownOpened")
+          a(href="#" uib-dropdown-toggle ng-disabled="disabled") Tag feed
+          ul(role="menu" class="uib-dropdown-menu")
+            li(role="menuitem")
+              a(href="/www/feed/bjj") BJJ
+            li(role="menuitem")
+              a(href="/www/feed/martialarts") Martial Arts
+            li(role="menuitem")
+              a(href="/www/feed/combat") Combat
+            li(role="separator" class="divider")
+            //li.dropdown-header Quicktags
+            li(role="menuitem")
+              a(href="/www/feed/quicktags") All favorites
+      ul(class="nav navbar-nav navbar-right")
+        li
+          a(href="/www/about") About

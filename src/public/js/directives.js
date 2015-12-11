@@ -1,17 +1,18 @@
 (function () {
-  var app = angular.module('tg.Directives', []);
+  var directives = angular.module('tg.Directives', []);
 
-  app.directive('navigation', function () {
+  directives.directive('navigation', function () {
     return {
       restrict: 'E',
-      templateUrl: '/www/partials/navigation'
+      templateUrl: 'partials/navigation'
     };
   });
 
-  app.directive('accountChanger', function () {
+  directives.directive('accountChanger', function () {
     return {
       restrict: 'E',
-      templateUrl: '/www/partials/accountChanger'
+      templateUrl: 'partials/accountChanger'
     };
   });
+
 })();

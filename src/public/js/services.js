@@ -1,10 +1,9 @@
 (function () {
-  var app = angular.module('tg.Services', ['ngResource']);
-  var baseUrl = '/instagram';
-  var access_token = '235624161.1fb234f.15ea2d1d8be7462bbe36088562424e73';
+  var services = angular.module('tg.Services', ['ngResource']);
 
-  app.factory('Instagram', function ($resource) {
-    return $resource(baseUrl + '/starwars', {access_token: access_token}, {
+  services.service('Instagram', function ($resource) {
+    var token = '235624161.1fb234f.15ea2d1d8be7462bbe36088562424e73';
+    return $resource('/api/instagram/:tag', {access_token: token}, {
       query: {method: 'GET', params: {}, isArray: true}
     });
   });

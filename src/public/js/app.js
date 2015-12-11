@@ -1,6 +1,8 @@
 (function () {
   var app = angular.module('tg', [
-    'ngRoute', 'tg.Controllers', 'tg.Directives', 'tg.Services'
+    'ngRoute',
+    'tg.Controllers', 'tg.Directives', 'tg.Services',
+    'ui.bootstrap'
   ]);
 
   app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -16,10 +18,10 @@
       .when('/message', {
         controller: 'MessageViewerController',
         templateUrl: '/www/partials/message'
+      })
+      .otherwise({
+        redirectTo: '/'
       });
-      // .otherwise({
-      //   redirectTo: '/'
-      // });
     $locationProvider.html5Mode(true);
   }]);
 })();
