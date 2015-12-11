@@ -11,10 +11,16 @@
 
   app.controller('NavigationController', function ($scope) {
     $scope.tagDropdownOpened = false;
-
     $scope.tagDropdown = function () {
       $scope.tagDropdownOpened = !$scope.tagDropdownOpened;
     };
+
+    $scope.tags = [
+      {name: 'BJJ'},
+      {name: 'Combat TV'},
+      {name: 'SurfEurope'},
+      {name: 'SurfersUnite'}
+    ];
   });
 
   app.controller('IndexController', function ($scope) {
