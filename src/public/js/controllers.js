@@ -9,7 +9,9 @@
     return newArr;
   }
 
-  app.controller('NavigationController', function ($scope) {
+  app.controller('NavigationController', function ($scope, User) {
+    $scope.user = User;
+
     $scope.tagDropdownOpened = false;
     $scope.tagDropdown = function () {
       $scope.tagDropdownOpened = !$scope.tagDropdownOpened;
@@ -20,16 +22,23 @@
       $scope.statsDropdownOpened = !$scope.tagDropdownOpened;
     };
 
-    $scope.tags = [
-      {name: 'BJJ'},
-      {name: 'Combat TV'},
-      {name: 'SurfEurope'},
-      {name: 'SurfersUnite'}
-    ];
+    $scope.accountDropdownOpened = false;
+    $scope.accountDropdown = function () {
+      $scope.accountDropdownOpened = !$scope.accountDropdownOpened;
+    };
   });
 
   app.controller('IndexController', function ($scope) {
     $scope.message = 'This is the index controller!';
+  });
+
+  app.controller('LoginController', function ($scope) {
+    $scope.login = function () {
+      console.error('Not implemented');
+    };
+    $scope.register = function () {
+      console.error('Not implemented');
+    };
   });
 
   app.controller('FeedController', ['$scope', 'Instagram', function ($scope, Instagram) {

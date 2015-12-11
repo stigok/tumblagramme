@@ -1,7 +1,7 @@
 (function () {
   var app = angular.module('tg', [
     'ngRoute',
-    'tg.Controllers', 'tg.Directives', 'tg.Services',
+    'tg.Controllers', 'tg.Directives', 'tg.Services', 'tg.Auth',
     'ui.bootstrap'
   ]);
 
@@ -10,6 +10,10 @@
       .when('/', {
         controller: 'IndexController',
         templateUrl: '/www/partials/index'
+      })
+      .when('/login', {
+        controller: 'LoginController',
+        templateUrl: '/www/partials/login'
       })
       .when('/feed', {
         controller: 'FeedController',
