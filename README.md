@@ -1,4 +1,4 @@
-# Installation
+### Installation
 
 You need to install MongoDB locally before starting the app.
 
@@ -10,11 +10,15 @@ You need to install MongoDB locally before starting the app.
     $ git submodule init
     $ git submodule update
 
-# Settings
+### Settings
 
 Settings are all around the code at the moment, so look around!
 
-# Thoughts
+### Todo
+
+  [ ] Search for TODO tokens in project
+
+### Thoughts
 
   - This app is a unified blogging tool for Tumblr
     - Reblog pictures and video from Instagram
