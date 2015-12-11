@@ -14,12 +14,19 @@ nav(class="navbar navbar-default" ng-controller="NavigationController")
         li(class="tagDropdown" uib-dropdown uib-keyboard-nav is-open="tagDropdownOpened")
           a(href="#" uib-dropdown-toggle ng-disabled="disabled") Tag feed
           ul(role="menu" class="uib-dropdown-menu")
+            li.dropdown-header Quicktags
             li(role="menuitem" ng-repeat="tag in tags")
               a(href="/www/feed/{{tag.name}}") {{tag.name}}
             li(role="separator" class="divider")
-            //li.dropdown-header Quicktags
             li(role="menuitem")
-              a(href="/www/feed/quicktags") All favorites
+              a(href="/www/feed") All ({{tags.length}})
+        li(class="statsDropdown" uib-dropdown uib-keyboard-nav is-open="statsDropdownOpened")
+          a(href="#" uib-dropdown-toggle) Stats
+          ul(role="menu" class="uib-dropdown-menu")
+            li(role="menuitem")
+              a(href="/www/stats/tumblr") Tumblr
+            li(role="menuitem")
+              a(href="/www/stats/instagram") Instagram
       ul(class="nav navbar-nav navbar-right")
         li
           a(href="/www/about") About

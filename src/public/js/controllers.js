@@ -15,6 +15,11 @@
       $scope.tagDropdownOpened = !$scope.tagDropdownOpened;
     };
 
+    $scope.statsDropdownOpened = false;
+    $scope.statsDropdown = function () {
+      $scope.statsDropdownOpened = !$scope.tagDropdownOpened;
+    };
+
     $scope.tags = [
       {name: 'BJJ'},
       {name: 'Combat TV'},
