@@ -17,6 +17,8 @@ Settings are all around the code at the moment, so look around!
 ### Todo
 
 - [ ] Search for TODO tokens in project
+- [ ] Handle all api route errors on its own for easier debugging. Don't want to return html errors to JSON parsers.
+- [ ] Save id's of things shared to tumblr so that it can be reposted on a later date
 
 ### Thoughts
 

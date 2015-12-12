@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('tg.Controllers', ['underscore']);
+  var module = angular.module('tg.Controllers', ['underscore']);
 
   function chunk(arr, size) {
     var newArr = [];
@@ -16,7 +16,7 @@
     };
   }
 
-  app.controller('NavigationController', function ($scope, User) {
+  module.controller('NavigationController', function ($scope, User) {
     $scope.user = User;
 
     dropdown($scope, 'tags');
@@ -24,11 +24,11 @@
     dropdown($scope, 'account');
   });
 
-  app.controller('IndexController', function ($scope) {
+  module.controller('IndexController', function ($scope) {
     $scope.message = 'This is the index controller!';
   });
 
-  app.controller('LoginController', function ($scope) {
+  module.controller('LoginController', function ($scope) {
     $scope.login = function () {
       console.error('Not implemented');
     };
@@ -37,7 +37,7 @@
     };
   });
 
-  app.controller('FeedController', ['$q', '$scope', '$routeParams', 'User', 'Instagram', function ($q, $scope, $routeParams, User, Instagram) {
+  module.controller('FeedController', ['$q', '$scope', '$routeParams', 'User', 'Instagram', function ($q, $scope, $routeParams, User, Instagram) {
     $scope.currentTag = $routeParams.tag || null;
     $scope.posts = [];
 
@@ -47,16 +47,32 @@
       $scope.tags = User.favoriteTags;
     }
 
+    // Handle incoming posts
     $scope.$watchCollection('posts', function (arr) {
       var unique = _.unique(arr, false, 'id');
       $scope.chunkedPosts = chunk(unique, 3);
       $scope.dupesFiltered = $scope.posts.length - unique.length;
     });
 
+    // Get recent media for each tag
     _.each($scope.tags, function (tag) {
       Instagram.query({tag: tag}, function (results) {
         $scope.posts = $scope.posts.concat(results);
       });
     });
   }]);
+
+  module.controller('InstagramResourceController', function ($scope) {
+    $scope.share = function () {
+      Tumblr.queue({post: $scope.post})
+    };
+
+    $scope.browseUser = function () {
+      console.log('browsing');
+    };
+
+    $scope.openInstagram = function () {
+      console.log('navigateToInstagram');
+    };
+  });
 })();

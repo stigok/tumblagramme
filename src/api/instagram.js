@@ -1,11 +1,18 @@
 const express = require('express');
-const app = express();
+const router = new express.Router();
 const instagram = require('instagram-node');
+const settings = require('../../settings.json');
 
 const testData = require('../../data/media-recent.json');
 
+router.use(function (req, res, next) {
+  res.locals.client = instagram.instagram();
+  res.locals.client.use({access_token: settings.instagram.accounts[0].accessToken})
+  return next();
+});
+
 // API Authentication route
-app.use('/:tag', function (req, res, next) {
+router.use('/media/recent/:tag', function (req, res, next) {
   // DEBUG MODE
   return res.json(testData.data);
 
@@ -39,4 +46,16 @@ app.use('/:tag', function (req, res, next) {
   });
 });
 
-module.exports = app;
+// Like an Instagram resource
+router.post('/like', function (req, res, next) {
+  res.locals.client.add_like(req.body.id, function (err) {
+    if (err) {
+      return next(err);
+    }
+    return res.status(200).json({});
+  });
+});
+
+router.use(require('./errorHandler'));
+
+module.exports = router;
