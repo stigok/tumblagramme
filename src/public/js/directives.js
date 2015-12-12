@@ -15,4 +15,10 @@
     };
   });
 
+  directives.directive('instagramResource', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'partials/instagramResource'
+    };
+  });
 })();

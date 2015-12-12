@@ -1,0 +1,13 @@
+div(class="instagram-resource" ng-controller="InstagramResourceController")
+  img(ng-src="{{post.images.low_resolution.url}}")
+  .controls
+    div(class="btn-group" uib-dropdown)
+      button#split-button(type="button" class="btn btn-info") Action
+        span.caret
+      ul.uib-dropdown-menu(role="menu")
+        li(role="menuitem")
+          a(ng-click="share()") Add to queue
+        li(role="menuitem")
+          a(ng-click="openInstagramPage()") Open Instagram page
+        li(role="menuitem")
+          a(ng-click="browseUser()") Browse more from user

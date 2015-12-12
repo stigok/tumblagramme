@@ -47,16 +47,31 @@
       $scope.tags = User.favoriteTags;
     }
 
+    // Handle incoming posts
     $scope.$watchCollection('posts', function (arr) {
       var unique = _.unique(arr, false, 'id');
       $scope.chunkedPosts = chunk(unique, 3);
       $scope.dupesFiltered = $scope.posts.length - unique.length;
     });
 
+    // Get recent media for each tag
     _.each($scope.tags, function (tag) {
       Instagram.query({tag: tag}, function (results) {
         $scope.posts = $scope.posts.concat(results);
       });
     });
+
+    $scope.share = function (id) {
+      console.log(id);
+      // Tumblr.queue({post: $scope.post})
+    };
+
+    $scope.browseUser = function () {
+      console.log('browsing');
+    };
+
+    $scope.openInstagram = function () {
+      console.log('navigateToInstagram');
+    };
   }]);
 })();
