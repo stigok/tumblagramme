@@ -16,7 +16,7 @@ Settings are all around the code at the moment, so look around!
 
 ### Todo
 
-  [ ] Search for TODO tokens in project
+- [ ] Search for TODO tokens in project
 
 ### Thoughts
 
@@ -29,3 +29,7 @@ Settings are all around the code at the moment, so look around!
   - Predefined tags and post bodies for all posts
   - Turn views into very specific micro modules ish
   - Repost your old top posts automatically & manually
+
+### Attributions
+
+  @dave http://stackoverflow.com/a/22854824/90674
