@@ -1,11 +1,12 @@
 (function () {
   var app = angular.module('tg', [
     'ngRoute',
-    'tg.Controllers', 'tg.Directives', 'tg.Services', 'tg.Auth',
+    'tg.Controllers', 'tg.Directives', 'tg.Services',
+    // 'tg.Auth',
     'ui.bootstrap'
   ]);
 
-  app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+  app.config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         controller: 'IndexController',
@@ -31,5 +32,5 @@
         redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
-  }]);
+  });
 })();
