@@ -12,7 +12,7 @@ router.use(function (req, res, next) {
 });
 
 // API Authentication route
-router.use('/media/recent/:tag', function (req, res, next) {
+router.use('/media/recent/:tag*?', function (req, res, next) {
   // DEBUG MODE
   return res.json(testData.data);
 

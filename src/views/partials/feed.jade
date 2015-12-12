@@ -1,10 +1,13 @@
-h2(ng-show="currentTag") Posts in tag "{{currentTag}}"
-h2(ng-hide="currentTag") Posts in all favorite tags ({{posts.length - dupesFiltered}})
-#tags
-  span(ng-repeat="tag in tags" class="label label-default tag")
-    {{tag}}
-  ng-pluralize(count="dupesFiltered" when="{'0': '', 'one': 'One dupe filtered', 'other': '{} dupes filtered'}")
-    
+strong
+  ng-pluralize(count="posts.length - dupesFiltered" when="{'0': 'No posts', 'one': '1 post', 'other': '{} posts'}")
+  | 
+  ng-pluralize(count="tags.length" when="{'one': 'in one tag', 'other': 'in {} tags'}")
+br
+span(ng-repeat="tag in tags" class="label label-default tag")
+  | \#{{tag}}
+br
+ng-pluralize(count="dupesFiltered" when="{'0': '', 'one': 'one dupe filtered', 'other': '{} dupes filtered'}")
+
 #posts.container-fluid
   div.row(ng-repeat="chunk in chunkedPosts")
     div.col-md-4(ng-repeat="post in chunk")

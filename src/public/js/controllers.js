@@ -37,28 +37,29 @@
     };
   });
 
-  module.controller('FeedController', ['$q', '$scope', '$routeParams', 'User', 'Instagram', function ($q, $scope, $routeParams, User, Instagram) {
-    $scope.currentTag = $routeParams.tag || null;
+  module.controller('FeedController', ['$scope', '$routeParams', 'User', 'Instagram', function ($scope, $routeParams, User, Instagram) {
     $scope.posts = [];
+    $scope.tags = [];
 
-    if ($scope.currentTag) {
-      $scope.tags = [$scope.currentTag];
-    } else {
-      $scope.tags = User.favoriteTags;
-    }
+    // Get favorite tags for user if no specific tag is requested
+    User.get(function (user) {
+      $scope.tags = (typeof $routeParams.tag === 'undefined') ? user.favoriteTags : [$routeParams.tag];
+    });
+
+    // Load all media for each tag when $scope.tags is populated
+    $scope.$watch('tags', function () {
+      _.each($scope.tags, function (tag) {
+        Instagram.query({tag: tag}, function (results) {
+          $scope.posts = $scope.posts.concat(results);
+        });
+      });
+    });
 
     // Handle incoming posts
     $scope.$watchCollection('posts', function (arr) {
       var unique = _.unique(arr, false, 'id');
       $scope.chunkedPosts = chunk(unique, 3);
       $scope.dupesFiltered = $scope.posts.length - unique.length;
-    });
-
-    // Get recent media for each tag
-    _.each($scope.tags, function (tag) {
-      Instagram.query({tag: tag}, function (results) {
-        $scope.posts = $scope.posts.concat(results);
-      });
     });
   }]);
 
