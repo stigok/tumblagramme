@@ -1,5 +1,6 @@
 node_modules
-public/css/*.css
+src/public/css/*.css
 settings.json
 .cert
 _old
+
