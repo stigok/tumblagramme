@@ -6,16 +6,16 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
     title= title
-    
+
     link(href="/www/css/bootstrap.css" rel="stylesheet")
     link(href="/www/css/bootstrap-theme.css" rel="stylesheet")
-    //link(href="/www/css/style.css" rel="stylesheet")
+    link(href="/www/css/main.css" rel="stylesheet")
       
     base(href="/www/")
+
   body(ng-app="#{ngApp}")
     .container-fluid
       navigation(ng-controller="NavigationController")
-      h1= title
       div(ng-view)
 
     script(src="/www/js/vendor/angular.js")
