@@ -26,6 +26,6 @@
         method: 'GET',
         cache: true
       }
-    }).get();
+    });
   });
 })();

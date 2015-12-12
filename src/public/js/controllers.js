@@ -17,7 +17,7 @@
   }
 
   module.controller('NavigationController', function ($scope, User) {
-    $scope.user = User;
+    $scope.user = User.get();
 
     dropdown($scope, 'tags');
     dropdown($scope, 'stats');
@@ -39,11 +39,10 @@
 
   module.controller('FeedController', ['$scope', '$routeParams', 'User', 'Instagram', function ($scope, $routeParams, User, Instagram) {
     $scope.posts = [];
-    $scope.tags = [];
 
-    // Get favorite tags for user if no specific tag is requested
     User.get(function (user) {
-      $scope.tags = (typeof $routeParams.tag === 'undefined') ? user.favoriteTags : [$routeParams.tag];
+      $scope.user = user;
+      $scope.tags = (typeof $routeParams.tag === 'undefined') ? $scope.user.favoriteTags : [$routeParams.tag];
     });
 
     // Load all media for each tag when $scope.tags is populated
