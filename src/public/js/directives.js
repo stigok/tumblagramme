@@ -18,7 +18,10 @@
   module.directive('instagramResource', function () {
     return {
       restrict: 'E',
-      templateUrl: 'partials/instagramResource'
+      templateUrl: 'partials/instagramResource',
+      scope: {
+        post: '=post'
+      }
     };
   });
 })();

@@ -62,9 +62,9 @@
     });
   }]);
 
-    $scope.share = function (id) {
-      console.log(id);
-      // Tumblr.queue({post: $scope.post})
+  module.controller('InstagramResourceController', function ($scope) {
+    $scope.share = function () {
+      Tumblr.queue({post: $scope.post})
     };
 
     $scope.browseUser = function () {
@@ -74,5 +74,5 @@
     $scope.openInstagram = function () {
       console.log('navigateToInstagram');
     };
-  }]);
+  });
 })();

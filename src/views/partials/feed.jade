@@ -8,17 +8,4 @@ h2(ng-hide="currentTag") Posts in all favorite tags ({{posts.length - dupesFilte
 #posts.container-fluid
   div.row(ng-repeat="chunk in chunkedPosts")
     div.col-md-4(ng-repeat="post in chunk")
-      div(class="instagram-resource")
-        img(ng-src="{{post.images.low_resolution.url}}")
-        .controls
-          div(class="btn-group" uib-dropdown)
-            button#split-button(type="button" class="btn btn-sm btn-success" ng-click="share()") Add to queue
-            button(type="button" class="btn btn-sm btn-default" uib-dropdown-toggle)
-              span.caret
-            ul.uib-dropdown-menu(role="menu")
-              li(role="menuitem")
-                a(href="#" ng-click="share()") Add to queue
-              li(role="menuitem")
-                a(href="#" ng-click="openInstagram()") Open Instagram page
-              li(role="menuitem")
-                a(href="#" ng-click="browseUser()") Browse more from user
+      instagram-resource(post="post")

@@ -19,7 +19,9 @@ app.use('/www', express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use(require('./routes/auth'));
-app.use('/api/instagram', instagramApi);
+app.use('/api/tumblagramme', require('./api/tumblagramme'));
+app.use('/api/instagram', require('./api/instagram'));
+app.use('/api/tumblr', require('./api/tumblr'));
 app.use('/api/db', require('./routes/db-api.js'));
 app.use('/www', require('./routes/index'));
 
