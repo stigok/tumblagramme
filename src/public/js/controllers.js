@@ -9,23 +9,19 @@
     return newArr;
   }
 
+  function dropdown($scope, name) {
+    $scope[name + 'DropdownOpened'] = false;
+    $scope[name + 'Dropdown'] = function () {
+      $scope[name + 'DropdownOpened'] = !$scope[name + 'DropdownOpened'];
+    };
+  }
+
   app.controller('NavigationController', function ($scope, User) {
     $scope.user = User;
 
-    $scope.tagDropdownOpened = false;
-    $scope.tagDropdown = function () {
-      $scope.tagDropdownOpened = !$scope.tagDropdownOpened;
-    };
-
-    $scope.statsDropdownOpened = false;
-    $scope.statsDropdown = function () {
-      $scope.statsDropdownOpened = !$scope.tagDropdownOpened;
-    };
-
-    $scope.accountDropdownOpened = false;
-    $scope.accountDropdown = function () {
-      $scope.accountDropdownOpened = !$scope.accountDropdownOpened;
-    };
+    dropdown($scope, 'tags');
+    dropdown($scope, 'stats');
+    dropdown($scope, 'account');
   });
 
   app.controller('IndexController', function ($scope) {
