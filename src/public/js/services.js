@@ -2,8 +2,7 @@
   var services = angular.module('tg.Services', ['ngResource']);
 
   services.service('Instagram', function ($resource, User) {
-    // TODO: rename access_token to accessToken
-    return $resource('/api/instagram/:tag', {access_token: User.instagramAccessToken}, {
+    return $resource('/api/instagram/:tag', {accessToken: User.instagramAccessToken}, {
       query: {method: 'GET', params: {}, isArray: true}
     });
   });

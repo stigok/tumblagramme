@@ -9,7 +9,7 @@ app.use('/:tag', function (req, res, next) {
   // DEBUG MODE
   return res.json(testData.data);
 
-  let token = req.query.access_token;
+  let token = req.query.accessToken;
   let tag = req.params.tag;
   let ig = instagram.instagram();
 
