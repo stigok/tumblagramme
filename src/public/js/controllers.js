@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('tg.Controllers', []);
+  var app = angular.module('tg.Controllers', ['underscore']);
 
   function chunk(arr, size) {
     var newArr = [];
