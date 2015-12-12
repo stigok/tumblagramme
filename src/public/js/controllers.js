@@ -37,10 +37,26 @@
     };
   });
 
-  app.controller('FeedController', ['$scope', 'Instagram', function ($scope, Instagram) {
-    $scope.tag = 'bjj';
-    $scope.posts = Instagram.query({tag: $scope.tag}, function () {
-      $scope.chunkedPosts = chunk($scope.posts, 3);
+  app.controller('FeedController', ['$q', '$scope', '$routeParams', 'User', 'Instagram', function ($q, $scope, $routeParams, User, Instagram) {
+    $scope.currentTag = $routeParams.tag || null;
+    $scope.posts = [];
+
+    if ($scope.currentTag) {
+      $scope.tags = [$scope.currentTag];
+    } else {
+      $scope.tags = User.favoriteTags;
+    }
+
+    $scope.$watchCollection('posts', function (arr) {
+      var unique = _.unique(arr, false, 'id');
+      $scope.chunkedPosts = chunk(unique, 3);
+      $scope.dupesFiltered = $scope.posts.length - unique.length;
+    });
+
+    _.each($scope.tags, function (tag) {
+      Instagram.query({tag: tag}, function (results) {
+        $scope.posts = $scope.posts.concat(results);
+      });
     });
   }]);
 })();

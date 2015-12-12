@@ -19,6 +19,10 @@
         controller: 'FeedController',
         templateUrl: '/www/partials/feed'
       })
+      .when('/feed/:tag', {
+        controller: 'FeedController',
+        templateUrl: '/www/partials/feed'
+      })
       .when('/message', {
         controller: 'MessageViewerController',
         templateUrl: '/www/partials/message'

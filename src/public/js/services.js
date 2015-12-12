@@ -11,12 +11,7 @@
   services.factory('User', function () {
     return {
       email: 'stig@stigok.com',
-      favoriteTags: [
-        {name: 'bjj'},
-        {name: 'martialarts'},
-        {name: 'surfbrasil'},
-        {name: 'pokemon'}
-      ],
+      favoriteTags: ['bjj', 'martialarts', 'surfeurope'],
       instagramAccessToken: '235624161.1fb234f.15ea2d1d8be7462bbe36088562424e73'
     };
   });
