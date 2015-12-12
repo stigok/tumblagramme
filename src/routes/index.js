@@ -11,8 +11,7 @@ router.use('/partials/:name', function (req, res) {
 // Serve main app
 router.use('/', function (req, res) {
   return res.render('angular-template', {
-    ngApp: 'tg',
-    title: 'Tumblagramme'
+    ngApp: 'tg'
   });
 });
 
