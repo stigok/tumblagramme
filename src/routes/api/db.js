@@ -1,6 +1,6 @@
 const express = require('express');
 const router = new express.Router();
-const db = require('../../data/mock-db.js');
+const db = require('../../../data/mock-db.js');
 
 // Database calls
 router.use('/:table.json', function (req, res) {

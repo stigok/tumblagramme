@@ -1,9 +1,9 @@
 const express = require('express');
 const router = new express.Router();
 const instagram = require('instagram-node');
-const settings = require('../../settings.json');
+const settings = require('../../../settings.json');
 
-const testData = require('../../data/media-recent.json');
+const testData = require('../../../data/media-recent.json');
 
 router.use(function (req, res, next) {
   res.locals.client = instagram.instagram();

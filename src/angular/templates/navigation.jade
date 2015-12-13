@@ -10,29 +10,29 @@ nav(class="navbar navbar-default" ng-controller="NavigationController")
     #navbar(class="navbar-collapse collapse")
       ul.nav.navbar-nav
         li
-          a(href="/www") Home
+          a(href="/") Home
         li(class="tagsDropdown" uib-dropdown uib-keyboard-nav is-open="tagsDropdownOpened")
           a(href="#" uib-dropdown-toggle ng-disabled="disabled") Tag feed
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header Quicktags
             li(role="menuitem" ng-repeat="tag in user.favoriteTags")
-              a(href="/www/feed/{{tag}}") {{tag}}
+              a(href="/feed/{{tag}}") {{tag}}
             li(role="separator" class="divider")
             li(role="menuitem")
-              a(href="/www/feed") All ({{user.favoriteTags.length}})
+              a(href="/feed") All ({{user.favoriteTags.length}})
         li(class="statsDropdown" uib-dropdown uib-keyboard-nav is-open="statsDropdownOpened")
           a(href="#" uib-dropdown-toggle) Stats
           ul(role="menu" class="uib-dropdown-menu")
             li(role="menuitem")
-              a(href="/www/stats/tumblr") Tumblr
+              a(href="/stats/tumblr") Tumblr
             li(role="menuitem")
-              a(href="/www/stats/instagram") Instagram
+              a(href="/stats/instagram") Instagram
       ul(class="nav navbar-nav navbar-right")
         li(class="accountDropdown" uib-dropdown uib-keyboard-nav is-open="accountDropdownOpened")
           a(href="#" uib-dropdown-toggle) Account
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header {{user.email}}
             li(role="menuitem")
-              a(href="/www/account") Settings
+              a(href="/account") Settings
             li(role="menuitem")
-              a(href="/www/logout") Logout
+              a(href="/logout") Logout

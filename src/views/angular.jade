@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+
+    title= title
+
+    link(href="/css/vendor/bootstrap.css" rel="stylesheet")
+    link(href="/css/vendor/bootstrap-theme.css" rel="stylesheet")
+    link(href="/css/main.css" rel="stylesheet")
+      
+    base(href="/")
+
+  body(ng-app="tg")
+    .container-fluid
+      navigation(ng-controller="NavigationController")
+      div(ng-view)
+
+    script(src="/js/vendor/angular.js")
+    script(src="/js/vendor/underscore.js")
+    script(src="/js/vendor/angular-route.js")
+    script(src="/js/vendor/angular-resource.js")
+    script(src="/js/vendor/angular-cookies.js")
+    script(src="/js/vendor/angular-underscore.js")
+    script(src="/js/vendor/ui-bootstrap-tpls-0.14.3.js")
+      
+    script(src="/js/angular/controllers/controllers.js")
+    script(src="/js/angular/directives/directives.js")
+    script(src="/js/angular/services/services.js")
+    script(src="/js/angular/auth.js")
+    script(src="/js/angular/app.js")
+
+    // Templates
+    each template in templates
+      script(type="text/ng-template" id="/templates/#{template.name}.html")
+        != template.html
