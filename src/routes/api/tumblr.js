@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const tumblr = require('tumblr.js');
-const settings = require('../../settings.json');
+const settings = require('../../../settings.json');
 
 router.use(function (req, res, next) {
   res.locals.client = tumblr.createClient({

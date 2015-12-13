@@ -3,27 +3,37 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const http = require('http');
-const instagramApi = require('./api/instagram');
 const cors = require('cors');
 const app = express();
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', __dirname);
 app.set('view engine', 'jade');
+
 app.disable('x-powered-by');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use('/www', require('less-middleware')(path.join(__dirname, 'public')));
-app.use('/www', express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.use(require('./routes/auth'));
-app.use('/api/tumblagramme', require('./api/tumblagramme'));
-app.use('/api/instagram', require('./api/instagram'));
-app.use('/api/tumblr', require('./api/tumblr'));
-app.use('/api/db', require('./routes/db-api.js'));
-app.use('/www', require('./routes/index'));
+// Set mock user
+app.use(function (req, res, next) {
+  req.user = require('../user.json');
+  next();
+});
+
+// Static files
+app.use(require('less-middleware')(path.join(__dirname, 'public/css')));
+app.use('/', express.static(path.join(__dirname, 'public')));
+
+// JSON APIs
+app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
+app.use('/api/instagram', require('./routes/api/instagram'));
+app.use('/api/tumblr', require('./routes/api/tumblr'));
+app.use('/api/db', require('./routes/api/db'));
+
+app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
+app.use('/', require('./routes/angular'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -37,7 +47,7 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   console.error(err);
   res.status(err.status || 500);
-  res.render('error', {
+  res.render('views/error', {
     message: err.message,
     error: err,
     pwd: __filename,

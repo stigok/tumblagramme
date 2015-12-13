@@ -4,21 +4,21 @@
   module.directive('navigation', function () {
     return {
       restrict: 'E',
-      templateUrl: 'partials/navigation'
+      templateUrl: '/templates/navigation.html'
     };
   });
 
   module.directive('accountChanger', function () {
     return {
       restrict: 'E',
-      templateUrl: 'partials/accountChanger'
+      templateUrl: '/templates/accountChanger.html'
     };
   });
 
   module.directive('instagramResource', function () {
     return {
       restrict: 'E',
-      templateUrl: 'partials/instagramResource',
+      templateUrl: '/templates/instagramResource.html',
       scope: {
         post: '=post'
       }
