@@ -1,4 +1,0 @@
-api callback proxy
-api request proxy
-http server forwarding url requests to desired api url
-this should be its own npm module
