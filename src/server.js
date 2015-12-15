@@ -2,8 +2,12 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const sessionStore = require('connect-mongodb-session')(session);
 const http = require('http');
 const cors = require('cors');
+const setting = require('./settings.json');
+
 const app = express();
 
 app.set('views', __dirname);
@@ -13,7 +17,25 @@ app.disable('x-powered-by');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+  secret: 'QK48y3xQXdvhYQVu5Sesc3kf4TcY2xkAnu43YckATnec32YJpqAMLEWzhnABvw7gztFt2',
+  cookie: {
+    // path: '/',
+    httpOnly: true,
+    secure: false,
+    // 1 hour
+    maxAge: 1000 * 60 * 60
+  },
+  name: 'tumblagramme.sid',
+  resave: false,
+  rolling: true,
+  saveUninitialized: false,
+  store: new sessionStore({
+    uri: settings.appSettings.mongodb,
+    collection: 'mySessions'
+  })
+}));
 app.use(cors());
 
 // Set mock user
@@ -31,6 +53,9 @@ app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
 app.use('/api/instagram', require('./routes/api/instagram'));
 app.use('/api/tumblr', require('./routes/api/tumblr'));
 app.use('/api/db', require('./routes/api/db'));
+
+// OAuth endpoints
+app.use('/oauth/tumblr', require('./routes/oauth/tumblr'));
 
 app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
 app.use('/', require('./routes/angular'));
