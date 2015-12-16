@@ -19,6 +19,16 @@ Settings are all around the code at the moment, so look around!
 - [ ] Search for TODO tokens in project
 - [ ] Handle all api route errors on its own for easier debugging. Don't want to return html errors to JSON parsers.
 - [ ] Save id's of things shared to tumblr so that it can be reposted on a later date
+- [ ] Enable SSL and make cookie secure
+- [ ] Make angular handle 404's
+- [ ] Make angular template use layout as well with block name append/perpend
+- [ ] Navigation.jade with jade mixins
+- [ ] Serialize user to id, instead of name, or hash of id
+- [ ] 
+- [ ]
+- [ ]
+- [ ]
+- [ ]
 
 ### Thoughts
 
