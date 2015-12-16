@@ -3,10 +3,21 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const sessionStore = require('connect-mongodb-session')(session);
+const MongoDBSessionStore = require('connect-mongodb-session')(session);
+const mongoose = require('mongoose');
 const http = require('http');
 const cors = require('cors');
-const setting = require('./settings.json');
+const passport = require('passport');
+const User = require('./models/user.js');
+const settings = require('../settings.json');
+const util = require('util');
+
+// Connect to database
+mongoose.connect(settings.appSettings.mongodb, function(err) {
+  if (err) {
+    console.error('Failed to connect to mongodb with connection string: %s', settings.appSettings.mongodb);
+  }
+});
 
 const app = express();
 
@@ -30,23 +41,28 @@ app.use(session({
   name: 'tumblagramme.sid',
   resave: false,
   rolling: true,
-  saveUninitialized: false,
-  store: new sessionStore({
+  saveUninitialized: true,
+  store: new MongoDBSessionStore({
     uri: settings.appSettings.mongodb,
     collection: 'mySessions'
   })
 }));
 app.use(cors());
 
-// Set mock user
-app.use(function (req, res, next) {
-  req.user = require('../user.json');
-  next();
-});
+// Authentication with passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Static files
 app.use(require('less-middleware')(path.join(__dirname, 'public/css')));
 app.use('/', express.static(path.join(__dirname, 'public')));
+
+// Authentication
+app.use('/', require('./routes/account'));
 
 // JSON APIs
 app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));

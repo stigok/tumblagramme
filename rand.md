@@ -16,3 +16,8 @@
 > you to learn and grow even greater from
 
 (was easier to comprehend when I wrote it)
+
+---
+
+> A curse is something you tell someone else to bring them down. It's as easy as laughing at their attempts.
+> But a curse can be mirrored back to you just as easy.
