@@ -11,7 +11,8 @@
     "envs": [
       "node",
       "mocha"
-    ]
+    ],
+    "globals": ["angular"]
   },
   "babel": {
     "presets": [
