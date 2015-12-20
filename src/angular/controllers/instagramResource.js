@@ -1,6 +1,6 @@
 (function () {
-  angular.module('tg.Controllers', ['underscore'])
-    .controller('InstagramResource', [
+  angular.module('tg.Controllers')
+    .controller('InstagramResourceCtrl', [
       '$scope', 'Tumblr',
       function ($scope, Tumblr) {
         $scope.share = function () {

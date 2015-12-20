@@ -8,20 +8,12 @@
 
   app.config(function ($routeProvider, $locationProvider) {
     $routeProvider
-      // .when('/', {
-      //   controller: 'IndexController',
-      //   templateUrl: '/templates/index.html'
-      // })
-      .when('/login', {
-        controller: 'LoginController',
-        templateUrl: '/templates/login.html'
+      .when('/', {
+        controller: 'IndexCtrl',
+        templateUrl: '/templates/index.html'
       })
-      .when('/feed', {
-        controller: 'FeedController',
-        templateUrl: '/templates/feed.html'
-      })
-      .when('/feed/:tag', {
-        controller: 'FeedController',
+      .when('/feed/:tag?', {
+        controller: 'FeedCtrl',
         templateUrl: '/templates/feed.html'
       })
       .otherwise({

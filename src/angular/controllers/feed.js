@@ -7,8 +7,8 @@
     return newArr;
   }
 
-  angular.module('tg.Controllers', ['underscore'])
-    .controller('FeedController',
+  angular.module('tg.Controllers')
+    .controller('FeedCtrl',
       ['$scope', '$routeParams', 'User', 'Instagram',
       function ($scope, $routeParams, User, Instagram) {
         $scope.posts = [];
