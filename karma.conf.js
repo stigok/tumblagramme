@@ -14,12 +14,15 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       // Angular libraries
-      'lib/angular.js',
-      'lib/angular-*.js',
+      'src/public/js/vendor/underscore.js',
+      'src/public/js/vendor/angular.js',
+      'src/public/js/vendor/angular-*.js',
+      'src/public/js/vendor/ui-bootstrap-tpls-0.14.3.js',
 
       // Source files
-      'src/**/*.js',
-      'test/**/*.js'
+      'src/angular/controllers/index.js',
+      'src/angular/**/*.js',
+      'test/auth-test.js'
     ],
 
     // list of files to exclude
@@ -29,7 +32,7 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['babel'],
+      //'src/**/*.js': ['babel'],
       'test/**/*.js': ['babel']
     },
 

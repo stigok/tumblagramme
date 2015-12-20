@@ -15,8 +15,19 @@ html
 
   body(ng-app="tg")
     .container-fluid
-      navigation(ng-controller="NavigationController")
+      navigation(ng-controller="NavigationCtrl")
       div(ng-view)
+      loginModal(ng-controller="LoginCtrl")
+
+    div#debug
+      strong User
+      pre= debug.user
+      strong Account
+      pre= debug.account
+      strong Locals
+      pre= debug.locals
+      strong Session
+      pre= debug.session
 
     script(src="/js/vendor/angular.js")
     script(src="/js/vendor/underscore.js")
@@ -25,11 +36,17 @@ html
     script(src="/js/vendor/angular-cookies.js")
     script(src="/js/vendor/angular-underscore.js")
     script(src="/js/vendor/ui-bootstrap-tpls-0.14.3.js")
-      
-    script(src="/js/angular/controllers/controllers.js")
+
+    script(src="/js/angular/controllers/index.js")
+    script(src="/js/angular/controllers/login.js")
+    script(src="/js/angular/controllers/loginModal.js")
+    script(src="/js/angular/controllers/navigation.js")
+    script(src="/js/angular/controllers/feed.js")
+    script(src="/js/angular/controllers/instagramResource.js")
+
     script(src="/js/angular/directives/directives.js")
+    script(src="/js/angular/interceptors/http-auth-interceptor.js")
     script(src="/js/angular/services/services.js")
-    script(src="/js/angular/auth.js")
     script(src="/js/angular/app.js")
 
     // Templates

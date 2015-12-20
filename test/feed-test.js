@@ -1,4 +1,4 @@
-describe('FeedController', function () {
+describe('FeedCtrl', function () {
 
   let scope;
   let ctrl;
@@ -7,7 +7,7 @@ describe('FeedController', function () {
 
   beforeEach(inject(function ($controller) {
     scope = {};
-    ctrl = $controller('FeedController', {$scope: scope});
+    ctrl = $controller('FeedCtrl', {$scope: scope});
   }));
 
   it('should have its scope set', function () {

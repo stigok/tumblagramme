@@ -2,8 +2,24 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoDBSessionStore = require('connect-mongodb-session')(session);
+const mongoose = require('mongoose');
 const http = require('http');
 const cors = require('cors');
+const passport = require('passport');
+const User = require('./models/user.js');
+const settings = require('../settings.json');
+const util = require('util');
+const ensureAuth = require('../lib/ensureAuth');
+
+// Connect to database
+mongoose.connect(settings.appSettings.mongodb, function (err) {
+  if (err) {
+    console.error('Failed to connect to mongodb with connection string: %s', settings.appSettings.mongodb);
+  }
+});
+
 const app = express();
 
 app.set('views', __dirname);
@@ -13,25 +29,65 @@ app.disable('x-powered-by');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+  secret: 'QK48y3xQXdvhYQVu5Sesc3kf4TcY2xkAnu43YckATnec32YJpqAMLEWzhnABvw7gztFt2',
+  cookie: {
+    // path: '/',
+    httpOnly: true,
+    secure: false,
+    // 1 hour
+    maxAge: 1000 * 60 * 60
+  },
+  name: 'tumblagramme.sid',
+  resave: false,
+  rolling: true,
+  saveUninitialized: true,
+  store: new MongoDBSessionStore({
+    uri: settings.appSettings.mongodb,
+    collection: 'sessions'
+  })
+}));
 app.use(cors());
 
-// Set mock user
+// Authentication with passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Static files
+app.use(require('less-middleware')(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, 'public')));
+
+// aka onBeforePageInit hook
 app.use(function (req, res, next) {
-  req.user = require('../user.json');
+  res.locals.user = req.user;
+  res.locals.debug = {
+    session: util.inspect(req.session),
+    locals: util.inspect(res.locals),
+    user: req.user,
+    account: req.account
+  };
   next();
 });
 
-// Static files
-app.use(require('less-middleware')(path.join(__dirname, 'public/css')));
-app.use('/', express.static(path.join(__dirname, 'public')));
+// Authentication
+// app.use('/', require('./routes/account'));
 
 // JSON APIs
 app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
-app.use('/api/instagram', require('./routes/api/instagram'));
-app.use('/api/tumblr', require('./routes/api/tumblr'));
-app.use('/api/db', require('./routes/api/db'));
+app.use('/api/instagram', ensureAuth, require('./routes/api/instagram'));
+app.use('/api/tumblr', ensureAuth, require('./routes/api/tumblr'));
+app.use('/api/db', ensureAuth, require('./routes/api/db'));
 
+// OAuth endpoints
+app.use('/oauth/tumblr', ensureAuth, require('./routes/oauth/tumblr'));
+
+// Angular app and static assets
+// Should be added as the last routes, as angular does routing itself as well
 app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
 app.use('/', require('./routes/angular'));
 
