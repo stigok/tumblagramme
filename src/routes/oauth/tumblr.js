@@ -2,6 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const util = require('util');
 const OAuth = require('oauth').OAuth;
+const User = require('../../models/user.js');
 
 const settings = require('../../../settings.json');
 
@@ -39,13 +40,12 @@ router.get('/', function (req, res, next) {
     req.session.requestTokenSecret = secret;
 
     let authUrl = authorizeUrl + '?oauth_token=' + token;
-    let html = util.format('<a href="%s">%s</a>', authUrl, authUrl);
 
     console.log('Direct client to authUrl');
     console.log('\t' + authUrl);
     console.log('\t... waiting for callback');
 
-    return res.status(200).send(html);
+    return res.redirect(authUrl);
   });
 });
 
@@ -72,7 +72,24 @@ router.get('/callback', function (req, res, next) {
       }
       console.log('\ttoken %s | secret %s', token, secret);
 
-      res.send(util.format('%s | %s', token, secret));
+      // Save new token to db
+      User.findById(req.user.id, function (err, user) {
+        if (err) {
+          next(err);
+        }
+        console.log(user);
+        user.oauth.push({
+          provider: 'tumblr',
+          token: token,
+          secret: secret
+        });
+        user.save(function (err) {
+          if (err) {
+            return next(err);
+          }
+          return res.redirect('/account');
+        });
+      });
     }
   );
 });

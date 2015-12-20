@@ -4,13 +4,35 @@ const tumblr = require('tumblr.js');
 const settings = require('../../../settings.json');
 
 router.use(function (req, res, next) {
-  res.locals.client = tumblr.createClient({
+  let client = tumblr.createClient({
     consumer_key:    settings.tumblr.consumerKey,
     consumer_secret: settings.tumblr.consumerSecret,
     token:           req.query.authToken,
     token_secret:    req.query.authSecret
   });
+
+  let redirect_uri = 'http://localhost:3000/api/tumblr/auth';
+  res.locals.authUrl = 'https://www.tumblr.com/oauth/authorize';
+  res.locals.client = client;
+
   return next();
+});
+
+router.get('/auth', function (req, res) {
+  //res.redirect(res.locals.authUrl);
+  return res.json('auth', res.locals.authUrl);
+});
+
+router.get('/endpoint', function (req, res, next) {
+  res.locals.client.authorize_user(req.query.code, res.locals.authUrl, function (err, result) {
+    if (err) {
+      console.log('API auth failed');
+      next(err);
+    }
+
+    console.log('Yay! Access token is ' + result.access_token);
+    return res.status(200).end();
+  });
 });
 
 // Add a photo to queue
