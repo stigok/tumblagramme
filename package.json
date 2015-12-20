@@ -12,7 +12,7 @@
       "node",
       "mocha"
     ],
-    "globals": ["angular"]
+    "globals": ["angular", "_"]
   },
   "babel": {
     "presets": [
