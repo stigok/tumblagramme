@@ -1,7 +1,8 @@
 (function () {
   var app = angular.module('tg', [
     'ngRoute', 'ui.bootstrap',
-    'tg.Controllers', 'tg.Directives', 'tg.Services'
+    'tg.Controllers', 'tg.Directives', 'tg.Services',
+    'http-auth-interceptor'
     // 'tg.Auth',
   ]);
 

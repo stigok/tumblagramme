@@ -5,7 +5,6 @@ const fs = require('fs');
 const jade = require('jade');
 const _ = require('underscore');
 
-// Serve main app
 router.use('/', function (req, res, next) {
   let templateDir = path.join(__dirname, '../angular/templates');
   fs.readdir(templateDir, function (err, files) {

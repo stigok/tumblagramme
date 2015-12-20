@@ -1,16 +1,19 @@
 (function () {
-  var module = angular.module('tg.Controllers',
-    ['underscore']);
+  angular.module('tg.Controllers')
+    .controller('NavigationCtrl', [
+      '$rootScope', '$scope',
+      function ($rootScope, $scope) {
+        $rootScope.$on('auth:stateChanged', function (status) {
+          $scope.isAuthenticated = status;
+        });
 
-  module.controller('NavigationController', function ($scope, User) {
-    $scope.user = User.get();
+        bindDropdown($scope, 'tags');
+        bindDropdown($scope, 'stats');
+        bindDropdown($scope, 'account');
+      }
+    ]);
 
-    dropdown($scope, 'tags');
-    dropdown($scope, 'stats');
-    dropdown($scope, 'account');
-  });
-
-  function dropdown($scope, name) {
+  function bindDropdown($scope, name) {
     $scope[name + 'DropdownOpened'] = false;
     $scope[name + 'Dropdown'] = function () {
       $scope[name + 'DropdownOpened'] = !$scope[name + 'DropdownOpened'];

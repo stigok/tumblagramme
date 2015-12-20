@@ -11,6 +11,7 @@ const passport = require('passport');
 const User = require('./models/user.js');
 const settings = require('../settings.json');
 const util = require('util');
+const ensureAuth = require('../lib/ensureAuth');
 
 // Connect to database
 mongoose.connect(settings.appSettings.mongodb, function(err) {
@@ -44,7 +45,7 @@ app.use(session({
   saveUninitialized: true,
   store: new MongoDBSessionStore({
     uri: settings.appSettings.mongodb,
-    collection: 'mySessions'
+    collection: 'sessions'
   })
 }));
 app.use(cors());
@@ -61,17 +62,29 @@ passport.deserializeUser(User.deserializeUser());
 app.use(require('less-middleware')(path.join(__dirname, 'public/css')));
 app.use('/', express.static(path.join(__dirname, 'public')));
 
+// aka onBeforePageInit hook
+app.use(function (req, res, next) {
+  res.locals.user = req.user;
+  res.locals.debug = {
+    session: util.inspect(req.session),
+    locals: util.inspect(res.locals),
+    user: req.user,
+    account: req.account
+  };
+  next();
+});
+
 // Authentication
-app.use('/', require('./routes/account'));
+// app.use('/', require('./routes/account'));
 
 // JSON APIs
 app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
-app.use('/api/instagram', require('./routes/api/instagram'));
-app.use('/api/tumblr', require('./routes/api/tumblr'));
-app.use('/api/db', require('./routes/api/db'));
+app.use('/api/instagram', ensureAuth, require('./routes/api/instagram'));
+app.use('/api/tumblr', ensureAuth, require('./routes/api/tumblr'));
+app.use('/api/db', ensureAuth, require('./routes/api/db'));
 
 // OAuth endpoints
-app.use('/oauth/tumblr', require('./routes/oauth/tumblr'));
+app.use('/oauth/tumblr', ensureAuth, require('./routes/oauth/tumblr'));
 
 app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
 app.use('/', require('./routes/angular'));

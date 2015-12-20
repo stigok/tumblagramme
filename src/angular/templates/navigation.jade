@@ -1,4 +1,4 @@
-nav(class="navbar navbar-default" ng-controller="NavigationController")
+nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
   .container-fluid
     .navbar-header
       button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
@@ -11,28 +11,24 @@ nav(class="navbar navbar-default" ng-controller="NavigationController")
       ul.nav.navbar-nav
         li
           a(href="/") Home
-        li(class="tagsDropdown" uib-dropdown uib-keyboard-nav is-open="tagsDropdownOpened")
+        li(class="tagsDropdown" uib-dropdown uib-keyboard-nav is-open="tagsDropdownOpened" ng-show="isAuthenticated")
           a(href="#" uib-dropdown-toggle ng-disabled="disabled") Tag feed
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header Quicktags
-            li(role="menuitem" ng-repeat="tag in user.favoriteTags")
-              a(href="/feed/{{tag}}") {{tag}}
+            li(role="menuitem" ng-repeat="tag in user.favoriteTags") #[a(href="/feed/{{tag}}") {{tag}}]
             li(role="separator" class="divider")
-            li(role="menuitem")
-              a(href="/feed") All ({{user.favoriteTags.length}})
-        li(class="statsDropdown" uib-dropdown uib-keyboard-nav is-open="statsDropdownOpened")
+            li(role="menuitem") #[a(href="/feed") All ({{user.favoriteTags.length}})]
+        li(class="statsDropdown" uib-dropdown uib-keyboard-nav is-open="statsDropdownOpened" ng-show="isAuthenticated")
           a(href="#" uib-dropdown-toggle) Stats
           ul(role="menu" class="uib-dropdown-menu")
-            li(role="menuitem")
-              a(href="/stats/tumblr") Tumblr
-            li(role="menuitem")
-              a(href="/stats/instagram") Instagram
+            li(role="menuitem") #[a(href="/stats/tumblr") Tumblr]
+            li(role="menuitem") #[a(href="/stats/instagram") Instagram]
       ul(class="nav navbar-nav navbar-right")
-        li(class="accountDropdown" uib-dropdown uib-keyboard-nav is-open="accountDropdownOpened")
+        li(ng-hide="isAuthenticated") #[a(ng-click="login()") Login]
+        li(class="accountDropdown" uib-dropdown uib-keyboard-nav is-open="accountDropdownOpened" ng-show="isAuthenticated")
           a(href="#" uib-dropdown-toggle) Account
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header {{user.email}}
-            li(role="menuitem")
-              a(href="/account") Settings
-            li(role="menuitem")
-              a(href="/logout") Logout
+            li(role="menuitem") #[a(href="/oauth/tumblr") Connect Tumblr]
+            li(role="menuitem") #[a(href="/account") Settings]
+            li(role="menuitem") #[a(href="/logout") Logout]
