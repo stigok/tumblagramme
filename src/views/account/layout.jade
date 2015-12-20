@@ -22,3 +22,17 @@ html
         if (user)
           li #[a(href="/logout") Logout]
     block content
+      
+  div
+    h2 User
+    pre= user
+
+  div#debug
+    strong User
+    pre= debug.user
+    strong Account
+    pre= debug.account
+    strong Locals
+    pre= debug.locals
+    strong Session
+    pre= debug.session
