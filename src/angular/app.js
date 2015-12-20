@@ -17,7 +17,7 @@
         templateUrl: '/templates/feed.html'
       })
       .otherwise({
-        redirectTo: '/feed'
+        templateUrl: '/templates/404.html'
       });
     $locationProvider.html5Mode(true);
   });
