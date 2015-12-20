@@ -16,9 +16,9 @@ html
       ul
         li #[strong Account]
         li #[a(href="/account") Account]
-        if (user)
-          li #[a(href="/logout") Logout]
         if (!user)
           li #[a(href="/login") Login]
           li #[a(href="/register") Register]
+        if (user)
+          li #[a(href="/logout") Logout]
     block content

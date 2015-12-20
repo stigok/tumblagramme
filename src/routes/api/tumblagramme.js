@@ -5,7 +5,7 @@ const authMiddleware = passport.authenticate('local');
 const ensureLoggedIn = require('../../../lib/ensureAuth');
 
 router.get('/user', ensureLoggedIn, function (req, res) {
-  res.status(200).json(req.user || {});
+  res.status(200).json(req.user);
 });
 
 router.get('/ping', ensureLoggedIn, function (req, res) {
