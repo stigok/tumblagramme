@@ -14,7 +14,7 @@ const util = require('util');
 const ensureAuth = require('../lib/ensureAuth');
 
 // Connect to database
-mongoose.connect(settings.appSettings.mongodb, function(err) {
+mongoose.connect(settings.appSettings.mongodb, function (err) {
   if (err) {
     console.error('Failed to connect to mongodb with connection string: %s', settings.appSettings.mongodb);
   }
@@ -59,7 +59,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Static files
-app.use(require('less-middleware')(path.join(__dirname, 'public/css')));
+app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 // aka onBeforePageInit hook
@@ -86,6 +86,8 @@ app.use('/api/db', ensureAuth, require('./routes/api/db'));
 // OAuth endpoints
 app.use('/oauth/tumblr', ensureAuth, require('./routes/oauth/tumblr'));
 
+// Angular app and static assets
+// Should be added as the last routes, as angular does routing itself as well
 app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
 app.use('/', require('./routes/angular'));
 
