@@ -1,6 +1,5 @@
 const express = require('express');
 const router = new express.Router();
-const util = require('util');
 const OAuth = require('oauth').OAuth;
 const User = require('../../models/user.js');
 
@@ -26,7 +25,7 @@ const oa = new OAuth(
   'HMAC-SHA1'
 );
 
-router.get('/', function (req, res, next) {
+router.get('/auth', function (req, res, next) {
   console.log('getOAuthRequestToken');
   oa.getOAuthRequestToken(function (err, token, secret) {
     if (err) {
@@ -65,30 +64,28 @@ router.get('/callback', function (req, res, next) {
     req.query.oauth_token,
     req.session.requestTokenSecret,
     req.query.oauth_verifier,
-    function (err, token, secret) {
+    function (err, token, secret, other) {
       if (err) {
         console.error('\tValidation failed with error', err);
         return next('getOAuthAccessToken failed');
       }
       console.log('\ttoken %s | secret %s', token, secret);
+      console.log('other', other);
 
       // Save new token to db
-      User.findById(req.user.id, function (err, user) {
+      //User.findById(req.user.id, function (err, user) {
+      //  if (err) {
+      //    next(err);
+      //  }
+
+      req.user.tumblr.token = token;
+      req.user.tumblr.secret = secret;
+
+      req.user.save(function (err) {
         if (err) {
-          next(err);
+          return next(err);
         }
-        console.log(user);
-        user.oauth.push({
-          provider: 'tumblr',
-          token: token,
-          secret: secret
-        });
-        user.save(function (err) {
-          if (err) {
-            return next(err);
-          }
-          return res.redirect('/account');
-        });
+        return res.redirect('/account');
       });
     }
   );
