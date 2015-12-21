@@ -12,6 +12,8 @@ const User = require('./models/user.js');
 const settings = require('../settings.json');
 const util = require('util');
 const ensureAuth = require('../lib/ensureAuth');
+const ensureLoggedIn = ensureAuth('local');
+const ensureTumblrAuth = ensureAuth('tumblr');
 
 // Connect to database
 mongoose.connect(settings.appSettings.mongodb, function (err) {
@@ -79,12 +81,14 @@ app.use(function (req, res, next) {
 
 // JSON APIs
 app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
-app.use('/api/instagram', ensureAuth, require('./routes/api/instagram'));
-app.use('/api/tumblr', ensureAuth, require('./routes/api/tumblr'));
-app.use('/api/db', ensureAuth, require('./routes/api/db'));
-
-// OAuth endpoints
-app.use('/oauth/tumblr', ensureAuth, require('./routes/oauth/tumblr'));
+app.use('/api/instagram', ensureLoggedIn, require('./routes/api/instagram'));
+app.use('/api/tumblr',
+  ensureLoggedIn,
+  require('./routes/oauth/tumblr'),
+  ensureTumblrAuth,
+  require('./routes/api/tumblr')
+);
+app.use('/api/db', ensureLoggedIn, require('./routes/api/db'));
 
 // Angular app and static assets
 // Should be added as the last routes, as angular does routing itself as well
