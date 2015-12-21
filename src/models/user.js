@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
-  oauth: []
+  tumblr: {
+    token: String,
+    secret: String
+  }
 });
 
 User.plugin(passportLocalMongoose);

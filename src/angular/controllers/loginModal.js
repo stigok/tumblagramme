@@ -22,6 +22,20 @@
       $scope.error = 'Authentication failed. Try again with different credentials.';
     }
 
+    $scope.register = function () {
+      $http.post('/api/tumblagramme/register', {
+        username: $scope.username,
+        password: $scope.password
+      }, {
+        ignoreAuthModule: true
+      }).then(function (res) {
+        console.log('reg complete', res);
+      }, function (err) {
+        $scope.error = 'Registration failed.';
+        console.error(err);
+      });
+    };
+
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
