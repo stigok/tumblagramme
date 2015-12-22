@@ -31,3 +31,11 @@
 > Humanity is like a pond of small fish trying to jump up the stream.
 
 ---
+
+> I know I will be the world champion of brasilian jiu-jitsu
+
+---
+
+> I have the greatest potential in the world
+
+---
