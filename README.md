@@ -28,7 +28,7 @@ Settings are all around the code at the moment, so look around!
 - [ ] Create list of templates only once on application start instead of page load as now
 - [ ] Directives should clean up after themselves $on('$destroy')
 - [ ] Make login modal as an account modal with different views based on auth status
-- [ ]
+- [ ] Cleanup session data on oauth authentication
 - [ ]
 - [ ]
 - [ ]

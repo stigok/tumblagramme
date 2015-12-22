@@ -11,21 +11,29 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
       ul.nav.navbar-nav
         li
           a(href="/") Home
-        li(class="tagsDropdown" uib-dropdown uib-keyboard-nav is-open="tagsDropdownOpened" ng-show="isAuthenticated")
+        li(class="tagsDropdown" uib-dropdown uib-keyboard-nav is-open="tagsDropdownOpened" ng-show="$root.isAuthenticated")
           a(href="#" uib-dropdown-toggle ng-disabled="disabled") Tag feed
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header Quicktags
             li(role="menuitem" ng-repeat="tag in user.favoriteTags") #[a(href="/feed/{{tag}}") {{tag}}]
             li(role="separator" class="divider")
             li(role="menuitem") #[a(href="/feed") All ({{user.favoriteTags.length}})]
-        li(class="statsDropdown" uib-dropdown uib-keyboard-nav is-open="statsDropdownOpened" ng-show="isAuthenticated")
+        li(class="statsDropdown" uib-dropdown uib-keyboard-nav is-open="statsDropdownOpened" ng-show="$root.isAuthenticated")
           a(href="#" uib-dropdown-toggle) Stats
           ul(role="menu" class="uib-dropdown-menu")
             li(role="menuitem") #[a(href="/stats/tumblr") Tumblr]
             li(role="menuitem") #[a(href="/stats/instagram") Instagram]
       ul(class="nav navbar-nav navbar-right")
-        li(ng-hide="isAuthenticated") #[a(ng-click="login()") Login]
-        li(class="accountDropdown" uib-dropdown uib-keyboard-nav is-open="accountDropdownOpened" ng-show="isAuthenticated")
+        li(class="activeBlogDropdown" uib-dropdown uib-keyboard-nav is-open="activeBlogDropdownOpened" ng-show="$root.isAuthenticated")
+          a(href="#" uib-dropdown-toggle)
+            image(ng-src="{{user.activeBlog.avatar.url}}" width="16" height="16") {{user.activeBlog}}
+          ul(role="menu" class="uib-dropdown-menu")
+            li.dropdown-header Select active blog
+            li(role="menuitem" ng-repeat="blog in blogs")
+              image(ng-src="{{user.activeBlog.avatar.url}}" width="16" height="16")
+              a(href="#" ng-click="setActiveBlog($index)") blog.name
+        li(ng-hide="$root.isAuthenticated") #[a(ng-click="login()") Login]
+        li(class="accountDropdown" uib-dropdown uib-keyboard-nav is-open="accountDropdownOpened" ng-show="$root.isAuthenticated")
           a(href="#" uib-dropdown-toggle) Account
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header {{user.email}}

@@ -3,7 +3,7 @@
 
   angular.module('http-auth-interceptor', ['http-auth-interceptor-buffer'])
 
-  .factory('authService', ['$rootScope', 'httpBuffer', function ($rootScope, httpBuffer) {
+  .factory('authService', ['$rootScope', '$http', 'httpBuffer', function ($rootScope, $http, httpBuffer) {
     return {
       /**
        * Call this function to indicate that authentication was successfull and trigger a
@@ -19,7 +19,14 @@
           return config;
         };
         $rootScope.$broadcast('event:auth-loginConfirmed', data);
+        $rootScope.user = data;
+        $rootScope.isAuthenticated = true;
         httpBuffer.retryAll(updater);
+      },
+
+      logoutPerformed: function () {
+        $rootScope.user = null;
+        $rootScope.isAuthenticated = false;
       },
 
       /**
@@ -31,6 +38,10 @@
       loginCancelled: function (data, reason) {
         httpBuffer.rejectAll(reason);
         $rootScope.$broadcast('event:auth-loginCancelled', data);
+      },
+
+      updateLoginStatus: function () {
+
       }
     };
   }])

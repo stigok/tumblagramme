@@ -6,28 +6,32 @@ const authMiddleware = passport.authenticate('local');
 const ensureLoggedIn = require('../../../lib/ensureAuth')('local');
 
 router.get('/user', ensureLoggedIn, function (req, res) {
-  res.status(200).json(req.user);
+  return res.status(200).json(req.user);
 });
 
 router.get('/ping', ensureLoggedIn, function (req, res) {
-  res.status(200).json('pong');
+  return res.status(200).json('pong');
 });
 
 router.post('/auth', authMiddleware, function (req, res) {
   // Using passport, unsuccessfull attempts are returned with a 401 (Unauthorized)
   // When auth successfull, return user object and 200.
-  res.status(200).json(req.user);
+  return res.status(200).json(req.user);
 });
 
 router.post('/register', function (req, res) {
   User.register(new User({username: req.body.username}), req.body.password, function (err) {
     if (err) {
-      res.status(500).json('an error occured');
       console.error(err);
-      return;
+      return res.status(500).json('an error occured');
     }
-    res.status(200).json('user registered');
+    return res.status(200).json({});
   });
+});
+
+router.get('/logout', function (req, res) {
+  req.logout();
+  return res.status(200).json({});
 });
 
 module.exports = router;

@@ -16,6 +16,14 @@
         controller: 'FeedCtrl',
         templateUrl: '/templates/feed.html'
       })
+      .when('/account', {
+        controller: 'AccountCtrl',
+        templateUrl: '/templates/account.html'
+      })
+      .when('/logout', {
+        controller: 'LogoutCtrl',
+        template: 'Logging out...'
+      })
       .otherwise({
         templateUrl: '/templates/404.html'
       });

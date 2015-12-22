@@ -1,23 +1,24 @@
 (function () {
   angular.module('tg.Controllers')
-    .controller('LoginModalCtrl', ['$scope', '$uibModalInstance', '$http', LoginModalCtrl]);
+    .controller('LoginModalCtrl', ['$scope', '$uibModalInstance', '$http', 'authService', LoginModalCtrl]);
 
-  function LoginModalCtrl($scope, $uibModalInstance, $http) {
+  function LoginModalCtrl($scope, $uibModalInstance, $http, authService) {
     $scope.ok = function () {
       $http.post('/api/tumblagramme/auth', {
         username: $scope.username || '',
         password: $scope.password || ''
-      }, {
-        ignoreAuthModule: true
-      }).then(authSuccess, authFailed);
+      }, {ignoreAuthModule: true})
+        .success(authSuccess)
+        .error(authFailed);
     };
 
     function authSuccess(data) {
-      console.log('authSuccess', data);
+      authService.loginConfirmed(data);
+      $uibModalInstance.dismiss('authSuccess');
     }
 
     function authFailed(data) {
-      console.log('authFailed', data);
+      console.log('Authentication failed', data);
       $scope.password = '';
       $scope.error = 'Authentication failed. Try again with different credentials.';
     }
@@ -37,6 +38,7 @@
     };
 
     $scope.cancel = function () {
+      $scope.error = null;
       $uibModalInstance.dismiss('cancel');
     };
   }

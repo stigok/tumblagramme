@@ -22,10 +22,11 @@
 
   module.factory('User', function ($resource) {
     return $resource('/api/tumblagramme/user', {}, {
-      get: {
-        method: 'GET',
-        cache: true
-      }
+      get: {method: 'GET', cache: true}
     });
+  });
+
+  module.factory('ping', function ($http) {
+    return $http.get('/api/tumblagramme/ping');
   });
 })();
