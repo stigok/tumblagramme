@@ -9,14 +9,10 @@
     });
   });
 
-  module.service('Tumblr', function ($resource, User) {
-    var auth = {
-      authToken: User.tumblrAuthToken,
-      authSecret: User.tumblrAuthSecret
-    };
-
-    return $resource('/api/tumblr/stats', auth, {
-      query: {method: 'GET', params: {}, isArray: false}
+  module.factory('Tumblr', function ($resource) {
+    return $resource('/api/tumblr/user', {}, {
+      user: {method: 'GET', isArray: false},
+      blogs: {method: 'GET', url: '/api/tumblr/blogs', isArray: true}
     });
   });
 
@@ -24,6 +20,14 @@
     return $resource('/api/tumblagramme/user', {}, {
       get: {method: 'GET', cache: true}
     });
+  });
+
+  module.service('UpdateUser', function ($http) {
+    return {
+      setActiveBlog: function (name) {
+        return $http.post('/api/tumblagramme/activeBlog', {blog: name});
+      }
+    };
   });
 
   module.factory('ping', function ($http) {

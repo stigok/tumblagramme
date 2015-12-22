@@ -5,7 +5,8 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var User = new Schema({
   tumblr: {
     token: String,
-    secret: String
+    secret: String,
+    activeBlogName: String
   }
 });
 

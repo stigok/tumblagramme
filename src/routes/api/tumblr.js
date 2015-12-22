@@ -32,6 +32,15 @@ router.post('/queue', function (req, res, next) {
   });
 });
 
+router.get('/user', function (req, res, next) {
+  res.locals.client.userInfo(function (err, response) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json(response.user);
+  });
+});
+
 router.get('/blogs', function (req, res, next) {
   res.locals.client.userInfo(function (err, response) {
     if (err) {

@@ -9,6 +9,20 @@ router.get('/user', ensureLoggedIn, function (req, res) {
   return res.status(200).json(req.user);
 });
 
+router.post('/activeBlog', ensureLoggedIn, function (req, res, next) {
+  if (req.body.name) {
+    req.user.tumblr.activeBlogName = req.body.name;
+    req.user.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      return res.status(200).json({});
+    });
+  } else {
+    return next();
+  }
+});
+
 router.get('/ping', ensureLoggedIn, function (req, res) {
   return res.status(200).json('pong');
 });
@@ -32,6 +46,10 @@ router.post('/register', function (req, res) {
 router.get('/logout', function (req, res) {
   req.logout();
   return res.status(200).json({});
+});
+
+router.use(function (req, res) {
+  return res.status(404).json({error: 'Invalid API method'});
 });
 
 module.exports = router;

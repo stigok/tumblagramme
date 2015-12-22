@@ -1,11 +1,19 @@
 (function () {
   angular.module('tg.Controllers')
-    .controller('NavigationCtrl', ['$rootScope', '$scope', NavigationCtrl]);
+    .controller('NavigationCtrl', ['$scope', 'Tumblr', 'User', 'UpdateUser', NavigationCtrl]);
 
-  function NavigationCtrl($rootScope, $scope) {
+  function NavigationCtrl($scope, Tumblr, User, UpdateUser) {
     bindDropdown($scope, 'tags');
     bindDropdown($scope, 'stats');
     bindDropdown($scope, 'account');
+
+    $scope.user = User.get();
+    $scope.blogs = Tumblr.blogs();
+    $scope.setActiveBlog = function (name) {
+      UpdateUser.setActiveBlog(name).success(function () {
+        console.log('active blog set to %s', name);
+      });
+    };
   }
 
   function bindDropdown($scope, name) {
