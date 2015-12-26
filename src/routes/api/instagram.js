@@ -3,7 +3,7 @@ const router = new express.Router();
 const instagram = require('instagram-node');
 const settings = require('../../../settings.json');
 
-const testData = require('../../../data/media-recent.json');
+const testData = require('../../../data/mock-db.js');
 
 router.use(function (req, res, next) {
   res.locals.client = instagram.instagram();

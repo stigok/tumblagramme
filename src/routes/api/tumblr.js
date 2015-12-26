@@ -2,6 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const tumblr = require('tumblr.js');
 const settings = require('../../../settings.json');
+const db = require('../../../data/mock-db.js');
 
 // API authentication
 // router.get('/auth', passport.authenticate('tumblr'));
