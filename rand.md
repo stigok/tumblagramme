@@ -39,3 +39,21 @@
 > I have the greatest potential in the world
 
 ---
+
+> People I meet who express fear represents the fear in me.
+> The more bravely I fight my demons, the more fear I remove from the world.
+
+---
+
+> But when you have what you thought you needed, all of a sudden you're
+> out of orange juice and can't seem to get started without it. But what
+> you always have to remember, is that if you already had the orange juice
+> it would be strawberries you really wanted.
+
+---
+
+> Never strive for perfection. Just get things done. ¡PRONT!
+
+---
+
+> I am not giving second thoughts to social encounters
