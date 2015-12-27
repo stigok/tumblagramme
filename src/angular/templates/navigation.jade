@@ -9,8 +9,7 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
       a(href="#" class="navbar-brand") Tumblagramme
     #navbar(class="navbar-collapse collapse")
       ul.nav.navbar-nav
-        li
-          a(href="/") Home
+        li #[a(href="/") Home]
         li(class="tagsDropdown" uib-dropdown uib-keyboard-nav is-open="tagsDropdownOpened")
           a(href="#" uib-dropdown-toggle ng-disabled="disabled") Tag feed
           ul(role="menu" class="uib-dropdown-menu")
