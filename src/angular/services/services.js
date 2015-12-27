@@ -12,7 +12,7 @@
   module.factory('Tumblr', function ($resource) {
     return $resource('/api/tumblr/user', {}, {
       user: {method: 'GET', isArray: false},
-      blogs: {method: 'GET', url: '/api/tumblr/blogs', isArray: true}
+      blogs: {method: 'GET', url: '/api/tumblr/blogs', isArray: true, cache: true}
     });
   });
 
