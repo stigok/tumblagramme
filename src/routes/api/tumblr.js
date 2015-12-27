@@ -43,6 +43,8 @@ router.get('/user', function (req, res, next) {
 });
 
 router.get('/blogs', function (req, res, next) {
+  return res.json(db.tumblr.blogs);
+
   res.locals.client.userInfo(function (err, response) {
     if (err) {
       return next(err);
