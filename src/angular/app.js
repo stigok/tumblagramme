@@ -1,7 +1,12 @@
 (function () {
   var app = angular.module('tg', [
+    // Vendor
     'ngRoute', 'ui.bootstrap',
+    // Etc
     'tg.Controllers', 'tg.Directives', 'tg.Services',
+    // Components
+    'tg.blogChanger',
+    // interceptors
     'http-auth-interceptor'
     // 'tg.Auth',
   ]);

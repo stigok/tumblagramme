@@ -19,7 +19,7 @@ router.post('/activeBlog', ensureLoggedIn, function (req, res, next) {
       return res.status(200).json({});
     });
   } else {
-    return next();
+    return next('invalid arguments');
   }
 });
 

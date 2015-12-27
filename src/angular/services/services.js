@@ -22,10 +22,10 @@
     });
   });
 
-  module.service('UpdateUser', function ($http) {
+  module.factory('UpdateUser', function ($http) {
     return {
       setActiveBlog: function (name) {
-        return $http.post('/api/tumblagramme/activeBlog', {blog: name});
+        return $http.post('/api/tumblagramme/activeBlog', {name: name});
       }
     };
   });
