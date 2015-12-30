@@ -1,0 +1,46 @@
+h2 
+div(ng-show="presets")
+  h2 All presets
+  ul
+    li(ng-repeat="p in presets") {{p.name}}
+
+div
+  h2 Create new
+  form(ng-submit="savePreset()")
+    .form-group(ng-show="error")
+      .bg-warning {{error}}
+    .form-group
+      label Name
+      input.form-control(type="text" ng-model="name" required)
+    .form-group
+      label Tumblr blog
+      input.form-control(type="text" ng-model="username")
+    .form-group
+      label Automatically ...
+      p
+        input(type="checkbox" ng-model="useAutoFollow")
+        | follow original poster
+      p
+        input(type="checkbox" ng-model="useAutoLike")
+        | like original post
+    .form-group
+      label Original post's tags
+      select.form-control(ng-model="originalTagsPlacement")
+        option(value="0") Ignore them
+        option(value="1") Prepend to mine
+        option(value="2") Append to mine
+    .form-group
+      label Default tags to search for in feed
+      p [tags component] Search for tags here...
+    .form-group
+      label Default tags for posts
+      p [tags component] Search for tags here...
+    .form-group
+      label Caption template
+      textarea.form-control(ng-model="caption")
+    .form-group
+      input.btn.btn-default(type="submit" value="Save changes")
+        
+      
+        
+        
