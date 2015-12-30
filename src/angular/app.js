@@ -21,6 +21,10 @@
         controller: 'FeedCtrl',
         templateUrl: '/templates/feed.html'
       })
+      .when('/preset/:id?', {
+        controller: 'PresetCtrl',
+        templateUrl: '/templates/preset.html'
+      })
       .when('/account', {
         controller: 'AccountCtrl',
         templateUrl: '/templates/account.html'

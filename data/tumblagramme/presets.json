@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Default",
+    "blogId": -1,
+    "instagramAccountId": -1,
+    "autoFollow": false,
+    "autoLike": false,
+    "useOriginalTags": true,
+    "prependOriginalTags": false,
+    "caption": "<pre>this my blog y'all</pre>%s",
+    "instagramTags": [
+      "bjj", "surf", "lifestyle", "riodejaneiro"
+    ],
+    "defaultTags": [
+      "bjj", "bjjlifestyle", "brazilian jiu-jitsu"
+    ]
+  }
+]

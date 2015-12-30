@@ -16,6 +16,10 @@
     });
   });
 
+  module.factory('Preset', function ($resource) {
+    return $resource('/api/tumblagramme/preset/:id', null);
+  });
+
   module.factory('User', function ($resource) {
     return $resource('/api/tumblagramme/user', {}, {
       get: {method: 'GET', cache: true}

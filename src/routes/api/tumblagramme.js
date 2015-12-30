@@ -4,6 +4,10 @@ const passport = require('passport');
 const User = require('../../models/user.js');
 const authMiddleware = passport.authenticate('local');
 const ensureLoggedIn = require('../../../lib/ensureAuth')('local');
+const crudify = require('../../../lib/crudify.js');
+
+// Presets
+router.use('/preset', crudify(require('../../models/preset')));
 
 router.get('/user', ensureLoggedIn, function (req, res) {
   return res.status(200).json(req.user);
