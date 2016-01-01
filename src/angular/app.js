@@ -6,6 +6,7 @@
     'tg.Controllers', 'tg.Directives', 'tg.Services',
     // Components
     'tg.blogChanger',
+    'tg.tagSelector',
     // interceptors
     'http-auth-interceptor'
     // 'tg.Auth',
