@@ -92,8 +92,15 @@ app.use('/api/tumblr',
 app.use('/api/db', ensureLoggedIn, require('./routes/api/db'));
 
 // Angular app and static assets
-// Should be added as the last routes, as angular does routing itself as well
+// Should be added as the last routes, as angular takes control of routing itself
 app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
+app.use('/js/angular', function (req, res) {
+  // Produce designated 404 for all angular resources
+  // as the angular app takes over control of routing
+  // making it impossible to send other http status codes.
+  // Makes it easier to spot 404's while debugging.
+  return res.status(404).end();
+});
 app.use('/', require('./routes/angular'));
 
 // catch 404 and forward to error handler
