@@ -32,9 +32,6 @@
       .when('/logout', {
         controller: 'LogoutCtrl',
         template: 'Logging out...'
-      })
-      .otherwise({
-        templateUrl: '/templates/404.html'
       });
     $locationProvider.html5Mode(true);
   });
