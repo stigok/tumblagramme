@@ -80,6 +80,7 @@ app.use(function (req, res, next) {
 // app.use('/', require('./routes/account'));
 
 // JSON APIs
+// Tumblagramme route implements ensureLoggedIn itself to handle login
 app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
 app.use('/api/instagram', ensureLoggedIn, require('./routes/api/instagram'));
 app.use('/api/tumblr',

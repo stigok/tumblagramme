@@ -1,6 +1,6 @@
 (function () {
   angular.module('tg.Controllers')
-    .controller('FeedCtrl', ['$scope', '$routeParams', 'User', 'Instagram', FeedCtrl]);
+    .controller('FeedCtrl', ['$scope', '$routeParams', 'SessionUser', 'Instagram', FeedCtrl]);
 
   function chunk(arr, size) {
     var newArr = [];
@@ -10,10 +10,10 @@
     return newArr;
   }
 
-  function FeedCtrl($scope, $routeParams, User, Instagram) {
+  function FeedCtrl($scope, $routeParams, SessionUser, Instagram) {
     $scope.posts = [];
 
-    User.get(function (user) {
+    SessionUser.get(function (user) {
       $scope.user = user;
       $scope.tags = (typeof $routeParams.tag === 'undefined') ? $scope.user.favoriteTags : [$routeParams.tag];
     });

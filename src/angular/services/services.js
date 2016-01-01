@@ -1,8 +1,8 @@
 (function () {
   var module = angular.module('tg.Services', ['ngResource']);
 
-  module.service('Instagram', function ($resource, User) {
-    var auth = {accessToken: User.instagramAccessToken};
+  module.service('Instagram', function ($resource, SessionUser) {
+    var auth = {accessToken: SessionUser.instagramAccessToken};
 
     return $resource('/api/instagram/media/recent/:tag', auth, {
       query: {method: 'GET', params: {}, isArray: true}
@@ -20,18 +20,12 @@
     return $resource('/api/tumblagramme/preset/:id', null);
   });
 
-  module.factory('User', function ($resource) {
-    return $resource('/api/tumblagramme/user', {}, {
-      get: {method: 'GET', cache: true}
+  module.factory('SessionUser', function ($resource) {
+    return $resource('/api/tumblagramme/user', null, {
+      get: {method: 'GET', cache: true, isArray: false},
+      query: {method: 'GET', cache: true, isArray: false},
+      nocache: {method: 'GET', cache: false, isArray: false}
     });
-  });
-
-  module.factory('UpdateUser', function ($http) {
-    return {
-      setActiveBlog: function (name) {
-        return $http.post('/api/tumblagramme/activeBlog', {name: name});
-      }
-    };
   });
 
   module.factory('ping', function ($http) {

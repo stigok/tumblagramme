@@ -6,12 +6,8 @@ const authMiddleware = passport.authenticate('local');
 const ensureLoggedIn = require('../../../lib/ensureAuth')('local');
 const crudify = require('../../../lib/crudify.js');
 
-// Presets
-router.use('/preset', crudify(require('../../models/preset')));
-
-router.get('/user', ensureLoggedIn, function (req, res) {
-  return res.status(200).json(req.user);
-});
+router.use('/user', ensureLoggedIn, require('../../../lib/userRoute.js'));
+router.use('/preset', ensureLoggedIn, crudify(require('../../models/preset')));
 
 router.post('/activeBlog', ensureLoggedIn, function (req, res, next) {
   if (req.body.name) {
@@ -33,8 +29,8 @@ router.get('/ping', ensureLoggedIn, function (req, res) {
 
 router.post('/auth', authMiddleware, function (req, res) {
   // Using passport, unsuccessfull attempts are returned with a 401 (Unauthorized)
-  // When auth successfull, return user object and 200.
-  return res.status(200).json(req.user);
+  // When auth successfull, return user object and 200 (implicit).
+  return res.json(req.user);
 });
 
 router.post('/register', function (req, res) {
