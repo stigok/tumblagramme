@@ -17,7 +17,9 @@
   });
 
   module.factory('Preset', function ($resource) {
-    return $resource('/api/tumblagramme/preset/:id', null);
+    return $resource('/api/tumblagramme/preset/:id', null, {
+      update: {method: 'PUT'}
+    });
   });
 
   module.factory('SessionUser', function ($resource) {
