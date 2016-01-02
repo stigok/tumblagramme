@@ -3,6 +3,8 @@
     .controller('TagSelectorCtrl', TagSelectorCtrl);
 
   function TagSelectorCtrl($scope) {
+    $scope.ngModel = $scope.ngModel || [];
+
     $scope.addTag = function () {
       if ($scope.tagName.length >= 3 && $scope.ngModel.indexOf($scope.tagName) === -1) {
         $scope.ngModel.push($scope.tagName);
