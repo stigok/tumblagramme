@@ -1,46 +1,36 @@
 h2 
-div(ng-show="presets")
+div
   h2 All presets
   ul
-    li(ng-repeat="p in presets") {{p.name}}
+    li(ng-repeat="p in presets")
+      a(href="/preset/{{p._id}}") {{p.name}}
+    li
+      a(href="/preset") Create new
 
 div
-  h2 Create new
-  form(ng-submit="savePreset()")
+  h2 {{preset.name}}
+  form(ng-submit="saveChanges()")
     .form-group(ng-show="error")
       .bg-warning {{error}}
     .form-group
       label Name
-      input.form-control(type="text" ng-model="name" required)
+      div(ng-show="errors.name").bg-warning {{errors.name.message}}
+      input.form-control(type="text" ng-model="preset.name" required)
     .form-group
       label Tumblr blog
-      input.form-control(type="text" ng-model="username")
-    .form-group
-      label Automatically ...
-      p
-        input(type="checkbox" ng-model="useAutoFollow")
-        | follow original poster
-      p
-        input(type="checkbox" ng-model="useAutoLike")
-        | like original post
-    .form-group
-      label Original post's tags
-      select.form-control(ng-model="originalTagsPlacement")
-        option(value="0") Ignore them
-        option(value="1") Prepend to mine
-        option(value="2") Append to mine
+      div(ng-show="errors.blogId").bg-warning {{errors.blogId.message}}
+      input.form-control(type="text" ng-model="preset.blogId")
     .form-group
       label Default tags to search for in feed
+      div(ng-show="errors.instagramTags").bg-warning {{errors.instagramTags.message}}
       tag-selector(ng-model="preset.instagramTags")
     .form-group
       label Default tags for posts
+      div(ng-show="errors.postTags").bg-warning {{errors.postTags.message}}
       tag-selector(ng-model="preset.postTags")
     .form-group
       label Caption template
-      textarea.form-control(ng-model="caption")
+      div(ng-show="errors.caption").bg-warning {{errors.caption.message}}
+      textarea.form-control(ng-model="preset.caption")
     .form-group
       input.btn.btn-default(type="submit" value="Save changes")
-        
-      
-        
-        

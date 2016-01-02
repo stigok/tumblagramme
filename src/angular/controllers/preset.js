@@ -3,41 +3,29 @@
     .controller('PresetCtrl', PresetCtrl);
 
   function PresetCtrl($scope, User, Preset, $routeParams, $log) {
-    // var presets = Preset.query();
-    // $scope.presets = presets;
+    $scope.presets = Preset.query();
 
-    // if ($routeParams.id) {
-    //   var preset = Preset.get({id: $routeParams.id});
-    //   $scope.preset = preset;
-    //   $scope.openPreset(preset.id);
-    // }
+    if ($routeParams.id) {
+      $scope.preset = Preset.get({id: $routeParams.id});
+    } else {
+      $scope.preset = new Preset();
+    }
 
-    // $scope.newPreset = function () {
-    //   $scope.preset = {};
-    //   $scope.openPreset();
-    // };
-
-    // $scope.openPreset = function (id) {
-    //   $log.log('opening preset', id);
-    // };
-
-    $scope.savePreset = function () {
-      var preset = new Preset({
-        name: $scope.name,
-        blogId: $scope.blogId,
-        instagramAccountId: $scope.instagramAccountId,
-        autoLike: $scope.autoLike,
-        caption: $scope.caption,
-        instagramTags: $scope.instagramTags,
-        defaultTags: $scope.defaultTags
-      });
-
-      preset.$save(function (p) {
-        $log.log('save success', p);
-      }, function (err) {
-        $scope.error = err;
-        $log.error('save preset failed with err', err);
-      });
+    $scope.saveChanges = function () {
+      if ($routeParams.id) {
+        Preset.update({id: $scope.preset._id}, $scope.preset);
+      } else {
+        Preset.save($scope.preset, function (obj) {
+          $scope.presets.push(obj);
+        }, function (err) {
+          if (err.status === 406) {
+            $scope.errors = err.data.errors;
+          } else {
+            $scope.error = err.data.name;
+          }
+          $log.error(err);
+        });
+      }
     };
   }
 })();
