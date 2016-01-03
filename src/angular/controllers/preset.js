@@ -2,7 +2,7 @@
   angular.module('tg.Controllers')
     .controller('PresetCtrl', PresetCtrl);
 
-  function PresetCtrl($scope, Preset, $routeParams, $log, $rootScope, PresetEvents) {
+  function PresetCtrl($scope, $rootScope, $routeParams, Preset, PresetEvents, $log) {
     $scope.presets = Preset.query();
     $scope.$on(PresetEvents.updated, function () {
       $scope.presets = Preset.query();

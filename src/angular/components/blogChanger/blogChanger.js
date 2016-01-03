@@ -1,6 +1,8 @@
 (function () {
   angular.module('tg.blogChanger', [])
-  .controller('BlogChangerCtrl', function ($rootScope, $scope, Tumblr, SessionUser, $log) {
+    .controller('BlogChangerCtrl', BlogChangerCtrl);
+
+  function BlogChangerCtrl($rootScope, $scope, Tumblr, SessionUser, $log) {
     $scope.blogs = Tumblr.blogs();
     var user = SessionUser.get(function (u) {
       $scope.currentBlogName = u.tumblr.activeBlogName;
@@ -14,5 +16,5 @@
         $rootScope.$broadcast('event:activeBlogChanged', name);
       });
     };
-  });
+  }
 })();

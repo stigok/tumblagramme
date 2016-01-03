@@ -1,6 +1,6 @@
 (function () {
   angular.module('tg.Controllers')
-    .controller('NavigationCtrl', ['$scope', 'Tumblr', 'SessionUser', NavigationCtrl]);
+    .controller('NavigationCtrl', NavigationCtrl);
 
   function NavigationCtrl($scope, Tumblr, SessionUser) {
     bindDropdown($scope, 'tags');
