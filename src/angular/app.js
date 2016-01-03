@@ -7,6 +7,7 @@
     // Components
     'tg.blogChanger',
     'tg.tagSelector',
+    'tg.connectButton',
     // interceptors
     'http-auth-interceptor'
     // 'tg.Auth',
