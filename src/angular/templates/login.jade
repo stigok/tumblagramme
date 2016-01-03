@@ -1,14 +1,14 @@
-form(name="login" novalidate class="css-form")
+form(class="css-form" ng-submit="ok()")
   .modal-header Login
   .modal-body
     .form-group(ng-show="error")
       .bg-warning {{error}}
     .form-group
       label(for="inputUsername") Username
-      input.form-control(type="text" id="inputUsername" placeholder="Username" ng-model="username")
+      input.form-control(type="text" id="inputUsername" placeholder="Username" ng-model="username" required)
     .form-group
       label(for="inputPassword") Password
-      input.form-control(type="password" id="inputPassword" placeholder="Password" ng-model="password")
+      input.form-control(type="password" id="inputPassword" placeholder="Password" ng-model="password" required)
 
   .modal-footer
     button(type="submit" ng-click="ok()" class="btn btn-primary") Log in
