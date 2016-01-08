@@ -89,7 +89,6 @@ app.use('/api/tumblr',
   ensureTumblrAuth,
   require('./routes/api/tumblr')
 );
-app.use('/api/db', ensureLoggedIn, require('./routes/api/db'));
 
 // Angular app and static assets
 // Should be added as the last routes, as angular takes control of routing itself
