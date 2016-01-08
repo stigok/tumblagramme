@@ -73,3 +73,13 @@
 
 ---
 
+> What are you actually doing when you are running a website?
+> Are you dealing with people? People's souls? Neutrons?
+
+---
+
+> Paranoia leads you on a path that proves your fears.
+> Humbleness leads you on a cloud that proves your dreams were real.
+
+---
+

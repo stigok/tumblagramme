@@ -4,3 +4,4 @@ settings.json
 user.json
 .cert
 _old
+.keys
