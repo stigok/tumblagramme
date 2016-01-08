@@ -1,11 +1,9 @@
-h2 
 div
-  h2 All presets
-  ul
-    li(ng-repeat="p in presets")
+  h3 Select a preset
+  div
+    span.btn.btn-default(ng-repeat="p in presets")
       a(href="/preset/{{p._id}}") {{p.name}}
-    li
-      a(href="/preset") Create new
+    a(href="/preset") Create new
 
 div
   h2 {{preset.name}}

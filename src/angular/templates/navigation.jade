@@ -17,11 +17,11 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
             li(role="menuitem" ng-repeat="tag in user.instagram.favoriteTags") #[a(href="/feed/{{tag}}") {{tag}}]
             li(role="separator" class="divider")
             li(role="menuitem") #[a(href="/feed") All ({{user.favoriteTags.length}})]
-        li(class="statsDropdown" uib-dropdown uib-keyboard-nav is-open="statsDropdownOpened")
-          a(href="#" uib-dropdown-toggle) Stats
+        li(ng-controller="PresetSelectorCtrl" uib-dropdown uib-keyboard-nav)
+          a(href="#" uib-dropdown-toggle) Select Preset
           ul(role="menu" class="uib-dropdown-menu")
-            li(role="menuitem") #[a(href="/stats/tumblr") Tumblr]
-            li(role="menuitem") #[a(href="/stats/instagram") Instagram]
+            li(role="menuitem" ng-repeat="p in presets")
+              a(href="" ng-click="selectPreset(p._id)" ng-class="{'bg-info': (user.activePresetId == p._id)}") {{p.name}}
       ul.nav.navbar-nav.navbar-right
         li(class="accountDropdown" uib-dropdown uib-keyboard-nav is-open="accountDropdownOpened")
           a(href="#" uib-dropdown-toggle) Account

@@ -7,7 +7,11 @@ var User = new Schema({
     token: String,
     secret: String,
     activeBlogName: String
-  }
+  },
+  activePresetId: String
+}, {
+  // Don't remove empty row properties
+  minimize: false
 });
 
 User.plugin(passportLocalMongoose);
