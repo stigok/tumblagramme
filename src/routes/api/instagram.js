@@ -1,44 +1,30 @@
 const express = require('express');
 const router = new express.Router();
 const instagram = require('instagram-node');
-const settings = require('../../../settings.json');
 
 const testData = require('../../../data/mock-db.js');
 
 router.use(function (req, res, next) {
   res.locals.client = instagram.instagram();
-  res.locals.client.use({access_token: settings.instagram.accounts[0].accessToken})
+  res.locals.client.use({access_token: req.user.instagram.accessToken});
   return next();
 });
 
 // API Authentication route
-router.use('/media/recent/:tag*?', function (req, res, next) {
+router.use('/media/recent/:tag', function (req, res, next) {
   // DEBUG MODE
-  return res.json(testData.data);
+  // return res.json(testData.data);
 
-  let token = req.query.accessToken;
-  let tag = req.params.tag;
-  let ig = instagram.instagram();
-
-  if (!token) {
-    let err = new Error();
-    err.status = 403;
-    err.message = 'Missing api credentials';
-    return next(err);
-  }
-
-  if (!tag) {
+  if (!req.params.tag) {
     return next(new Error('Missing params'));
   }
-
-  ig.use({access_token: token});
 
   let options = {};
   if (req.query.max_tag_id) {
     options.max_tag_id = req.query.max_tag_id;
   }
 
-  ig.tag_media_recent(tag, options, function (err, result, pagination, remaining, limit) {
+  res.locals.client.tag_media_recent(req.params.tag, options, function (err, result) {
     if (err) {
       return next(err);
     }
@@ -52,7 +38,7 @@ router.post('/like', function (req, res, next) {
     if (err) {
       return next(err);
     }
-    return res.status(200).json({});
+    return res.status(200).end();
   });
 });
 

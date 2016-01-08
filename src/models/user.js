@@ -8,6 +8,9 @@ var User = new Schema({
     secret: String,
     activeBlogName: String
   },
+  instagram: {
+    accessToken: String
+  },
   activePresetId: String
 }, {
   // Don't remove empty row properties

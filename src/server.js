@@ -14,6 +14,7 @@ const util = require('util');
 const ensureAuth = require('../lib/ensureAuth');
 const ensureLoggedIn = ensureAuth('local');
 const ensureTumblrAuth = ensureAuth('tumblr');
+const ensureInstagramAuth = ensureAuth('instagram');
 
 // Connect to database
 mongoose.connect(settings.appSettings.mongodb, function (err) {
@@ -82,7 +83,12 @@ app.use(function (req, res, next) {
 // JSON APIs
 // Tumblagramme route implements ensureLoggedIn itself to handle login
 app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
-app.use('/api/instagram', ensureLoggedIn, require('./routes/api/instagram'));
+app.use('/api/instagram',
+  ensureLoggedIn,
+  require('./routes/oauth/instagram'),
+  ensureInstagramAuth,
+  require('./routes/api/instagram')
+);
 app.use('/api/tumblr',
   ensureLoggedIn,
   require('./routes/oauth/tumblr'),
