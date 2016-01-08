@@ -8,6 +8,8 @@
     'tg.blogChanger',
     'tg.tagSelector',
     'tg.connectButton',
+    'tg.imageResource',
+    'tg.instagramResource',
     // interceptors
     'http-auth-interceptor'
     // 'tg.Auth',

@@ -1,14 +1,14 @@
-div(class="instagram-resource" ng-controller="InstagramResourceCtrl")
-  img(ng-src="{{post.images.low_resolution.url}}")
+div(class="instagram-resource")
+  image-resource(image-url="{{post.images.low_resolution.url}}" ng-class="{fade50: isQueued}")
   .controls
     div(class="btn-group" uib-dropdown)
-      button#split-button(type="button" class="btn btn-sm btn-success" ng-click="share()") Add to queue
+      button.split-button(type="button" class="btn btn-sm btn-success" ng-click="share()") Add to queue
       button(type="button" class="btn btn-sm btn-default" uib-dropdown-toggle)
         span.caret
       ul.uib-dropdown-menu(role="menu")
         li(role="menuitem")
           a(href="#" ng-click="share()") Add to queue
         li(role="menuitem")
-          a(href="#" ng-click="openInstagram()") Open Instagram page
+          a(href="{{post.link}}" target="_blank") Open in Instagram
         li(role="menuitem")
           a(href="#" ng-click="browseUser()") Browse more from user

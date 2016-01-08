@@ -18,13 +18,5 @@
         templateUrl: '/templates/login.html'
       };
     })
-    .directive('instagramResource', function () {
-      return {
-        restrict: 'E',
-        templateUrl: '/templates/instagramResource.html',
-        scope: {
-          post: '=post'
-        }
-      };
-    });
+  ;
 })();

@@ -30,7 +30,7 @@ Settings are all around the code at the moment, so look around!
 - [ ] Make login modal as an account modal with different views based on auth status
 - [ ] Cleanup session data on oauth authentication
 - [ ] Make ucfirst filter (if you need it)
-- [ ]
+- [ ] "Add to queue" button should change to "Remove from queue" when queued
 - [ ]
 - [ ]
 
