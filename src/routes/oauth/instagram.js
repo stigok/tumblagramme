@@ -1,6 +1,5 @@
 const express = require('express');
 const router = new express.Router();
-const OAuth2 = require('oauth').OAuth2;
 const crypto = require('crypto');
 const util = require('util');
 const request = require('request');
@@ -46,7 +45,7 @@ router.get('/callback', function (req, res, next) {
     code: req.query.code
   };
 
-  console.log(postParams);
+  console.log('postParams', postParams);
 
   request.post({
     url: 'https://api.instagram.com/oauth/access_token',
@@ -57,9 +56,13 @@ router.get('/callback', function (req, res, next) {
     }
 
     req.user.instagram.accessToken = body.access_token;
-    req.user.save();
 
-    return res.json(body);
+    req.user.save(function (err) {
+      if (err) {
+        return next('Error saving instagram token', err);
+      }
+      return res.redirect('/account');
+    });
   });
 });
 
