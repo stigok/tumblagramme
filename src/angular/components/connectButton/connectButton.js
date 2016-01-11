@@ -4,7 +4,7 @@
 
   function ConnectButtonCtrl($scope, $location, $log) {
     $scope.connect = function (provider) {
-      $location.url('/oauth/' + provider + '/auth');
+      $location.url('/api/' + provider + '/auth');
       $log.log('Redirecting to OAuth provider: %s', provider);
     };
   }
