@@ -1,7 +1,6 @@
 const express = require('express');
 const router = new express.Router();
 const OAuth = require('oauth').OAuth;
-const User = require('../../models/user.js');
 
 const settings = require('../../../settings.json');
 
@@ -72,18 +71,12 @@ router.get('/callback', function (req, res, next) {
       console.log('\ttoken %s | secret %s', token, secret);
       console.log('other', other);
 
-      // Save new token to db
-      //User.findById(req.user.id, function (err, user) {
-      //  if (err) {
-      //    next(err);
-      //  }
-
       req.user.tumblr.token = token;
       req.user.tumblr.secret = secret;
 
       req.user.save(function (err) {
         if (err) {
-          return next(err);
+          return next('Error saving tumblr token', err);
         }
         return res.redirect('/account');
       });
