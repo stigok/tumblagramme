@@ -3,13 +3,13 @@ const router = new express.Router();
 const passport = require('passport');
 const User = require('../../models/user.js');
 const authMiddleware = passport.authenticate('local');
-const ensureLoggedIn = require('../../../lib/ensureAuth')('local');
+const ensureAuth = require('../../../lib/ensureAuth');
 const crudify = require('../../../lib/crudify.js');
 
-router.use('/user', ensureLoggedIn, require('../../../lib/userRoute.js'));
-router.use('/preset', ensureLoggedIn, crudify(require('../../models/preset')));
+router.use('/user', ensureAuth.local, require('../../../lib/userRoute.js'));
+router.use('/preset', ensureAuth.local, crudify(require('../../models/preset')));
 
-router.post('/activeBlog', ensureLoggedIn, function (req, res, next) {
+router.post('/activeBlog', ensureAuth.local, function (req, res, next) {
   if (req.body.name) {
     req.user.tumblr.activeBlogName = req.body.name;
     req.user.save(function (err) {
@@ -23,7 +23,7 @@ router.post('/activeBlog', ensureLoggedIn, function (req, res, next) {
   }
 });
 
-router.get('/ping', ensureLoggedIn, function (req, res) {
+router.get('/ping', ensureAuth.local, function (req, res) {
   return res.status(200).json('pong');
 });
 
