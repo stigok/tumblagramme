@@ -1,16 +1,8 @@
 (function () {
   angular.module('tg.Controllers')
-    .controller('FeedCtrl', ['$scope', '$routeParams', 'SessionUser', 'Instagram', FeedCtrl]);
+    .controller('FeedCtrl', FeedCtrl);
 
-  function chunk(arr, size) {
-    var newArr = [];
-    for (var i = 0; i < arr.length; i += size) {
-      newArr.push(arr.slice(i, i + size));
-    }
-    return newArr;
-  }
-
-  function FeedCtrl($scope, $routeParams, SessionUser, Instagram) {
+  function FeedCtrl($scope, $routeParams, SessionUser, Instagram, Utils) {
     $scope.posts = [];
 
     SessionUser.get(function (user) {
@@ -30,7 +22,7 @@
     // Handle incoming posts
     $scope.$watchCollection('posts', function (arr) {
       var unique = _.unique(arr, false, 'id');
-      $scope.chunkedPosts = chunk(unique, 3);
+      $scope.chunkedPosts = Utils.chunk(unique, 3);
       $scope.dupesFiltered = $scope.posts.length - unique.length;
     });
   }
