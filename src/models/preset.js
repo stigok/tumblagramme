@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Preset = new Schema({
+  _userId: Schema.Types.ObjectId,
   name: {type: String, required: true},
   blogId: {type: Number, required: true},
   caption: String,

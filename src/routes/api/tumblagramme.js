@@ -7,7 +7,16 @@ const ensureAuth = require('../../../lib/ensureAuth');
 const crudify = require('../../../lib/crudify.js');
 
 router.use('/user', ensureAuth.local, require('../../../lib/userRoute.js'));
-router.use('/preset', ensureAuth.local, crudify(require('../../models/preset')));
+
+router.use('/preset', ensureAuth.local, crudify(
+  require('../../models/preset'),
+  {
+    create: function (req, res, modelInstance) {
+      // Implicitly set userId for preset object
+      modelInstance._userId = req.user.id;
+    }
+  }
+));
 
 router.post('/activeBlog', ensureAuth.local, function (req, res, next) {
   if (req.body.name) {
