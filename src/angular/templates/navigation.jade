@@ -14,7 +14,7 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
           a(href="#" uib-dropdown-toggle ng-disabled="disabled") Tag feed
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header Quicktags
-            li(role="menuitem" ng-repeat="tag in user.instagram.favoriteTags") #[a(href="/feed/{{tag}}") {{tag}}]
+            li(role="menuitem" ng-repeat="tag in activePreset.instagramTags") #[a(href="/feed/{{tag}}") {{tag}}]
             li(role="separator" class="divider")
             li(role="menuitem") #[a(href="/feed") All ({{user.favoriteTags.length}})]
         li(ng-controller="PresetSelectorCtrl" uib-dropdown uib-keyboard-nav)
