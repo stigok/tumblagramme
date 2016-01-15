@@ -15,8 +15,6 @@
 > version of you that left it there for
 > you to learn and grow even greater from
 
-(was easier to comprehend when I wrote it)
-
 ---
 
 > A curse is something you tell someone else to bring them down. It's as easy as laughing at their attempts.
@@ -32,11 +30,11 @@
 
 ---
 
-> I know I will be the world champion of brasilian jiu-jitsu
+> I know I will be the world champion of Brasilian jiu-jitsu
 
 ---
 
-> I have the greatest potential in the world
+> I have the greatest potential in the world. Just like everyone else.
 
 ---
 
@@ -79,7 +77,7 @@
 ---
 
 > Paranoia leads you on a path that proves your fears.
-> Humbleness leads you on a cloud that proves your dreams were real.
+> Humbleness leads you on a cloud that proves your dreams.
 
 ---
 
