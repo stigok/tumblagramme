@@ -1,38 +1,20 @@
 {
-  "appSettings" : {
-    "httpPort" : 8080,
+  "appSettings": {
+    "httpPort": 8080,
     "httpsPort": 8445,
-    "hostname" : "127.0.0.1",
-    "certPath" : ".cert/cert.pem",
-    "keyPath" : ".cert/key.pem",
-    "mongodb" : "mongodb://localhost/tumblagramme"
+    "hostname": "127.0.0.1",
+    "certPath": ".cert/cert.pem",
+    "keyPath": ".cert/key.pem",
+    "mongodb": "mongodb://localhost/tumblagramme"
   },
-  "tumblr" : {
-    "consumerKey" : "your_tumblr_app_key",
-    "consumerSecret" : "your_tumblr_app_secret",
-    "accounts" : [
-      {
-        "name" : "myTumblrBlogName",
-        "authToken" : "token",
-        "authSecret" : "secret"
-      },
-      {
-        "name" : "myOtherTumblrBlogName",
-        "authToken" : "token",
-        "authSecret" : "secret"
-      }
-    ]
+  "tumblr": {
+    "consumerKey": "",
+    "consumerSecret": "",
+    "callbackUrl": "http://localhost:3000/api/tumblr/callback"
   },
-  "instagram" : {
-    "clientId" : "your_instagram_app_key",
-    "clientSecret" : "your_instagram_app_secret",
-    "accounts" : [
-      {
-        "name" : "your_instagram_account_name",
-        "accessToken" : "access_token"
-      }
-    ]
-  },
-  "tumblr_callback_path" : "/tumblr/auth",
-  "instagram_callback_path" : "/instagram/auth"
+  "instagram": {
+    "consumerKey": "",
+    "consumerSecret": "",
+    "callbackUrl": "http://localhost:3000/api/instagram/callback"
+  }
 }
