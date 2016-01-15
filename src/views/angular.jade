@@ -21,13 +21,9 @@ html
 
     div#debug
       strong User
-      pre= debug.user
-      strong Account
-      pre= debug.account
-      strong Locals
-      pre= debug.locals
+      pre= JSON.stringify(debug.user, null, 2)
       strong Session
-      pre= debug.session
+      pre= JSON.stringify(debug.session, null, 2)
 
     script(src="/js/vendor/angular.js")
     script(src="/js/vendor/underscore.js")

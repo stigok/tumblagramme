@@ -64,12 +64,9 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 // aka onBeforePageInit hook
 app.use(function (req, res, next) {
-  res.locals.user = req.user;
   res.locals.debug = {
-    session: util.inspect(req.session),
-    locals: util.inspect(res.locals),
-    user: req.user,
-    account: req.account
+    session: req.session,
+    user: req.user
   };
   next();
 });
