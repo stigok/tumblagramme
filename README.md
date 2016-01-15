@@ -6,10 +6,6 @@ You need to install MongoDB locally before starting the app.
     $ npm i
     $ npm start
 
-    # Download and update the nodeunit submodule used for tests
-    $ git submodule init
-    $ git submodule update
-
 ### Settings
 
 Settings are all around the code at the moment, so look around!
