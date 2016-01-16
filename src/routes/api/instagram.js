@@ -2,7 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const instagram = require('instagram-node');
 
-const testData = require('../../../data/mock-db.js');
+const testData = require('../../../data/instagram/media-recent.json');
 
 router.use(function (req, res, next) {
   res.locals.client = instagram.instagram();
