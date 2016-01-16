@@ -8,13 +8,15 @@ const crudify = require('../../../lib/crudify.js');
 
 router.use('/user', ensureAuth.local, require('../../../lib/userRoute.js'));
 
+let setModelUserId = function (req, res, modelInstance) {
+  // Implicitly set userId for preset object
+  modelInstance._userId = req.user.id;
+};
+
 router.use('/preset', ensureAuth.local, crudify(
   require('../../models/preset'),
   {
-    create: function (req, res, modelInstance) {
-      // Implicitly set userId for preset object
-      modelInstance._userId = req.user.id;
-    }
+    create: setModelUserId
   }
 ));
 
