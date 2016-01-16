@@ -2,8 +2,9 @@
   angular.module('tg.Controllers')
     .controller('PresetCtrl', PresetCtrl);
 
-  function PresetCtrl($scope, $rootScope, $routeParams, Preset, PresetEvents, $log) {
+  function PresetCtrl($scope, $rootScope, $routeParams, Preset, PresetEvents, $log, Tumblr) {
     $scope.presets = Preset.query();
+    $scope.blogs = Tumblr.blogs();
 
     // Update collection on item update
     $scope.$on(PresetEvents.updated, function () {

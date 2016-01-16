@@ -7,7 +7,7 @@ var Preset = new Schema({
   blogName: {type: String, required: true},
   caption: String,
   instagramTags: {type: [String], default: [], required: true},
-  postTags: {type: [String], default: [], required: true}
+  postTags: {type: [String], default: []}
 });
 
 module.exports = mongoose.model('Preset', Preset);

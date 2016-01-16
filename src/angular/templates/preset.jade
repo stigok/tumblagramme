@@ -16,8 +16,9 @@ div
       input.form-control(type="text" ng-model="preset.name" required)
     .form-group
       label Tumblr blog
-      div(ng-show="errors.blogId").bg-warning {{errors.blogId.message}}
-      input.form-control(type="text" ng-model="preset.blogId")
+      div(ng-show="errors.blogName").bg-warning {{errors.blogName.message}}
+      select(ng-model="preset.blogName")
+        option(ng-repeat="blog in blogs" value="{{blog.name}}") {{blog.name}}
     .form-group
       label Default tags to search for in feed
       div(ng-show="errors.instagramTags").bg-warning {{errors.instagramTags.message}}
