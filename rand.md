@@ -171,3 +171,8 @@ Cantagalo, Brasil
 > And, of course, I will win.
 
 ---
+
+> Death is just the word for what happens when our heart stops beating.
+> No one has a fucking clue.
+
+---
