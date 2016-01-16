@@ -11,10 +11,8 @@
   }
 
   function ImageResourceController($scope, $http, $log) {
-    $log.log($scope.imageUrl);
-    $http.get($scope.imageUrl).then(function successCallback(data) {
+    $http.get($scope.imageUrl).then(function successCallback() {
       $scope.loadedImageUrl = $scope.imageUrl;
-      $log.log('imageResource loading complete', data);
     }, function errorCallback(err) {
       $log.log('imageResource failed to load', err);
     });
