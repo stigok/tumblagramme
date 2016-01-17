@@ -176,3 +176,8 @@ Cantagalo, Brasil
 > No one has a fucking clue.
 
 ---
+
+> Elsker når Thomas i fylla sier: "Burde vi egentlig hengt oftere!??"
+> Bra mann!
+
+---
