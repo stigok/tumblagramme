@@ -1,1 +1,1 @@
-/home/noop/repos/tumblagramme/node_modules/angular/angular.js
+../../../../node_modules/angular/angular.js
