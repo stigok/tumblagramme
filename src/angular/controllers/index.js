@@ -1,6 +1,6 @@
 (function () {
   angular.module('tg.Controllers', ['underscore'])
-    .controller('IndexCtrl', ['$scope', '$http', IndexCtrl]);
+    .controller('IndexCtrl', IndexCtrl);
 
   function IndexCtrl($scope, $http) {
     $scope.message = 'This is the index controller!';
