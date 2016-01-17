@@ -1,7 +1,0 @@
-.blog-changer(uib-dropdown uib-keyboard-nav).btn.btn-default
-  span(uib-dropdown-toggle ng-disabled="disabled") {{currentBlogName}}
-  ul(role="menu" class="uib-dropdown-menu")
-    li.dropdown-header Set active blog
-    li(role="menuitem" ng-repeat="blog in blogs")
-      //image(ng-src="https://api.tumblr.com/v2/blog/{{blog.name}}.tumblr.com/avatar/24" width="24" height="24")
-      a(ng-click="setActiveBlog(blog.name)") {{blog.name}}

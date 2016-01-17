@@ -5,7 +5,6 @@
     // Etc
     'tg.Controllers', 'tg.Directives', 'tg.Services',
     // Components
-    'tg.blogChanger',
     'tg.tagSelector',
     'tg.connectButton',
     'tg.imageResource',
