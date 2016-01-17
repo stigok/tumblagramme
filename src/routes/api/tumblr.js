@@ -2,14 +2,6 @@ const express = require('express');
 const router = new express.Router();
 const tumblr = require('tumblr.js');
 const settings = require('../../../settings.json');
-const db = require('../../../data/mock-db.js');
-
-// API authentication
-// router.get('/auth', passport.authenticate('tumblr'));
-// router.get('/callback', passport.authenticate('tumblr'), function (req, res) {
-//   console.log('User %s verified with tumblr', req.user.username, req.user.oauth.tumblr.profile);
-//   res.status(200).json({});
-// });
 
 // Set up API client
 router.use(function (req, res, next) {
@@ -19,17 +11,16 @@ router.use(function (req, res, next) {
     token:           req.user.tumblr.token,
     token_secret:    req.user.tumblr.secret
   });
-
   return next();
 });
 
-// Add a photo to queue
-router.post('/queue', function (req, res, next) {
-  res.locals.client.photo(req.body.blogName, req.body.post, function (err) {
+// Queue photo
+router.post('/post/photo', function (req, res, next) {
+  res.locals.client.photo(req.body.blogName, req.body.options, function (err) {
     if (err) {
       return next(err);
     }
-    res.status(200).json({});
+    return res.status(200).end();
   });
 });
 
@@ -43,14 +34,17 @@ router.get('/user', function (req, res, next) {
 });
 
 router.get('/blogs', function (req, res, next) {
-  return res.json(db.tumblr.blogs);
-
   res.locals.client.userInfo(function (err, response) {
     if (err) {
       return next(err);
     }
     res.status(200).json(response.user.blogs);
   });
+});
+
+router.use(function (err, req, res, next) {
+  console.error('api err', err);
+  return res.json(err).end(500);
 });
 
 module.exports = router;

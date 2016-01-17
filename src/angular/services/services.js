@@ -16,6 +16,24 @@
     });
   });
 
+  module.factory('tumblrQueue', function ($http, SessionUser, Tumblr, Preset) {
+    return function (post, success, error) {
+      SessionUser.get().$promise.then(function (user) {
+        return Preset.get({id: user.activePresetId}).$promise;
+      }).then(function (preset) {
+        var tumblrPostObject = {
+          state: 'queue',
+          tags: preset.postTags.join(','),
+          format: 'markdown',
+          caption: preset.caption,
+          source: post.images.standard_resolution.url
+        };
+
+        return $http.post('/api/tumblr/post/photo', {blogName: preset.blogName, options: tumblrPostObject});
+      }).then(success, error);
+    };
+  });
+
   module.factory('Preset', function ($resource) {
     return $resource('/api/tumblagramme/preset/:id');
   });
