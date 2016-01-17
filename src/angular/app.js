@@ -20,7 +20,7 @@
         controller: 'IndexCtrl',
         templateUrl: '/templates/index.html'
       })
-      .when('/feed/:tag?', {
+      .when('/feed/:presetId', {
         controller: 'FeedCtrl',
         templateUrl: '/templates/feed.html'
       })

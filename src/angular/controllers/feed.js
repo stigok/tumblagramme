@@ -2,16 +2,13 @@
   angular.module('tg.Controllers')
     .controller('FeedCtrl', FeedCtrl);
 
-  function FeedCtrl($scope, $routeParams, SessionUser, Instagram, Utils) {
+  function FeedCtrl($scope, $routeParams, Preset, Instagram, Utils) {
     $scope.posts = [];
+    $scope.presetId = $routeParams.presetId;
 
-    SessionUser.get(function (user) {
-      $scope.user = user;
-      $scope.tags = (typeof $routeParams.tag === 'undefined') ? $scope.user.favoriteTags : [$routeParams.tag];
-    });
+    Preset.get({id: $routeParams.presetId}, function (preset) {
+      $scope.tags = preset.instagramTags;
 
-    // Load all media for each tag when $scope.tags is populated
-    $scope.$watch('tags', function () {
       _.each($scope.tags, function (tag) {
         Instagram.query({tag: tag}, function (results) {
           $scope.posts = $scope.posts.concat(results);
@@ -19,7 +16,7 @@
       });
     });
 
-    // Handle incoming posts
+    // Sort and chunk all posts as they are added to the array
     $scope.$watchCollection('posts', function (arr) {
       var unique = _.unique(arr, false, 'id');
       $scope.chunkedPosts = Utils.chunk(unique, 3);
