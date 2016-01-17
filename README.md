@@ -26,7 +26,8 @@ Settings are all around the code at the moment, so look around!
 - [ ] Make login modal as an account modal with different views based on auth status
 - [ ] Cleanup session data on oauth authentication
 - [ ] Make ucfirst filter (if you need it)
-- [ ] "Add to queue" button should change to "Remove from queue" when queued
+- [ ] Save media id of queued media to prevent user from queuing same media twice or more
+  - [ ] "Add to queue" button should change to "Remove from queue" when already queued
 - [ ] Create a mongoose model for tumblr assets just for simple validation's sake
 - [ ]
 
