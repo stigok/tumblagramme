@@ -25,7 +25,9 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
             li(role="menuitem" class="special-menu-item")
               a(href="/preset/") edit presets
       ul.nav.navbar-nav.navbar-right
-        li(class="accountDropdown" uib-dropdown uib-keyboard-nav is-open="accountDropdownOpened")
+        li(ng-controller="LoginCtrl" ng-hide="user.username")
+          a(href="" ng-click="openModal()") Login
+        li(uib-dropdown uib-keyboard-nav ng-show="user.username")
           a(href="#" uib-dropdown-toggle) Account
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header {{user.email}}
