@@ -13,7 +13,7 @@ router.use(function (req, res, next) {
 // API Authentication route
 router.use('/media/recent/:tag', function (req, res, next) {
   // DEBUG MODE
-  // return res.json(testData.data);
+  return res.json(testData);
 
   if (!req.params.tag) {
     return next(new Error('Missing params'));
