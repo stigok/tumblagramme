@@ -27,7 +27,7 @@ Settings are all around the code at the moment, so look around!
 - [ ] Cleanup session data on oauth authentication
 - [ ] Make ucfirst filter (if you need it)
 - [ ] "Add to queue" button should change to "Remove from queue" when queued
-- [ ]
+- [ ] Create a mongoose model for tumblr assets just for simple validation's sake
 - [ ]
 
 ### Thoughts
