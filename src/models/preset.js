@@ -11,7 +11,7 @@ const regexps = {
 };
 
 let Preset = new Schema({
-  _userId: Schema.Types.ObjectId,
+  userId: Schema.Types.ObjectId,
   name: {type: String, required: true},
   blog: {
     name: {type: String, required: true}

@@ -13,12 +13,7 @@ let setModelUserId = function (req, res, modelInstance) {
   modelInstance._userId = req.user.id;
 };
 
-router.use('/preset', ensureAuth.local, crudify(
-  require('../../models/preset'),
-  {
-    create: setModelUserId
-  }
-));
+router.use('/preset', ensureAuth.local, require('./tumblagramme/preset'));
 
 router.post('/activeBlog', ensureAuth.local, function (req, res, next) {
   if (req.body.name) {
