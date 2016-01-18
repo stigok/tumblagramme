@@ -5,7 +5,7 @@
   function IndexCtrl($scope, $http, Preset) {
     $scope.message = 'This is the index controller!';
     $scope.autoLogin = function () {
-      $http.post('/api/tumblagramme/auth', {username: 'stig', password: 'stig'});
+      $http.post('/api/tumblagramme/auth', {username: 'user', password: 'user'});
     };
 
     $scope.presets = Preset.query();
