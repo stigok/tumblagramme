@@ -44,7 +44,7 @@ router.get('/blogs', function (req, res, next) {
 
 router.use(function (err, req, res, next) {
   console.error('api err', err);
-  return res.json(err).end(500);
+  return res.status(500).json(err).end();
 });
 
 module.exports = router;
