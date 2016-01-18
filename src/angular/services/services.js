@@ -19,20 +19,23 @@
   module.factory('tumblrQueue', function ($http, Preset, $log) {
     return function (presetId, post, success, error) {
       Preset.get({id: presetId}, function (preset) {
+        var photoPost = {
+          state: preset.post.state,
+          tags: preset.post.tags.join(','),
+          format: preset.post.format,
+          caption: preset.post.caption,
+          source: post.images.standard_resolution.url
+        };
+        $log.log(photoPost);
+
         // Post to Tumblr using settings from current preset
         $http({
           method: 'POST',
-          url: '/api/tumblr/:blogName/post/photo',
+          url: '/api/tumblr/post/photo',
           params: {
-            blogName: preset.blog.name
+            blog: preset.blog.name
           },
-          data: {
-            state: preset.post.state,
-            tags: preset.post.tags.join(','),
-            format: preset.post.format,
-            caption: preset.tumblr.caption,
-            source: post.images.standard_resolution.url
-          }
+          data: photoPost
         }).then(success, error);
       });
     };
