@@ -2,7 +2,7 @@
   angular.module('tg.Controllers')
     .controller('PresetSelectorCtrl', PresetSelectorCtrl);
 
-  function PresetSelectorCtrl($scope, SessionUser, Preset, PresetEvents) {
+  function PresetSelectorCtrl($scope, SessionUser, Preset, PresetEvents, $log) {
     $scope.user = SessionUser.get();
     $scope.presets = Preset.query();
 
@@ -11,8 +11,7 @@
     });
 
     $scope.selectPreset = function (id) {
-      $scope.user.activePresetId = id;
-      $scope.user.$save();
+      $log.log('Do something with this result', id);
     };
   }
 })();

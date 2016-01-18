@@ -20,11 +20,15 @@
         controller: 'IndexCtrl',
         templateUrl: '/templates/index.html'
       })
-      .when('/feed/:tag?', {
+      .when('/feed/:presetId', {
         controller: 'FeedCtrl',
         templateUrl: '/templates/feed.html'
       })
-      .when('/preset/:id?', {
+      .when('/preset/:presetId', {
+        controller: 'PresetCtrl',
+        templateUrl: '/templates/preset.html'
+      })
+      .when('/new', {
         controller: 'PresetCtrl',
         templateUrl: '/templates/preset.html'
       })

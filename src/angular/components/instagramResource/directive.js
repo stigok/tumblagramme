@@ -12,10 +12,8 @@
 
   function InstagramResourceController($scope, $location, $log, tumblrQueue) {
     $scope.share = function () {
-      $log.log($scope.post);
-      $scope.isQueued = true;
-
-      tumblrQueue($scope.post, function success(data) {
+      // TODO: this is mos def not a good way to get presetId
+      tumblrQueue($scope.$parent.$parent.$parent.presetId, $scope.post, function success(data) {
         $scope.isQueued = true;
         $log.log('queue complete', data);
       }, function error(err) {

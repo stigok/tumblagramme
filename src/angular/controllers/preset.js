@@ -2,18 +2,12 @@
   angular.module('tg.Controllers')
     .controller('PresetCtrl', PresetCtrl);
 
-  function PresetCtrl($scope, $rootScope, $routeParams, Preset, PresetEvents, $log, Tumblr) {
-    $scope.presets = Preset.query();
+  function PresetCtrl($scope, $rootScope, $routeParams, Preset, PresetEvents, $log, Tumblr, $location) {
     $scope.blogs = Tumblr.blogs();
 
-    // Update collection on item update
-    $scope.$on(PresetEvents.updated, function () {
-      $scope.presets = Preset.query();
-    });
-
     // Determine if it's a new or existing item
-    if ($routeParams.id) {
-      $scope.preset = Preset.get({id: $routeParams.id});
+    if ($routeParams.presetId) {
+      $scope.preset = Preset.get({id: $routeParams.presetId});
     } else {
       $scope.preset = new Preset();
     }
@@ -34,10 +28,15 @@
       $scope.error = null;
       $scope.errors = [];
       $rootScope.$broadcast(PresetEvents.updated, obj);
+
+      // Redirect only if it's a new object
+      if (!$routeParams.presetId) {
+        $location.url('/preset/' + $routeParams.presetId);
+      }
     }
 
     $scope.saveChanges = function () {
-      $scope.preset.$save({id: $routeParams.id || null}, successCallback, mongooseErrorCallback);
+      $scope.preset.$save({id: $routeParams.presetId}, successCallback, mongooseErrorCallback);
     };
   }
 })();

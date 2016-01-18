@@ -1,35 +1,50 @@
-div
-  h3 Select a preset
-  div
-    span.btn.btn-default(ng-repeat="p in presets")
-      a(href="/preset/{{p._id}}") {{p.name}}
-    a(href="/preset") Create new
+h2 {{preset.name}}
+form(ng-submit="saveChanges()")
+  .form-group(ng-show="error")
+    .bg-warning {{error}}
+  .form-group
+    label Name
+    div(ng-show="errors.name").bg-warning {{errors.name.message}}
+    input.form-control(type="text" ng-model="preset.name" required)
+      
+  h3 Tumblr Post Options
+  .form-group
+    label Blog to post to
+    div(ng-show="errors.blog.name").bg-warning {{errors.blog.name.message}}
+    select(ng-model="preset.blog.name")
+      option(ng-repeat="blog in blogs" value="{{blog.name}}") {{blog.name}}
+  .form-group
+    label Post type
+    div(ng-show="errors.post.type").bg-warning {{errors.post.type.message}}
+    select(ng-model="preset.post.type")
+      option(value="photo") Photo
+  .form-group
+    label State
+    div(ng-show="errors.post.state").bg-warning {{errors.post.state.message}}
+    select(ng-model="preset.post.state")
+      option(value="queue") Tumblr Queue
+  .form-group
+    label Caption template (HTML / Markdown)
+    div(ng-show="errors.caption").bg-warning {{errors.caption.message}}
+    textarea.form-control(ng-model="preset.post.caption")
+  .form-group
+    label Default tags
+    div(ng-show="errors.post.tags").bg-warning {{errors.post.tags.message}}
+    tag-selector(ng-model="preset.post.tags")
 
-div
-  h2 {{preset.name}}
-  form(ng-submit="saveChanges()")
-    .form-group(ng-show="error")
-      .bg-warning {{error}}
-    .form-group
-      label Name
-      div(ng-show="errors.name").bg-warning {{errors.name.message}}
-      input.form-control(type="text" ng-model="preset.name" required)
-    .form-group
-      label Tumblr blog
-      div(ng-show="errors.blogName").bg-warning {{errors.blogName.message}}
-      select(ng-model="preset.blogName")
-        option(ng-repeat="blog in blogs" value="{{blog.name}}") {{blog.name}}
-    .form-group
-      label Default tags to search for in feed
-      div(ng-show="errors.instagramTags").bg-warning {{errors.instagramTags.message}}
-      tag-selector(ng-model="preset.instagramTags")
-    .form-group
-      label Default tags for posts
-      div(ng-show="errors.postTags").bg-warning {{errors.postTags.message}}
-      tag-selector(ng-model="preset.postTags")
-    .form-group
-      label Caption template
-      div(ng-show="errors.caption").bg-warning {{errors.caption.message}}
-      textarea.form-control(ng-model="preset.caption")
-    .form-group
-      input.btn.btn-default(type="submit" value="Save changes")
+  h3 Instagram Feed
+  .form-group
+    label Search tags
+    div(ng-show="errors.instagram.tags").bg-warning {{errors.instagram.tags.message}}
+    tag-selector(ng-model="preset.instagram.tags")
+  .form-group
+    h4 Nice things to do
+    div
+      input(type="checkbox" id="autoLike" ng-model="preset.instagram.autoLike")
+      label(for="autoLike") Automatically like original media on Instagram when reblogging it
+    div
+      input(type="checkbox" id="autoFollow" ng-model="preset.instagram.autoFollow")
+      label(for="autoFollow") Automatically follow original poster's account on Instagram when reblogging from it
+
+  .form-group
+    input.btn.btn-default(type="submit" value="Save changes")

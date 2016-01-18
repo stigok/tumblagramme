@@ -29,7 +29,11 @@ Settings are all around the code at the moment, so look around!
 - [ ] Save media id of queued media to prevent user from queuing same media twice or more
   - [ ] "Add to queue" button should change to "Remove from queue" when already queued
 - [ ] Create a mongoose model for tumblr assets just for simple validation's sake
-- [ ]
+- [ ] Add image credits to all posts ("via"-credits)
+- [ ] Divide the app web server, API & db server, and queing bot on dedicated RasPi's
+- [ ] Handle empty collections and objects from API calls
+- [ ] Make component of error divs in forms to avoid repeating object property paths
+- [ ] Make mongoose documument property defaults be populated to object on call to `new Model()` so it's easier to use with Angular when creating new instances.
 
 ### Thoughts
 
@@ -42,6 +46,8 @@ Settings are all around the code at the moment, so look around!
   - Predefined tags and post bodies for all posts
   - Turn views into very specific micro modules ish
   - Repost your old top posts automatically & manually
+  - reblog.media // queue.photos
+  - Some kind of pro accounts
 
 ### Attributions
 

@@ -16,7 +16,7 @@ router.use(function (req, res, next) {
 
 // Queue photo
 router.post('/post/photo', function (req, res, next) {
-  res.locals.client.photo(req.body.blogName, req.body.options, function (err) {
+  res.locals.client.photo(req.query.blog, req.body, function (err) {
     if (err) {
       return next(err);
     }
@@ -44,7 +44,7 @@ router.get('/blogs', function (req, res, next) {
 
 router.use(function (err, req, res, next) {
   console.error('api err', err);
-  return res.json(err).end(500);
+  return res.status(500).json(err).end();
 });
 
 module.exports = router;

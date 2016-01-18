@@ -9,8 +9,7 @@ var User = new Schema({
   },
   instagram: {
     accessToken: String
-  },
-  activePresetId: String
+  }
 }, {
   // Don't remove empty row properties
   minimize: false
