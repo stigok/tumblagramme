@@ -12,8 +12,8 @@
     });
 
     // Determine if it's a new or existing item
-    if ($routeParams.id) {
-      $scope.preset = Preset.get({id: $routeParams.id});
+    if ($routeParams.presetId) {
+      $scope.preset = Preset.get({id: $routeParams.presetId});
     } else {
       $scope.preset = new Preset();
     }
@@ -37,7 +37,7 @@
     }
 
     $scope.saveChanges = function () {
-      $scope.preset.$save({id: $routeParams.id || null}, successCallback, mongooseErrorCallback);
+      $scope.preset.$save({id: $routeParams.presetId || null}, successCallback, mongooseErrorCallback);
     };
   }
 })();

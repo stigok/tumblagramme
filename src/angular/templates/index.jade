@@ -1,7 +1,7 @@
 h1 Feeds
 
 div(ng-repeat="preset in presets" class="preset-badge")
-  img(ng-src="http://api.tumblr.com/v2/blog/{{preset.blogName}}.tumblr.com/avatar/64")
+  img(ng-src="http://api.tumblr.com/v2/blog/{{preset.blog.name}}.tumblr.com/avatar/64")
   a(href='/feed/{{preset._id}}') {{preset.name}}
 div.preset-badge
   a(href="/preset") Create new

@@ -15,8 +15,8 @@ router.use(function (req, res, next) {
 });
 
 // Queue photo
-router.post('/post/photo', function (req, res, next) {
-  res.locals.client.photo(req.body.blogName, req.body.options, function (err) {
+router.post('/:blog/post/photo', function (req, res, next) {
+  res.locals.client.photo(req.params.blog, req.body.options, function (err) {
     if (err) {
       return next(err);
     }

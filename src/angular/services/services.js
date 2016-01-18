@@ -16,21 +16,25 @@
     });
   });
 
-  module.factory('tumblrQueue', function ($http, SessionUser, Tumblr, Preset) {
-    return function (post, success, error) {
-      SessionUser.get().$promise.then(function (user) {
-        return Preset.get({id: user.activePresetId}).$promise;
-      }).then(function (preset) {
-        var tumblrPostObject = {
-          state: 'queue',
-          tags: preset.postTags.join(','),
-          format: 'markdown',
-          caption: preset.caption,
-          source: post.images.standard_resolution.url
-        };
-
-        return $http.post('/api/tumblr/post/photo', {blogName: preset.blogName, options: tumblrPostObject});
-      }).then(success, error);
+  module.factory('tumblrQueue', function ($http, Preset, $log) {
+    return function (presetId, post, success, error) {
+      Preset.get({id: presetId}, function (preset) {
+        // Post to Tumblr using settings from current preset
+        $http({
+          method: 'POST',
+          url: '/api/tumblr/:blogName/post/photo',
+          params: {
+            blogName: preset.blog.name
+          },
+          data: {
+            state: preset.post.state,
+            tags: preset.post.tags.join(','),
+            format: preset.post.format,
+            caption: preset.tumblr.caption,
+            source: post.images.standard_resolution.url
+          }
+        }).then(success, error);
+      });
     };
   });
 
