@@ -1,19 +1,34 @@
 const express = require('express');
 const Model = require('../../../models/preset');
 const router = new express.Router();
+const _ = require('underscore');
 
 router.post('/:id', function (req, res, next) {
-  Model.findOneAndUpdate(
+  // Avoid mongoose validation errors for making _id property touched or dirty
+  let updates = _.omit(req.body, '_id', '__v');
+
+  Model.findOne(
     {
       _id: req.params.id,
       userId: req.user._id
     },
-    req.body,
-    function (err, obj) {
+    function (err, instance) {
       if (err) {
         return next(err);
       }
-      return res.json(obj);
+      if (instance === null) {
+        return res.status(404).end();
+      }
+
+      // Copy updated values to source object setting only existing properties
+      _.extendOwn(instance, updates);
+
+      instance.save(function (err, updated) {
+        if (err) {
+          return next(err);
+        }
+        return res.json(updated);
+      });
     }
   );
 });

@@ -45,6 +45,12 @@
     return $resource('/api/tumblagramme/preset/:id');
   });
 
+  module.factory('PresetEvents', function () {
+    return {
+      updated: 'event:preset.updated'
+    };
+  });
+
   module.factory('SessionUser', function ($resource) {
     return $resource('/api/tumblagramme/user', null, {
       get: {method: 'GET', cache: true, isArray: false},
@@ -55,11 +61,5 @@
 
   module.factory('ping', function ($http) {
     return $http.get('/api/tumblagramme/ping');
-  });
-
-  module.factory('PresetEvents', function () {
-    return {
-      updated: 'event:preset.updated'
-    };
   });
 })();

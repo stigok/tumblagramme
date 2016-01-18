@@ -10,7 +10,7 @@ const regexps = {
   state: /^published|draft|queue|private$/
 };
 
-let Preset = new Schema({
+const Preset = new Schema({
   userId: Schema.Types.ObjectId,
   name: {type: String, required: true},
   blog: {
