@@ -4,6 +4,6 @@ div(ng-repeat="preset in presets" class="preset-badge")
   img(ng-src="http://api.tumblr.com/v2/blog/{{preset.blog.name}}.tumblr.com/avatar/64")
   a(href='/feed/{{preset._id}}') {{preset.name}}
 div.preset-badge
-  a(href="/preset") Create new
+  a(href="/new") Create new
 
 a(href="#" ng-click="autoLogin()") Perform auto-login
