@@ -6,7 +6,7 @@
     $scope.blogs = Tumblr.blogs();
 
     // Determine if it's a new or existing item
-    if ($routeParams.presetId.length > 0) {
+    if ($routeParams.presetId) {
       $scope.preset = Preset.get({id: $routeParams.presetId});
     } else {
       $scope.preset = new Preset();
