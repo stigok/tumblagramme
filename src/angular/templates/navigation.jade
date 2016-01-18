@@ -6,24 +6,11 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a(href="#" class="navbar-brand") Tumblagramme
+      a(href="/" class="navbar-brand") Tumblagramme
     #navbar(class="navbar-collapse collapse")
       ul.nav.navbar-nav
-        li #[a(href="/") Home]
-        li(class="tagsDropdown" uib-dropdown uib-keyboard-nav is-open="tagsDropdownOpened")
-          a(href="#" uib-dropdown-toggle ng-disabled="disabled") Tag feed
-          ul(role="menu" class="uib-dropdown-menu")
-            li.dropdown-header Quicktags
-            li(role="menuitem" ng-repeat="tag in activePreset.instagramTags") #[a(href="/feed/{{tag}}") {{tag}}]
-            li(role="separator" class="divider")
-            li(role="menuitem") #[a(href="/feed") All ({{user.favoriteTags.length}})]
-        li(ng-controller="PresetSelectorCtrl" uib-dropdown uib-keyboard-nav)
-          a(href="#" uib-dropdown-toggle) Select Preset
-          ul(role="menu" class="uib-dropdown-menu")
-            li(role="menuitem" ng-repeat="p in presets")
-              a(href="" ng-click="selectPreset(p._id)" ng-class="{'bg-info': (user.activePresetId == p._id)}") {{p.name}}
-            li(role="menuitem" class="special-menu-item")
-              a(href="/preset/") edit presets
+        li
+          a(href="/") Instagram feed
       ul.nav.navbar-nav.navbar-right
         li(ng-controller="LoginCtrl" ng-hide="user.username")
           a(href="" ng-click="openModal()") Login
@@ -31,6 +18,4 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
           a(href="#" uib-dropdown-toggle) Account
           ul(role="menu" class="uib-dropdown-menu")
             li.dropdown-header {{user.email}}
-            li(role="menuitem") #[a(href="/oauth/tumblr") Connect Tumblr]
-            li(role="menuitem") #[a(href="/account") Settings]
             li(role="menuitem") #[a(href="/logout") Logout]

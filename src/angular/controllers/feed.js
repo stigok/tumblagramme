@@ -6,8 +6,8 @@
     $scope.posts = [];
     $scope.presetId = $routeParams.presetId;
 
-    Preset.get({id: $routeParams.presetId}, function (preset) {
-      $scope.tags = preset.instagramTags;
+    Preset.get({id: $scope.presetId}, function (preset) {
+      $scope.tags = preset.instagram.tags;
 
       _.each($scope.tags, function (tag) {
         Instagram.query({tag: tag}, function (results) {
