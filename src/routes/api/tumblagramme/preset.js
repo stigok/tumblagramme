@@ -6,7 +6,7 @@ router.post('/:id', function (req, res, next) {
   Model.findOneAndUpdate(
     {
       _id: req.params.id,
-      userId: req.body.userId
+      userId: req.user._id
     },
     req.body,
     function (err, obj) {
@@ -20,6 +20,7 @@ router.post('/:id', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
   let instance = new Model(req.body);
+  instance.userId = req.user._id;
 
   instance.save(function (err, obj) {
     if (err) {
@@ -33,7 +34,7 @@ router.get('/:id', function (req, res, next) {
   Model.findOne(
     {
       _id: req.params.id,
-      userId: req.params.userId
+      userId: req.user._id
     },
     function (err, obj) {
       if (err) {
@@ -48,19 +49,27 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-  Model.find(function (err, objects) {
-    if (err) {
-      return next(err);
+  Model.find(
+    {
+      userId: req.user._id
+    },
+    function (err, collection) {
+      if (err) {
+        return next(err);
+      }
+      if (collection === null) {
+        return res.json([]);
+      }
+      return res.json(collection);
     }
-    return res.send(objects.length || []);
-  });
+  );
 });
 
 router.delete('/:id', function (req, res, next) {
   Model.findOneAndRemove(
     {
       _id: req.params.id,
-      userId: req.user.id
+      userId: req.user._id
     },
     function (err) {
       if (err) {
