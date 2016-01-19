@@ -18,12 +18,15 @@
 
   module.factory('tumblrQueue', function ($http, Preset, $log) {
     return function (presetId, post, success, error) {
+      var linkText = post.user.username + ((post.user.username.slice(-1) === 's') ? '\'' : '\'s') + ' Instagram';
+      var attributionLink = '<p>via <a href="' + post.link + '" target="_blank">' + linkText + '</a></p>';
+
       Preset.get({id: presetId}, function (preset) {
         var photoPost = {
           state: preset.post.state,
           tags: preset.post.tags.join(','),
           format: preset.post.format,
-          caption: preset.post.caption,
+          caption: preset.post.caption + attributionLink,
           source: post.images.standard_resolution.url
         };
         $log.log(photoPost);
