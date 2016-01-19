@@ -2,8 +2,6 @@ const express = require('express');
 const router = new express.Router();
 const instagram = require('instagram-node');
 
-const testData = require('../../../data/instagram/media-recent.json');
-
 router.use(function (req, res, next) {
   res.locals.client = instagram.instagram();
   res.locals.client.use({access_token: req.user.instagram.accessToken});
@@ -12,9 +10,6 @@ router.use(function (req, res, next) {
 
 // API Authentication route
 router.use('/media/recent/:tag', function (req, res, next) {
-  // DEBUG MODE
-  return res.json(testData);
-
   if (!req.params.tag) {
     return next(new Error('Missing params'));
   }
