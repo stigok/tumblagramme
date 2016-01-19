@@ -123,6 +123,14 @@ app.use(function (err, req, res, next) {
 });
 
 // Start server
-http.createServer(app).listen(3000, function () {
-  console.log('Express server started on 3000');
-});
+http.createServer(app).listen(
+  settings.appSettings.httpPort,
+  settings.appSettings.hostname,
+  function () {
+    console.log(
+      'Express server listening on http://%s:%d',
+      settings.appSettings.hostname,
+      settings.appSettings.httpPort
+    );
+  }
+);
