@@ -1,8 +1,7 @@
 {
   "appSettings": {
-    "httpPort": 8080,
-    "httpsPort": 8445,
-    "hostname": "127.0.0.1",
+    "httpPort": 3000,
+    "hostname": "localhost",
     "certPath": ".cert/cert.pem",
     "keyPath": ".cert/key.pem",
     "mongodb": "mongodb://localhost/tumblagramme"
