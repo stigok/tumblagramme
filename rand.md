@@ -177,7 +177,13 @@ Cantagalo, Brasil
 
 ---
 
-> Elsker når Thomas i fylla sier: "Burde vi egentlig hengt oftere!??"
-> Bra mann!
-
----
+> Ingredientes
+>   - Farinha de trigo integral
+>   - Chocolate de cacaú
+>   - Linhaça
+>   - Chia
+>   - Cominho
+>   - Banana
+>   - Ólho de cocô speçial
+>   - Açucar
+>   - Fermentão quémico
