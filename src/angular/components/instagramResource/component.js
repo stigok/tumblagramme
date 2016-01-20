@@ -2,7 +2,7 @@
   function instagramResourceDirective() {
     return {
       restrict: 'E',
-      controller: InstagramResourceController,
+      controller: 'InstagramResourceCtrl',
       templateUrl: '/templates/instagramResource.html',
       scope: {
         post: '=post'
@@ -10,7 +10,7 @@
     };
   }
 
-  function InstagramResourceController($scope, $location, $log, tumblrQueue) {
+  function InstagramResourceCtrl($scope, $location, $log, tumblrQueue) {
     $scope.share = function () {
       // TODO: this is mos def not a good way to get presetId
       tumblrQueue($scope.$parent.$parent.$parent.presetId, $scope.post, function success(data) {
@@ -27,5 +27,6 @@
   }
 
   angular.module('tg.instagramResource', [])
+    .controller('InstagramResourceCtrl', InstagramResourceCtrl)
     .directive('instagramResource', instagramResourceDirective);
 })();

@@ -2,7 +2,7 @@
   function imageResourceDirective() {
     return {
       restrict: 'E',
-      controller: ImageResourceController,
+      controller: 'ImageResourceCtrl',
       templateUrl: '/templates/imageResource.html',
       scope: {
         imageUrl: '@imageUrl'
@@ -10,7 +10,7 @@
     };
   }
 
-  function ImageResourceController($scope, $http, $log) {
+  function ImageResourceCtrl($scope, $http, $log) {
     $http.get($scope.imageUrl).then(function successCallback() {
       $scope.loadedImageUrl = $scope.imageUrl;
     }, function errorCallback(err) {
@@ -19,5 +19,6 @@
   }
 
   angular.module('tg.imageResource', [])
+    .controller('ImageResourceCtrl', ImageResourceCtrl)
     .directive('imageResource', imageResourceDirective);
 })();

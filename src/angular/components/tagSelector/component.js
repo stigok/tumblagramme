@@ -1,6 +1,14 @@
 (function () {
-  angular.module('tg.tagSelector', [])
-    .controller('TagSelectorCtrl', TagSelectorCtrl);
+  function tagSelectorDirective() {
+    return {
+      restrict: 'E',
+      controller: 'TagSelectorCtrl',
+      scope: {
+        ngModel: '=ngModel'
+      },
+      templateUrl: '/templates/tagSelector.html'
+    };
+  }
 
   function TagSelectorCtrl($scope) {
     $scope.ngModel = $scope.ngModel || [];
@@ -27,4 +35,8 @@
       }
     };
   }
+
+  angular.module('tg.tagSelector', [])
+    .controller('TagSelectorCtrl', TagSelectorCtrl)
+    .directive('tagSelector', tagSelectorDirective);
 })();

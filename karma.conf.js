@@ -20,6 +20,7 @@ module.exports = function (config) {
       'src/public/js/vendor/ui-bootstrap-tpls-0.14.3.js',
 
       // Source files
+      'src/angular/components/**/.js',
       'src/angular/controllers/index.js',
       'src/angular/**/*.js',
       'test/auth-test.js'
