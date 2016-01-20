@@ -187,3 +187,9 @@ Cantagalo, Brasil
 >   - Ólho de cocô speçial
 >   - Açucar
 >   - Fermentão quémico
+
+---
+
+> You are not truly living your life if you worry about how they live theirs.
+
+---
