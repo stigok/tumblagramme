@@ -4,16 +4,12 @@ const passport = require('passport');
 const User = require('../../models/user.js');
 const authMiddleware = passport.authenticate('local');
 const ensureAuth = require('../../../lib/ensureAuth');
-const crudify = require('../../../lib/crudify.js');
 
 router.use('/user', ensureAuth.local, require('../../../lib/userRoute.js'));
 
-let setModelUserId = function (req, res, modelInstance) {
-  // Implicitly set userId for preset object
-  modelInstance._userId = req.user.id;
-};
-
+// API data models
 router.use('/preset', ensureAuth.local, require('./tumblagramme/preset'));
+router.use('/history', ensureAuth.local, require('./tumblagramme/history'));
 
 router.post('/activeBlog', ensureAuth.local, function (req, res, next) {
   if (req.body.name) {

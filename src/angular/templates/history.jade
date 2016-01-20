@@ -1,0 +1,6 @@
+h2 Posting History
+
+ul
+  li(ng-repeat="obj in history")
+    | IG:{{obj.instagramMediaId}} -&gt; BLOG:{{obj.blogName}} TUMBLR:{{obj.tumblrMediaId}}
+    |  (#[a(href="" ng-click="rollback(obj._id)") Undo / Delete])

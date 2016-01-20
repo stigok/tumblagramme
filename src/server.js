@@ -9,6 +9,7 @@ const http = require('http');
 const cors = require('cors');
 const passport = require('passport');
 const User = require('./models/user.js');
+const History = require('./models/history.js');
 const settings = require('../settings.json');
 const util = require('util');
 const ensureAuth = require('../lib/ensureAuth');
