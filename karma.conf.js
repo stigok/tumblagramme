@@ -23,7 +23,7 @@ module.exports = function (config) {
       'src/angular/components/**/.js',
       'src/angular/controllers/index.js',
       'src/angular/**/*.js',
-      'test/auth-test.js'
+      'test/history-test.js'
     ],
 
     // list of files to exclude

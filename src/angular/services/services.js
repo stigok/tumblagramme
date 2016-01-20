@@ -12,34 +12,29 @@
   module.factory('Tumblr', function ($resource) {
     return $resource('/api/tumblr/user', {}, {
       user: {method: 'GET', isArray: false},
-      blogs: {method: 'GET', url: '/api/tumblr/blogs', isArray: true, cache: true}
+      blogs: {method: 'GET', url: '/api/tumblr/blogs', isArray: true, cache: true},
+      queue: {method: 'GET', url: '/api/tumblr/queue', isArray: true, cache: true},
+      dequeue: {method: 'DELETE', url: '/api/tumblr/history/rollback/:id', params: {id: '@id', blog: '@blog'}},
+      post: {method: 'POST', url: '/api/tumblr/post/:type', params: {type: '@type', blog: '@blog'}}
     });
   });
 
-  module.factory('tumblrQueue', function ($http, Preset, $log) {
+  module.factory('tumblrQueue', function ($http, Preset, Tumblr) {
     return function (presetId, post, success, error) {
       var linkText = post.user.username + ((post.user.username.slice(-1) === 's') ? '\'' : '\'s') + ' Instagram';
       var attributionLink = '<p>via <a href="' + post.link + '" target="_blank">' + linkText + '</a></p>';
 
       Preset.get({id: presetId}, function (preset) {
-        var photoPost = {
+        Tumblr.post({
+          blog: preset.blog.name,
+          type: 'photo',
+          mediaId: post.id,
           state: preset.post.state,
           tags: preset.post.tags.join(','),
           format: preset.post.format,
           caption: preset.post.caption + attributionLink,
           source: post.images.standard_resolution.url
-        };
-        $log.log(photoPost);
-
-        // Post to Tumblr using settings from current preset
-        $http({
-          method: 'POST',
-          url: '/api/tumblr/post/photo',
-          params: {
-            blog: preset.blog.name
-          },
-          data: photoPost
-        }).then(success, error);
+        }).$promise.then(success, error);
       });
     };
   });
@@ -64,5 +59,9 @@
 
   module.factory('ping', function ($http) {
     return $http.get('/api/tumblagramme/ping');
+  });
+
+  module.factory('History', function ($resource) {
+    return $resource('/api/tumblagramme/history/:id');
   });
 })();

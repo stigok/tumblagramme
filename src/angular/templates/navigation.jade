@@ -11,6 +11,8 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
       ul.nav.navbar-nav
         li
           a(href="/") Instagram feed
+        li
+          a(href="/queue") Queue
       ul.nav.navbar-nav.navbar-right
         li(ng-controller="LoginCtrl" ng-hide="user.username")
           a(href="" ng-click="openModal()") Login
