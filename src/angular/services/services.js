@@ -65,4 +65,11 @@
   module.factory('ping', function ($http) {
     return $http.get('/api/tumblagramme/ping');
   });
+
+  module.service('History', function ($resource) {
+    return $resource('/api/tumblagramme/history', null, {
+      log: {method: 'POST'},
+      rollback: {method: 'POST'}
+    });
+  });
 })();
