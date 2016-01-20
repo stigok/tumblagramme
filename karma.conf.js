@@ -33,7 +33,9 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      //'src/**/*.js': ['babel'],
+      // Don't preprocess the client-side code
+      // as it should already be clean ECMA 4
+      // 'src/**/*.js': ['babel'],
       'test/**/*.js': ['babel']
     },
 
@@ -63,9 +65,16 @@ module.exports = function (config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
+    customLaunchers: {
+      ChromeWithoutSecurity: {
+        base: 'Chrome',
+        flags: ['--disable-web-security']
+      }
+    },
+
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS', 'ChromiumWithoutSecurity'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
@@ -75,6 +84,7 @@ module.exports = function (config) {
       'karma-mocha',
       'karma-should',
       'karma-babel-preprocessor',
+      'karma-chrome-launcher',
       'karma-phantomjs-launcher'
     ]
   });
