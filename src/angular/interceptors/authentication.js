@@ -3,7 +3,7 @@
     .factory('authService', authService)
     .config(moduleConfig);
 
-  angular.module('tg.Authentication.Tools')
+  angular.module('tg.Authentication.Tools', [])
     .factory('httpBuffer', httpBuffer);
 
   function authService($rootScope, $http, httpBuffer) {
