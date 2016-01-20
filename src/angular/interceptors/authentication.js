@@ -1,9 +1,12 @@
 (function () {
-  'use strict';
+  angular.module('tg.Authentication', ['tg.Authentication.Tools'])
+    .factory('authService', authService)
+    .config(moduleConfig);
 
-  angular.module('http-auth-interceptor', ['http-auth-interceptor-buffer'])
+  angular.module('tg.Authentication.Tools')
+    .factory('httpBuffer', httpBuffer);
 
-  .factory('authService', ['$rootScope', '$http', 'httpBuffer', function ($rootScope, $http, httpBuffer) {
+  function authService($rootScope, $http, httpBuffer) {
     return {
       /**
        * Call this function to indicate that authentication was successfull and trigger a
@@ -18,13 +21,14 @@
         var updater = configUpdater || function (config) {
           return config;
         };
-        $rootScope.$broadcast('event:auth-loginConfirmed', data);
+        $rootScope.$broadcast('event:auth.authenticated', data);
         $rootScope.user = data;
         $rootScope.isAuthenticated = true;
         httpBuffer.retryAll(updater);
       },
 
       logoutPerformed: function () {
+        $rootScope.$broadcast('event:auth.logout');
         $rootScope.user = null;
         $rootScope.isAuthenticated = false;
       },
@@ -37,24 +41,20 @@
        */
       loginCancelled: function (data, reason) {
         httpBuffer.rejectAll(reason);
-        $rootScope.$broadcast('event:auth-loginCancelled', data);
-      },
-
-      updateLoginStatus: function () {
-
+        $rootScope.$broadcast('event:auth.cancelled', data);
       }
     };
-  }])
+  }
 
   /**
    * $http interceptor.
    * On 401 response (without 'ignoreAuthModule' option) stores the request
-   * and broadcasts 'event:auth-loginRequired'.
+   * and broadcasts 'event:auth.loginRequired'.
    * On 403 response (without 'ignoreAuthModule' option) discards the request
-   * and broadcasts 'event:auth-forbidden'.
+   * and broadcasts 'event:auth.forbidden'.
    */
-  .config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.interceptors.push(['$rootScope', '$q', 'httpBuffer', function ($rootScope, $q, httpBuffer) {
+  function moduleConfig($httpProvider) {
+    $httpProvider.interceptors.push(function ($rootScope, $q, httpBuffer, $log) {
       return {
         responseError: function (rejection) {
           var config = rejection.config || {};
@@ -63,31 +63,28 @@
               case 401:
                 var deferred = $q.defer();
                 httpBuffer.append(config, deferred);
-                $rootScope.$broadcast('event:auth-loginRequired', rejection);
+                $rootScope.$broadcast('event:auth.loginRequired', rejection);
                 return deferred.promise;
               case 403:
-                $rootScope.$broadcast('event:auth-forbidden', rejection);
+                $rootScope.$broadcast('event:auth.forbidden', rejection);
                 break;
-
+              default:
+                $log.log('def hit');
+                break;
             }
           }
           // otherwise, default behaviour
           return $q.reject(rejection);
         }
       };
-    }]);
-  }]);
+    });
+  }
 
-  /**
-   * Private module, a utility, required internally by 'http-auth-interceptor'.
-   */
-  angular.module('http-auth-interceptor-buffer', [])
-
-  .factory('httpBuffer', ['$injector', function ($injector) {
-    /** Holds all the requests, so they can be re-requested in future. */
+  function httpBuffer($injector) {
+    // Holds all the requests, so they can be re-requested in future.
     var buffer = [];
 
-    /** Service initialized later because of circular dependency problem. */
+    // Service initialized later because of circular dependency problem.
     var $http;
 
     function retryHttpRequest(config, deferred) {
@@ -102,9 +99,7 @@
     }
 
     return {
-      /**
-       * Appends HTTP request configuration object with deferred response attached to buffer.
-       */
+      // Appends HTTP request configuration object with deferred response attached to buffer.
       append: function (config, deferred) {
         buffer.push({
           config: config,
@@ -112,9 +107,7 @@
         });
       },
 
-      /**
-       * Abandon or reject (if reason provided) all the buffered requests.
-       */
+      // Abandon or reject (if reason provided) all the buffered requests.
       rejectAll: function (reason) {
         if (reason) {
           for (var i = 0; i < buffer.length; ++i) {
@@ -124,9 +117,7 @@
         buffer = [];
       },
 
-      /**
-       * Retries all the buffered requests clears the buffer.
-       */
+      // Retries all the buffered requests and clears the buffer.
       retryAll: function (updater) {
         for (var i = 0; i < buffer.length; ++i) {
           retryHttpRequest(updater(buffer[i].config), buffer[i].deferred);
@@ -134,5 +125,5 @@
         buffer = [];
       }
     };
-  }]);
+  }
 })();

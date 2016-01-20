@@ -2,7 +2,7 @@
   var app = angular.module('tg', [
     // Vendor
     'ngRoute', 'ui.bootstrap',
-    // Etc
+    // General
     'tg.Controllers', 'tg.Directives', 'tg.Services',
     // Components
     'tg.tagSelector',
@@ -10,8 +10,8 @@
     'tg.imageResource',
     'tg.instagramResource',
     // interceptors
-    'http-auth-interceptor'
-    // 'tg.Auth',
+    'tg.Authentication',
+    'tg.Authentication.Tools'
   ]);
 
   app.config(function ($routeProvider, $locationProvider) {
