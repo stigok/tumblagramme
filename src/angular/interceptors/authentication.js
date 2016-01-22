@@ -12,6 +12,35 @@
       };
     });
 
+  angular.module('tg.Authentication.Social', [])
+    .run(function ($rootScope, $location, AuthEvent, $log, SessionUser) {
+      SessionUser.get(function (user) {
+        $rootScope.user = user;
+      });
+      $log.log('run run');
+
+      $rootScope.$on(AuthEvent.loginRequired, function () {
+        $log.log('login required');
+        if (!$rootScope.user) {
+          return $location.path('/login').replace();
+        }
+      });
+      $rootScope.$on(AuthEvent.login, function ($event, user) {
+        $log.log('logged in', user);
+        $rootScope.user = user;
+        return $location.path('/account').replace();
+      });
+      $rootScope.$on('$routeChangeStart', function ($event, next) {
+        $log.log('routeChangeStart', next.originalPath);
+        if (next.skipRedirect) {
+          return next;
+        }
+        if (!$rootScope.user || !$rootScope.user.tumblr || !$rootScope.user.instagram) {
+          return $location.path('/account').replace();
+        }
+      });
+    });
+
   angular.module('tg.Authentication.Tools', [])
     .factory('httpBuffer', httpBuffer);
 
@@ -78,7 +107,6 @@
                 $rootScope.$broadcast(AuthEvent.forbidden, rejection);
                 break;
               default:
-                $log.log('def hit');
                 break;
             }
           }
