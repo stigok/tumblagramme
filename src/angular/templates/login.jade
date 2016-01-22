@@ -1,8 +1,8 @@
 form(class="css-form" ng-submit="ok()")
   .modal-header Login
   .modal-body
-    .form-group(ng-show="error")
-      .bg-warning {{error}}
+    .form-group(ng-show="error").alert-danger {{error}}
+    .form-group(ng-show="success").alert-success {{success}}
     .form-group
       label(for="inputUsername") Username
       input.form-control(type="text" id="inputUsername" placeholder="Username" ng-model="username" required)

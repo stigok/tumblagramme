@@ -1,26 +1,37 @@
 (function () {
   angular.module('tg.Controllers')
-    .controller('LoginModalCtrl', ['$scope', '$uibModalInstance', '$http', 'authService', LoginModalCtrl]);
+    .controller('LoginModalCtrl', LoginModalCtrl);
 
   function LoginModalCtrl($scope, $uibModalInstance, $http, authService) {
     $scope.ok = function () {
-      $http.post('/api/tumblagramme/auth', {
-        username: $scope.username || '',
-        password: $scope.password || ''
-      }, {ignoreAuthModule: true})
-        .success(authSuccess)
-        .error(authFailed);
+      $http.post(
+        '/api/tumblagramme/auth',
+        {
+          username: $scope.username || '',
+          password: $scope.password || ''
+        },
+        {
+          ignoreAuthModule: true
+        }
+      ).then(authSuccess, authFailed);
     };
 
     function authSuccess(data) {
       authService.loginConfirmed(data);
-      $uibModalInstance.dismiss('authSuccess');
+      $uibModalInstance.dismiss('reason');
     }
 
-    function authFailed(data) {
-      console.log('Authentication failed', data);
+    function authFailed() {
       $scope.password = '';
       $scope.error = 'Authentication failed. Try again with different credentials.';
+    }
+
+    function registrationSuccess() {
+      $scope.success = 'Registration successfull. Please re-enter your password.';
+    }
+
+    function registrationFailed() {
+      $scope.error = 'Registration failed.';
     }
 
     $scope.register = function () {
@@ -29,12 +40,7 @@
         password: $scope.password
       }, {
         ignoreAuthModule: true
-      }).then(function (res) {
-        console.log('reg complete', res);
-      }, function (err) {
-        $scope.error = 'Registration failed.';
-        console.error(err);
-      });
+      }).then(registrationSuccess, registrationFailed);
     };
 
     $scope.cancel = function () {

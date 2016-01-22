@@ -1,12 +1,21 @@
 (function () {
   angular.module('tg.Authentication', ['tg.Authentication.Tools'])
     .factory('authService', authService)
-    .config(moduleConfig);
+    .config(moduleConfig)
+    .factory('AuthEvent', function () {
+      return {
+        login: 'event:auth.login',
+        logout: 'event:auth.logout',
+        cancelled: 'event:auth.cancelled',
+        loginRequired: 'event:auth.loginRequired',
+        forbidden: 'event:auth.forbidden'
+      };
+    });
 
   angular.module('tg.Authentication.Tools', [])
     .factory('httpBuffer', httpBuffer);
 
-  function authService($rootScope, $http, httpBuffer) {
+  function authService($rootScope, $http, httpBuffer, AuthEvent) {
     return {
       /**
        * Call this function to indicate that authentication was successfull and trigger a
@@ -21,14 +30,14 @@
         var updater = configUpdater || function (config) {
           return config;
         };
-        $rootScope.$broadcast('event:auth.authenticated', data);
-        $rootScope.user = data;
+        $rootScope.$broadcast(AuthEvent.login, data.data);
+        $rootScope.user = data.data;
         $rootScope.isAuthenticated = true;
         httpBuffer.retryAll(updater);
       },
 
       logoutPerformed: function () {
-        $rootScope.$broadcast('event:auth.logout');
+        $rootScope.$broadcast(AuthEvent.logout);
         $rootScope.user = null;
         $rootScope.isAuthenticated = false;
       },
@@ -41,7 +50,7 @@
        */
       loginCancelled: function (data, reason) {
         httpBuffer.rejectAll(reason);
-        $rootScope.$broadcast('event:auth.cancelled', data);
+        $rootScope.$broadcast(AuthEvent.cancelled, data);
       }
     };
   }
@@ -49,12 +58,12 @@
   /**
    * $http interceptor.
    * On 401 response (without 'ignoreAuthModule' option) stores the request
-   * and broadcasts 'event:auth.loginRequired'.
+   * and broadcasts AuthEvent.loginRequired
    * On 403 response (without 'ignoreAuthModule' option) discards the request
-   * and broadcasts 'event:auth.forbidden'.
+   * and broadcasts AuthEvent.forbidden
    */
   function moduleConfig($httpProvider) {
-    $httpProvider.interceptors.push(function ($rootScope, $q, httpBuffer, $log) {
+    $httpProvider.interceptors.push(function ($rootScope, $q, httpBuffer, AuthEvent, $log) {
       return {
         responseError: function (rejection) {
           var config = rejection.config || {};
@@ -63,10 +72,10 @@
               case 401:
                 var deferred = $q.defer();
                 httpBuffer.append(config, deferred);
-                $rootScope.$broadcast('event:auth.loginRequired', rejection);
+                $rootScope.$broadcast(AuthEvent.loginRequired, rejection);
                 return deferred.promise;
               case 403:
-                $rootScope.$broadcast('event:auth.forbidden', rejection);
+                $rootScope.$broadcast(AuthEvent.forbidden, rejection);
                 break;
               default:
                 $log.log('def hit');
