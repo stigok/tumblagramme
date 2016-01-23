@@ -14,10 +14,8 @@ nav(class="navbar navbar-default" ng-controller="NavigationCtrl")
         li
           a(href="/queue") Queue
       ul.nav.navbar-nav.navbar-right
-        li(ng-hide="user.username")
-          a(href="" ng-click="openModal()") Login
-        li(uib-dropdown uib-keyboard-nav ng-show="user.username")
+        li(uib-dropdown uib-keyboard-nav)
           a(href="#" uib-dropdown-toggle) Account
           ul(role="menu" class="uib-dropdown-menu")
-            li.dropdown-header {{user.email}}
-            li(role="menuitem") #[a(href="/logout") Logout]
+            li(role="menuitem") #[a(href="/account" target="_self") Settings]
+            li(role="menuitem") #[a(href="/logout" target="_self") Logout]
