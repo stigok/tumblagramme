@@ -22,7 +22,7 @@
   module.factory('tumblrQueue', function ($http, Preset, Tumblr) {
     return function (presetId, post, success, error) {
       var linkText = post.user.username + ((post.user.username.slice(-1) === 's') ? '\'' : '\'s') + ' Instagram';
-      var attributionLink = '<p>via <a href="' + post.link + '" target="_blank">' + linkText + '</a></p>';
+      var attributionLink = '\n\n<p>via <a href="' + post.link + '" target="_blank">' + linkText + '</a></p>';
 
       Preset.get({id: presetId}, function (preset) {
         Tumblr.post({
