@@ -18,4 +18,6 @@ router.get('/logout', function (req, res) {
   return res.status(200).json({});
 });
 
+router.use(require('./errorHandler'));
+
 module.exports = router;
