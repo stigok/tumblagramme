@@ -10,8 +10,7 @@
     'tg.imageResource',
     'tg.instagramResource',
     // interceptors
-    'tg.Authentication',
-    'tg.Authentication.Tools'
+    'tg.Authentication'
   ]);
 
   app.config(function ($routeProvider, $locationProvider) {

@@ -105,7 +105,6 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 // aka onBeforePageInit hook
 app.use(function (req, res, next) {
-
   if (req.user) {
     req.session.touch();
   }
@@ -121,12 +120,10 @@ app.use(function (req, res, next) {
 // Authentication and auth block
 app.use('/', require('./routes/auth'));
 
-/*
 // JSON APIs
 // Tumblagramme route implements ensureLoggedIn itself to handle login
 app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
-app.use('/auth/instagram', require('./routes/api/instagram'));
-app.use('/api/instagram', ensureAuth.instagram, require('./routes/api/instagram'));
+app.use('/api/instagram', require('./routes/api/instagram'));
 app.use('/api/tumblr', require('./routes/api/tumblr'));
 
 // Angular app and static assets
@@ -140,7 +137,7 @@ app.use('/js/angular', function (req, res) {
   return res.status(404).end();
 });
 app.use('/', require('./routes/angular'));
-*/
+
 // catch 404 and forward to error handler
 app.get(function (req, res, next) {
   let err = new Error('Not Found');
