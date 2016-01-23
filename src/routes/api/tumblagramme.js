@@ -13,11 +13,6 @@ router.get('/ping', function (req, res) {
   return res.json('pong');
 });
 
-router.get('/logout', function (req, res) {
-  req.logout();
-  return res.status(200).json({});
-});
-
 router.use(require('./errorHandler'));
 
 module.exports = router;

@@ -1,6 +1,11 @@
 const express = require('express');
 const router = new express.Router();
 
+router.get('/logout', function (req, res) {
+  req.logout();
+  return res.redirect('/');
+});
+
 router.get('/login', function (req, res) {
   if (req.user) {
     return res.redirect('/account');

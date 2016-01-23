@@ -40,9 +40,8 @@
         controller: 'AccountCtrl',
         templateUrl: '/templates/account.html'
       })
-      .when('/logout', {
-        controller: 'LogoutCtrl',
-        template: 'Logging out...'
+      .otherwise('/', {
+        redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
   });
