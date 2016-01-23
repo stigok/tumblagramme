@@ -55,7 +55,9 @@ router.get('/callback', function (req, res, next) {
       return res.send('Failed to authorize', err);
     }
 
-    req.user.instagram.accessToken = body.access_token;
+    let json = JSON.parse(body);
+    req.user.instagram.accessToken = json.access_token;
+    req.user.instagram.profile = json.user;
 
     req.user.save(function (err) {
       if (err) {
