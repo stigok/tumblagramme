@@ -1,5 +1,6 @@
 const express = require('express');
 const router = new express.Router();
+const ensureAuth = require('../../lib/ensureAuth');
 
 router.get('/logout', function (req, res) {
   req.logout();
@@ -28,14 +29,9 @@ router.get('/account', function (req, res) {
   return res.render('views/account/account');
 });
 
-router.use(function (req, res, next) {
-  if (!req.user) {
-    return res.redirect('/login');
-  }
-  if (!req.user.tumblr || !req.user.instagram) {
-    return res.redirect('/account');
-  }
-  return next();
-});
+router.use(
+  ensureAuth.tumblr('/login'),
+  ensureAuth.instagram('/account')
+);
 
 module.exports = router;
