@@ -6,7 +6,6 @@
     'tg.Controllers', 'tg.Directives', 'tg.Services',
     // Components
     'tg.tagSelector',
-    'tg.connectButton',
     'tg.imageResource',
     'tg.instagramResource',
     // interceptors
