@@ -5,14 +5,17 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var User = new Schema({
   tumblr: {
     token: String,
-    secret: String
+    secret: String,
+    profile: Schema.Types.Mixed
   },
   instagram: {
-    accessToken: String
+    accessToken: String,
+    refreshToken: String,
+    profile: Schema.Types.Mixed
   }
 }, {
   // Don't remove empty row properties
-  minimize: false
+  minimize: true
 });
 
 User.plugin(passportLocalMongoose);
