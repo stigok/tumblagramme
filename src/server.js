@@ -37,8 +37,8 @@ app.use(session({
     // path: '/',
     httpOnly: true,
     secure: false,
-    // 1 hour
-    maxAge: 1000 * 60 * 60
+    // 2 weeks
+    maxAge: 1000 * 60 * 60 * 24 * 7 * 2
   },
   name: 'tumblagramme.sid',
   resave: false,
@@ -105,6 +105,11 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 // aka onBeforePageInit hook
 app.use(function (req, res, next) {
+
+  if (req.user) {
+    req.session.touch();
+  }
+
   res.locals.debug = {
     session: req.session,
     user: req.user
