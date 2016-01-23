@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
   tumblr: {
@@ -14,10 +13,8 @@ var User = new Schema({
     profile: Schema.Types.Mixed
   }
 }, {
-  // Don't remove empty row properties
+  // Remove empty/undefined properties from returned objects
   minimize: true
 });
-
-User.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', User);
