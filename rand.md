@@ -193,3 +193,10 @@ Cantagalo, Brasil
 > You are not truly living your life if you worry about how they live theirs.
 
 ---
+
+> Looking back is looking in the wrong direction.
+> Looking down is looking at it wrong.
+> Looking up is looking at clouds.
+> Looking ahead must be done with optimism.
+
+---
