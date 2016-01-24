@@ -1,0 +1,18 @@
+extends ./layout
+
+block content
+  .container-fluid
+    .row
+      .col-md-3
+        h2 Account stuff
+        
+        p
+          a(href="/api/instagram/auth").btn.btn-default Connect Instagram
+        
+        p
+          a(href="/" class="btn btn-warning").btn.btn-error Delete account
+          
+    .row
+      .col-md-3
+        p
+          a(href="/").btn.btn-default Return to app

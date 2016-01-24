@@ -9,10 +9,10 @@ const http = require('http');
 const cors = require('cors');
 const passport = require('passport');
 const User = require('./models/user.js');
-const History = require('./models/history.js');
 const settings = require('../settings.json');
-const util = require('util');
-const ensureAuth = require('../lib/ensureAuth');
+// const util = require('util');
+const TumblrStrategy = require('passport-tumblr').Strategy;
+// const ensureAuth = require('../lib/ensureAuth');
 
 // Connect to database
 mongoose.connect(settings.appSettings.mongodb, function (err) {
@@ -37,8 +37,8 @@ app.use(session({
     // path: '/',
     httpOnly: true,
     secure: false,
-    // 1 hour
-    maxAge: 1000 * 60 * 60
+    // 2 weeks
+    maxAge: 1000 * 60 * 60 * 24 * 7 * 2
   },
   name: 'tumblagramme.sid',
   resave: false,
@@ -51,13 +51,53 @@ app.use(session({
 }));
 app.use(cors());
 
+//
 // Authentication with passport
+//
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function (user, done) {
+  done(null, user._id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    if (err) {
+      return done(err);
+    }
+    return done(null, user);
+  });
+});
+
+passport.use(
+  new TumblrStrategy({
+    consumerKey: settings.tumblr.consumerKey,
+    consumerSecret: settings.tumblr.consumerSecret,
+    callbackURL: settings.tumblr.callbackUrl
+  },
+  function (token, secret, profile, done) {
+    console.log(profile);
+    User.findOne({'tumblr.profile.name': profile.username}, function (err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        user = new User();
+        console.log('Creating new user', profile.username);
+      }
+      user.tumblr.token = token;
+      user.tumblr.secret = secret;
+      user.tumblr.profile = profile._json.response.user;
+      user.save(function (err) {
+        if (err) {
+          return done(err);
+        }
+        return done(null, user);
+      });
+    });
+  })
+);
 
 // Static files
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
@@ -65,31 +105,26 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 // aka onBeforePageInit hook
 app.use(function (req, res, next) {
+  if (req.user) {
+    req.session.touch();
+  }
+
   res.locals.debug = {
     session: req.session,
     user: req.user
   };
+  console.log('user', req.user);
   next();
 });
 
-// Authentication
-// app.use('/', require('./routes/account'));
+// Authentication and auth block
+app.use('/', require('./routes/auth'));
 
 // JSON APIs
 // Tumblagramme route implements ensureLoggedIn itself to handle login
 app.use('/api/tumblagramme', require('./routes/api/tumblagramme'));
-app.use('/api/instagram',
-  ensureAuth.local,
-  require('./routes/oauth/instagram'),
-  ensureAuth.instagram,
-  require('./routes/api/instagram')
-);
-app.use('/api/tumblr',
-  ensureAuth.local,
-  require('./routes/oauth/tumblr'),
-  ensureAuth.tumblr,
-  require('./routes/api/tumblr')
-);
+app.use('/api/instagram', require('./routes/api/instagram'));
+app.use('/api/tumblr', require('./routes/api/tumblr'));
 
 // Angular app and static assets
 // Should be added as the last routes, as angular takes control of routing itself
@@ -104,10 +139,14 @@ app.use('/js/angular', function (req, res) {
 app.use('/', require('./routes/angular'));
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.get(function (req, res, next) {
   let err = new Error('Not Found');
   err.status = 404;
   return next(err);
+});
+
+app.all(function (req, res) {
+  return res.status(404).json('Not found');
 });
 
 // development error handler

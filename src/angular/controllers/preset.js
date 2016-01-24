@@ -31,7 +31,7 @@
 
       // Redirect only if it's a new object
       if (!$routeParams.presetId) {
-        $location.url('/preset/' + $routeParams.presetId);
+        $location.url('/preset/' + obj._id);
       }
     }
 

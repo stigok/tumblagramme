@@ -6,12 +6,10 @@
     'tg.Controllers', 'tg.Directives', 'tg.Services',
     // Components
     'tg.tagSelector',
-    'tg.connectButton',
     'tg.imageResource',
     'tg.instagramResource',
     // interceptors
-    'tg.Authentication',
-    'tg.Authentication.Tools'
+    'tg.Authentication'
   ]);
 
   app.config(function ($routeProvider, $locationProvider) {
@@ -40,9 +38,8 @@
         controller: 'AccountCtrl',
         templateUrl: '/templates/account.html'
       })
-      .when('/logout', {
-        controller: 'LogoutCtrl',
-        template: 'Logging out...'
+      .otherwise('/', {
+        redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
   });
