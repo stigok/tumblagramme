@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const logger = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoDBSessionStore = require('connect-mongodb-session')(session);
@@ -10,14 +9,25 @@ const cors = require('cors');
 const passport = require('passport');
 const User = require('./models/user.js');
 const settings = require('../settings.json');
-// const util = require('util');
 const TumblrStrategy = require('passport-tumblr').Strategy;
-// const ensureAuth = require('../lib/ensureAuth');
+const helmet = require('helmet');
+const winston = require('winston');
+
+// Logging with winston
+const logger = new (winston.Logger)({
+  level: 'silly',
+  transports: [
+    new (winston.transports.Console)()
+    // new (winston.transports.File)({ filename: 'somefile.log', level: 'error' })
+  ]
+});
+
+logger.info('Starting app', settings);
 
 // Connect to database
 mongoose.connect(settings.appSettings.mongodb, function (err) {
   if (err) {
-    console.error('Failed to connect to mongodb with connection string: %s', settings.appSettings.mongodb);
+    logger.error('Failed to connect to mongodb with connection string: %s', settings.appSettings.mongodb);
   }
 });
 
@@ -26,21 +36,27 @@ const app = express();
 app.set('views', __dirname);
 app.set('view engine', 'jade');
 
-app.disable('x-powered-by');
+// Helmet is a collection of nine smaller middleware functions that set security-related HTTP headers
+app.use(helmet());
 
-app.use(logger('dev'));
+// Log all requests
+app.use(function (req, res, next) {
+  logger.verbose('request', req.path);
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   secret: 'QK48y3xQXdvhYQVu5Sesc3kf4TcY2xkAnu43YckATnec32YJpqAMLEWzhnABvw7gztFt2',
   cookie: {
-    // path: '/',
-    httpOnly: true,
     secure: false,
+    httpOnly: true,
+    path: '/',
     // 2 weeks
     maxAge: 1000 * 60 * 60 * 24 * 7 * 2
   },
-  name: 'tumblagramme.sid',
+  name: 'tumblagramme-session',
   resave: false,
   rolling: true,
   saveUninitialized: true,
@@ -77,14 +93,14 @@ passport.use(
     callbackURL: settings.tumblr.callbackUrl
   },
   function (token, secret, profile, done) {
-    console.log(profile);
+    logger.log(profile);
     User.findOne({'tumblr.profile.name': profile.username}, function (err, user) {
       if (err) {
         return done(err);
       }
       if (!user) {
         user = new User();
-        console.log('Creating new user', profile.username);
+        logger.log('Creating new user', profile.username);
       }
       user.tumblr.token = token;
       user.tumblr.secret = secret;
@@ -113,7 +129,7 @@ app.use(function (req, res, next) {
     session: req.session,
     user: req.user
   };
-  console.log('user', req.user);
+  logger.log('user', req.user);
   next();
 });
 
@@ -152,7 +168,7 @@ app.all(function (req, res) {
 // development error handler
 // will print stacktrace
 app.use(function (err, req, res, next) {
-  console.error(err);
+  logger.error(err);
   res.status(err.status || 500);
   res.render('views/error', {
     message: err.message,
@@ -167,7 +183,7 @@ http.createServer(app).listen(
   settings.appSettings.httpPort,
   settings.appSettings.hostname,
   function () {
-    console.log(
+    logger.log(
       'Express server listening on http://%s:%d',
       settings.appSettings.hostname,
       settings.appSettings.httpPort

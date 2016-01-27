@@ -35,7 +35,8 @@ Settings are all around the code at the moment, so look around!
 - [ ] Make component of error divs in forms to avoid repeating object property paths
 - [ ] Make mongoose documument property defaults be populated to object on call to `new Model()` so it's easier to use with Angular when creating new instances.
 - [ ] Captcha on registration
-- [ ] Fix: invalid login attempts with correct username takes noticably longer to execute than with an invalid username 
+- [ ] Fix: invalid login attempts with correct username takes noticably longer to execute than with an invalid username
+- [ ] Install kerberos
 
 ### Thoughts
 
