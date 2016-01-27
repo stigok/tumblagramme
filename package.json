@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "DEBUG=express:* nodemon --watch ./ --exec 'babel-node' src/server.js",
+    "harmony": "DEBUG=express:* node --harmony --use-strict src/server.js",
     "test": "karma start"
   },
   "xo": {
