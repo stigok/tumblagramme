@@ -2,6 +2,7 @@ const express = require('express');
 const Model = require('../../../models/preset');
 const router = new express.Router();
 const _ = require('underscore');
+const logger = require('winston');
 
 router.post('/:id', function (req, res, next) {
   // Avoid mongoose validation errors for making _id property touched or dirty
@@ -101,7 +102,7 @@ router.use(function (err, req, res, next) {
       // TODO: set proper http status code for error
       return res.status(406).json(err);
     }
-    console.error(err);
+    logger.error(err);
     return res
       .status(500)
       .json('There was an error processing the request.')

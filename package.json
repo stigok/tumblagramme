@@ -56,6 +56,7 @@
     "serve-favicon": "~2.3.0",
     "superagent": "^1.7.0",
     "tumblr.js": "0.0.7",
+    "winston": "^2.1.1",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
