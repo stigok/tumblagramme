@@ -9,9 +9,8 @@ const cors = require('cors');
 const passport = require('passport');
 const User = require('./models/user.js');
 const settings = require('../settings.json');
-// const util = require('util');
 const TumblrStrategy = require('passport-tumblr').Strategy;
-// const ensureAuth = require('../lib/ensureAuth');
+const helmet = require('helmet');
 const winston = require('winston');
 
 // Logging with winston
@@ -37,7 +36,8 @@ const app = express();
 app.set('views', __dirname);
 app.set('view engine', 'jade');
 
-app.disable('x-powered-by');
+// Helmet is a collection of nine smaller middleware functions that set security-related HTTP headers
+app.use(helmet());
 
 // Log all requests
 app.use(function (req, res, next) {
