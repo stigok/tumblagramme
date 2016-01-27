@@ -50,13 +50,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   secret: 'QK48y3xQXdvhYQVu5Sesc3kf4TcY2xkAnu43YckATnec32YJpqAMLEWzhnABvw7gztFt2',
   cookie: {
-    // path: '/',
-    httpOnly: true,
     secure: false,
+    httpOnly: true,
+    path: '/',
     // 2 weeks
     maxAge: 1000 * 60 * 60 * 24 * 7 * 2
   },
-  name: 'tumblagramme.sid',
+  name: 'tumblagramme-session',
   resave: false,
   rolling: true,
   saveUninitialized: true,
