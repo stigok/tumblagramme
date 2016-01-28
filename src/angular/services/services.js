@@ -1,11 +1,10 @@
 (function () {
   var module = angular.module('tg.Services', ['ngResource']);
 
-  module.service('Instagram', function ($resource, SessionUser) {
-    var auth = {accessToken: SessionUser.instagramAccessToken};
-
-    return $resource('/api/instagram/media/recent/:tag', auth, {
-      query: {method: 'GET', params: {}, isArray: true}
+  module.service('Instagram', function ($resource) {
+    return $resource('/api/instagram/media/recent/:tag', {}, {
+      query: {method: 'GET', params: {}, isArray: true},
+      likeMedia: {method: 'POST', url: '/api/instagram/likeMedia'}
     });
   });
 

@@ -28,8 +28,8 @@ router.get('/media/recent/:tag', function (req, res, next) {
 });
 
 // Like an Instagram resource
-router.post('/like', function (req, res, next) {
-  res.locals.client.add_like(req.body.id, function (err) {
+router.post('/likeMedia', function (req, res, next) {
+  res.locals.client.add_like(req.body.mediaId, function (err) {
     if (err) {
       return next(err);
     }

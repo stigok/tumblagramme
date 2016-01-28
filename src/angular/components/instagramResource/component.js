@@ -10,7 +10,7 @@
     };
   }
 
-  function InstagramResourceCtrl($scope, $location, $log, tumblrQueue) {
+  function InstagramResourceCtrl($scope, $location, $log, tumblrQueue, Instagram) {
     $scope.share = function () {
       // TODO: this is mos def not a good way to get presetId
       tumblrQueue($scope.$parent.$parent.$parent.presetId, $scope.post, function success(data) {
@@ -23,6 +23,10 @@
 
     $scope.browseUser = function () {
       $location.url('/feed/user/' + $scope.post.username);
+    };
+
+    $scope.like = function () {
+      Instagram.likeMedia({mediaId: $scope.post.id});
     };
   }
 
