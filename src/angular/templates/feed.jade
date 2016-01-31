@@ -1,12 +1,14 @@
 strong
   ng-pluralize(count="posts.length - dupesFiltered" when="{'0': 'No posts', 'one': '1 post', 'other': '{} posts'}")
   | 
-  ng-pluralize(count="tags.length" when="{'one': 'in one tag', 'other': 'in {} tags'}")
+  ng-pluralize(count="tags.length" when="{'one': 'in one tag', 'other': 'in {} tags'}" ng-show="tags.length")
+  span(ng-show="userId") by user {{userId}}
 br
-span(ng-repeat="tag in tags" class="label label-default tag")
-  | \#{{tag}}
-br
-ng-pluralize(count="dupesFiltered" when="{'0': '', 'one': 'one dupe filtered', 'other': '{} dupes filtered'}")
+div(ng-show="tags.length")
+  span(ng-repeat="tag in tags" class="label label-default tag")
+    | \#{{tag}}
+  br
+  ng-pluralize(count="dupesFiltered" when="{'0': '', 'one': 'one dupe filtered', 'other': '{} dupes filtered'}")
 
 #posts.container-fluid
   div.row(ng-repeat="chunk in chunkedPosts")

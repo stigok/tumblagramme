@@ -2,9 +2,11 @@
   var module = angular.module('tg.Services', ['ngResource']);
 
   module.service('Instagram', function ($resource) {
-    return $resource('/api/instagram/media/recent/:tag', {}, {
+    return $resource('/api/instagram/media/tag/:tag', {}, {
       query: {method: 'GET', params: {}, isArray: true},
-      likeMedia: {method: 'POST', url: '/api/instagram/likeMedia'}
+      likeMedia: {method: 'POST', url: '/api/instagram/likeMedia'},
+      recentTaggedMedia: {metod: 'GET', url: '/api/instagram/media/tag/:tag', isArray: true},
+      recentUserMedia: {method: 'GET', url: '/api/instagram/media/user/:userId', isArray: true}
     });
   });
 
