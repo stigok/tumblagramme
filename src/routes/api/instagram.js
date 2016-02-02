@@ -9,7 +9,7 @@ router.use(function (req, res, next) {
 });
 
 // API Authentication route
-router.get('/media/recent/:tag', function (req, res, next) {
+router.get('/media/tag/:tag', function (req, res, next) {
   if (!req.params.tag) {
     return next(new Error('Missing params'));
   }
@@ -27,9 +27,22 @@ router.get('/media/recent/:tag', function (req, res, next) {
   });
 });
 
+router.get('/media/user/:userId', function (req, res, next) {
+  if (!req.params.userId) {
+    return next(new Error('Missing argument'));
+  }
+
+  res.locals.client.user_media_recent(req.params.userId, {}, function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    return res.json(result);
+  });
+});
+
 // Like an Instagram resource
-router.post('/like', function (req, res, next) {
-  res.locals.client.add_like(req.body.id, function (err) {
+router.post('/likeMedia', function (req, res, next) {
+  res.locals.client.add_like(req.body.mediaId, function (err) {
     if (err) {
       return next(err);
     }

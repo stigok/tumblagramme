@@ -21,6 +21,7 @@ router.get('/auth', function (req, res) {
     'redirect_uri=' + callbackUrl,
     'response_type=code',
     'state=' + req.session.instagramCsrf
+    // 'scope=basic+public_content+relationships+likes'
   ];
   let authUrl = util.format('https://api.instagram.com/oauth/authorize?%s', params.join('&'));
 
