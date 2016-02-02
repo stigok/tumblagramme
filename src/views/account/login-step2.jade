@@ -1,0 +1,16 @@
+extends ./layout
+
+block content
+  .container-fluid
+    .row
+      .col-md-4.col-md-offset-4.text-center.login
+        h1 Tumblagramme
+        hr
+          
+        h3 Authentication Successfull
+        p
+          | You are successfully authenticated with Tumblr.
+          | As this app is using Instagram to serve fresh media,
+          | you have to link your Instagram account as well.
+          
+        a(href="/api/instagram/auth" class="btn btn-info btn-block") Connect Instagram

@@ -125,15 +125,18 @@ app.use(function (req, res, next) {
     req.session.touch();
   }
 
+  res.locals.user = req.user;
+
   res.locals.debug = {
     session: req.session,
     user: req.user
   };
-  logger.log('user', req.user);
-  next();
+
+  return next();
 });
 
 // Authentication and auth block
+// This router also halts middleware execution if auth is missing
 app.use('/', require('./routes/auth'));
 
 // JSON APIs
