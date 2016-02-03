@@ -4,5 +4,5 @@ div(ng-class="{'has-error': error}").form-inline
       | \#{{tag}}
       a(href="#" ng-click="removeTag($index)") x
   input(ng-model="tagName" ng-keypress="onTagInputKeyPress($event)" placeholder="Add tag").form-control-md
-  p(ng-show="error").bg-danger {{error}}
   input(type="button" value="Add" ng-click="addTag()").btn-md.btn-md-default
+  div(ng-show="error").bg-danger {{error}}
