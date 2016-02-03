@@ -37,6 +37,7 @@ Settings are all around the code at the moment, so look around!
 - [ ] Captcha on registration
 - [ ] Fix: invalid login attempts with correct username takes noticably longer to execute than with an invalid username
 - [ ] Install kerberos
+- [ ] Replace character 'x' with caret icon from bootstrap in tagSelector
 
 ### Thoughts
 
