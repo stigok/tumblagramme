@@ -30,13 +30,13 @@ form(ng-submit="saveChanges()")
   .form-group
     label Default tags
     div(ng-show="errors.post.tags").bg-warning {{errors.post.tags.message}}
-    tag-selector(ng-model="preset.post.tags")
+    tag-selector(ng-model="preset.post.tags" tag-type="tumblr")
 
   h3 Instagram Feed
   .form-group
     label Search tags
     div(ng-show="errors.instagram.tags").bg-warning {{errors.instagram.tags.message}}
-    tag-selector(ng-model="preset.instagram.tags")
+    tag-selector(ng-model="preset.instagram.tags" tag-type="instagram")
   .form-group
     h4 Nice things to do
     div
