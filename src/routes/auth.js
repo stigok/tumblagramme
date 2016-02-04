@@ -8,7 +8,7 @@ router.get('/logout', function (req, res) {
 
 router.get('/login', function (req, res) {
   // If user has authenticated with Instagram, send to account page
-  if (req.user.instagram) {
+  if (req.user && req.user.instagram) {
     return res.redirect('/account');
   }
 
