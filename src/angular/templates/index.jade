@@ -1,8 +1,11 @@
 h1 Feeds
 
-div(ng-repeat="preset in presets" class="preset-badge")
-  img(ng-src="http://api.tumblr.com/v2/blog/{{preset.blog.name}}.tumblr.com/avatar/64")
-  a(href='/{{preset._id}}/instagram') {{preset.name}}
-  |  (#[a(href="/preset/{{preset._id}}") edit])
-div.preset-badge
-  a(href="/new") Create new
+div.list-group
+  div(ng-repeat="preset in presets").list-group-item
+    img(ng-src="http://api.tumblr.com/v2/blog/{{preset.blog.name}}.tumblr.com/avatar/64")
+    | &nbsp;&nbsp;&nbsp;
+    a(href="/{{preset._id}}/instagram") {{preset.name}}
+    | &nbsp;&nbsp;&nbsp;
+    a(href="/preset/{{preset._id}}").btn-sm.btn-default edit
+
+a(href="/new" class="btn btn-default") #[span.glyphicon.glyphicon-plus] Create a new preset
