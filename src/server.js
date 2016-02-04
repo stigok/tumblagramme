@@ -136,6 +136,10 @@ app.use(function (req, res, next) {
   return next();
 });
 
+app.use('/about', function (req, res) {
+  res.render('views/about');
+});
+
 // Authentication and auth block
 // This router also halts middleware execution if auth is missing
 app.use('/', require('./routes/auth'));
