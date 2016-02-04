@@ -1,20 +1,20 @@
-extends ./layout
+extends ../layout
 
+block header-text
+  #{app.name}
+  
 block content
-  .container-fluid
-    .row
-      .col-md-4.col-md-offset-4.login
-        h1.text-center Tumblagramme
-        hr          
-        h3 Tumblr
-        pre= JSON.stringify(user.tumblr.profile, null, 2)
-        hr
-        h3 Instagram
-        pre= JSON.stringify(user.instagram.profile, null, 2)
-        hr
-        h3 Delete Account
-        p
-          | If you want to start over with a clean account, or just want to delete #[i all account information] about you and your account, you can do it very easily by clicking below.
-        a(href="#" class="btn btn-danger btn-block") Delete account          
-        hr
-        a(href="/" class="btn btn-default btn-block") Return to app
+  h3 Tumblr
+  p #{user.tumblr.profile.name}
+  hr
+  h3 Instagram
+  p #{user.instagram.profile.username} (#{user.instagram.profile.id})
+  hr
+  h3 Delete Account
+  p If you want to start over with a clean account, or just want to delete everything we know about you and your #[strong reblog.media] account, you can do it very easily by clicking below.
+  a(href="#" class="btn btn-danger btn-block") Delete account
+  hr
+  a(href="/" class="btn btn-default btn-block") Return to app
+
+block navigation
+  // void
