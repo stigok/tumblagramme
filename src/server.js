@@ -56,7 +56,7 @@ app.use(session({
     // 2 weeks
     maxAge: 1000 * 60 * 60 * 24 * 7 * 2
   },
-  name: 'tumblagramme-session',
+  name: settings.app.name + '-session',
   resave: false,
   rolling: true,
   saveUninitialized: true,
@@ -126,6 +126,7 @@ app.use(function (req, res, next) {
   }
 
   res.locals.user = req.user;
+  res.locals.app = settings.app;
 
   res.locals.debug = {
     session: req.session,
