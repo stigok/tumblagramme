@@ -116,8 +116,10 @@ passport.use(
 );
 
 // Static files
-app.use(require('less-middleware')(path.join(__dirname, 'public')));
-app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(require('less-middleware')(path.join(__dirname, 'public/css')));
+app.use('/css', express.static(path.join(__dirname, 'public/css'), {fallthrough: false}));
+app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
+app.use('/js', express.static(path.join(__dirname, 'public/js'), {fallthrough: false}));
 
 // aka onBeforePageInit hook
 app.use(function (req, res, next) {
@@ -152,7 +154,6 @@ app.use('/api/tumblr', require('./routes/api/tumblr'));
 
 // Angular app and static assets
 // Should be added as the last routes, as angular takes control of routing itself
-app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
 app.use('/js/angular', function (req, res) {
   // Produce designated 404 for all angular resources
   // as the angular app takes over control of routing
