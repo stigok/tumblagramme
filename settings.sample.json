@@ -1,4 +1,7 @@
 {
+  "app": {
+    "name": "reblog.media"
+  },
   "appSettings": {
     "httpPort": 3000,
     "hostname": "localhost",
