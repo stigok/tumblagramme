@@ -2,7 +2,7 @@ h1 Feeds
 
 div.list-group
   div(ng-repeat="preset in presets").list-group-item
-    img(ng-src="http://api.tumblr.com/v2/blog/{{preset.blog.name}}.tumblr.com/avatar/64")
+    img(ng-src="//api.tumblr.com/v2/blog/{{preset.blog.name}}.tumblr.com/avatar/64")
     | &nbsp;&nbsp;&nbsp;
     a(href="/{{preset._id}}/instagram") {{preset.name}}
     | &nbsp;&nbsp;&nbsp;
