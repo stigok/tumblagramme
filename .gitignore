@@ -5,6 +5,7 @@ user.json
 .cert
 _old
 .keys
+data
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
