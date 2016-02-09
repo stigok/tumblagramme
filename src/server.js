@@ -117,7 +117,7 @@ passport.use(
 );
 
 // Static files
-app.use(require('less-middleware')(path.join(__dirname, 'public/css')));
+app.use('/css', require('less-middleware')(path.join(__dirname, 'public/css')));
 app.use('/css', express.static(path.join(__dirname, 'public/css'), {fallthrough: false}));
 app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
 app.use('/js', express.static(path.join(__dirname, 'public/js'), {fallthrough: false}));
