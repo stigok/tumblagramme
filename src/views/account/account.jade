@@ -1,20 +1,22 @@
-extends ../layout
-
-block header-text
-  #{app.name}
+extends ../templates/out-of-app
   
 block content
-  h3 Tumblr
-  p #{user.tumblr.profile.name}
+  h2 Account
+  
+  strong Tumblr
+  div.well.well-sm #{user.tumblr.profile.name}
+  
+  strong Instagram
+  div.well.well-sm #{user.instagram.profile.username} (##{user.instagram.profile.id})
+  
   hr
-  h3 Instagram
-  p #{user.instagram.profile.username} (#{user.instagram.profile.id})
+  p
+    | If you want to start over with a clean account, or just want to delete everything 
+    | we know about you and your #[strong reblog.media] account, you can do it very easily 
+    | by #[a(href="" ng-click="confirmDelete()") clicking here].
+  
+  div(role="alert").alert.alert-warning
+    | It is not possible to delete your account in this test version of the app.
+  
   hr
-  h3 Delete Account
-  p If you want to start over with a clean account, or just want to delete everything we know about you and your #[strong reblog.media] account, you can do it very easily by clicking below.
-  a(href="#" class="btn btn-danger btn-block") Delete account
-  hr
-  a(href="/" class="btn btn-default btn-block") Return to app
-
-block navigation
-  // void
+  a(href="/" class="btn btn-success btn-block") Return to app

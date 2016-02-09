@@ -18,13 +18,14 @@ html
         .col-md-4.col-md-offset-4.login
           h1.text-center
             block header-text
-              | reblog.media
+              a(href="/") reblog.media
+          p.text-center A tool to keep your Tumblr blog active with content you love.
+          p.text-center Create predefined Instagram tag search queries and queue the media you like to your Tumblr queue with predefined post captions, tags and original media credits.
           block navigation
             hr
             ul.nav.nav-pills.nav-justified
-              li #[a(href="/login") Login]
-              li #[a(href="/about") About]
+              li #[a(href="/account") Login / Account]
+              li #[a(href="/privacy") Privacy Policy]
           hr
           block content
-      
     block scripts

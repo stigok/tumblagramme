@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoDBSessionStore = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose');
-const http = require('http');
+const https = require('https');
 const cors = require('cors');
 const passport = require('passport');
 const User = require('./models/user.js');
@@ -12,6 +12,7 @@ const settings = require('../settings.json');
 const TumblrStrategy = require('passport-tumblr').Strategy;
 const helmet = require('helmet');
 const winston = require('winston');
+const fs = require('fs');
 
 // Logging with winston
 const logger = new (winston.Logger)({
@@ -48,9 +49,9 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
-  secret: 'QK48y3xQXdvhYQVu5Sesc3kf4TcY2xkAnu43YckATnec32YJpqAMLEWzhnABvw7gztFt2',
+  secret: settings.appSettings.sessionSecret,
   cookie: {
-    secure: false,
+    secure: true,
     httpOnly: true,
     path: '/',
     // 2 weeks
@@ -116,7 +117,7 @@ passport.use(
 );
 
 // Static files
-app.use(require('less-middleware')(path.join(__dirname, 'public/css')));
+app.use('/css', require('less-middleware')(path.join(__dirname, 'public/css')));
 app.use('/css', express.static(path.join(__dirname, 'public/css'), {fallthrough: false}));
 app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
 app.use('/js', express.static(path.join(__dirname, 'public/js'), {fallthrough: false}));
@@ -138,8 +139,8 @@ app.use(function (req, res, next) {
   return next();
 });
 
-app.use('/about', function (req, res) {
-  res.render('views/about');
+app.get('/privacy', function (req, res) {
+  res.render('views/privacy-policy');
 });
 
 // Authentication and auth block
@@ -187,15 +188,20 @@ app.use(function (err, req, res, next) {
   });
 });
 
+const httpsOptions = {
+  key: fs.readFileSync(settings.appSettings.https.keyPath),
+  cert: fs.readFileSync(settings.appSettings.https.certPath)
+};
+
 // Start server
-http.createServer(app).listen(
-  settings.appSettings.httpPort,
+https.createServer(httpsOptions, app).listen(
+  settings.appSettings.https.port,
   settings.appSettings.hostname,
   function () {
     logger.log(
-      'Express server listening on http://%s:%d',
+      'Express server listening on https://%s:%d',
       settings.appSettings.hostname,
-      settings.appSettings.httpPort
+      settings.appSettings.https.port
     );
   }
 );
