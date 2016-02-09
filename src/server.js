@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoDBSessionStore = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose');
-const http = require('http');
+const https = require('https');
 const cors = require('cors');
 const passport = require('passport');
 const User = require('./models/user.js');
@@ -12,6 +12,7 @@ const settings = require('../settings.json');
 const TumblrStrategy = require('passport-tumblr').Strategy;
 const helmet = require('helmet');
 const winston = require('winston');
+const fs = require('fs');
 
 // Logging with winston
 const logger = new (winston.Logger)({
@@ -50,7 +51,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   secret: 'QK48y3xQXdvhYQVu5Sesc3kf4TcY2xkAnu43YckATnec32YJpqAMLEWzhnABvw7gztFt2',
   cookie: {
-    secure: false,
+    secure: true,
     httpOnly: true,
     path: '/',
     // 2 weeks
@@ -187,15 +188,20 @@ app.use(function (err, req, res, next) {
   });
 });
 
+const httpsOptions = {
+  key: fs.readFileSync(settings.appSettings.https.keyPath),
+  cert: fs.readFileSync(settings.appSettings.https.certPath)
+};
+
 // Start server
-http.createServer(app).listen(
-  settings.appSettings.httpPort,
+https.createServer(httpsOptions, app).listen(
+  settings.appSettings.https.port,
   settings.appSettings.hostname,
   function () {
     logger.log(
-      'Express server listening on http://%s:%d',
+      'Express server listening on https://%s:%d',
       settings.appSettings.hostname,
-      settings.appSettings.httpPort
+      settings.appSettings.https.port
     );
   }
 );
