@@ -42,10 +42,6 @@
         controller: 'HistoryCtrl',
         templateUrl: '/templates/history.html'
       })
-      .when('/account', {
-        controller: 'AccountCtrl',
-        templateUrl: '/templates/account.html'
-      })
       .otherwise('/', {
         redirectTo: '/'
       });
