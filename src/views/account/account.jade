@@ -1,7 +1,7 @@
-extends ../layout
+extends ../templates/out-of-app
   
 block content
-  h3 Account
+  h2 Account
   
   strong Tumblr
   div.well.well-sm #{user.tumblr.profile.name}
@@ -20,6 +20,3 @@ block content
   
   hr
   a(href="/" class="btn btn-success btn-block") Return to app
-
-block navigation
-  // void

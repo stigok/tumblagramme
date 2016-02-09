@@ -139,8 +139,8 @@ app.use(function (req, res, next) {
   return next();
 });
 
-app.use('/about', function (req, res) {
-  res.render('views/about');
+app.get('/privacy', function (req, res) {
+  res.render('views/privacy-policy');
 });
 
 // Authentication and auth block
