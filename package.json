@@ -1,6 +1,6 @@
 {
   "name": "tumblagramme",
-  "version": "1.0.0-1",
+  "version": "1.0.0-2",
   "private": true,
   "scripts": {
     "start": "DEBUG=express:* nodemon --watch ./ --exec 'babel-node' src/server.js",
