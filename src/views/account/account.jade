@@ -1,18 +1,22 @@
-extends ./layout
-
+extends ../templates/out-of-app
+  
 block content
-  .container-fluid
-    .row
-      .col-md-3
-        h2 Account stuff
-        
-        p
-          a(href="/api/instagram/auth").btn.btn-default Connect Instagram
-        
-        p
-          a(href="/" class="btn btn-warning").btn.btn-error Delete account
-          
-    .row
-      .col-md-3
-        p
-          a(href="/").btn.btn-default Return to app
+  h2 Account
+  
+  strong Tumblr
+  div.well.well-sm #{user.tumblr.profile.name}
+  
+  strong Instagram
+  div.well.well-sm #{user.instagram.profile.username} (##{user.instagram.profile.id})
+  
+  hr
+  p
+    | If you want to start over with a clean account, or just want to delete everything 
+    | we know about you and your #[strong reblog.media] account, you can do it very easily 
+    | by #[a(href="" ng-click="confirmDelete()") clicking here].
+  
+  div(role="alert").alert.alert-warning
+    | It is not possible to delete your account in this test version of the app.
+  
+  hr
+  a(href="/" class="btn btn-success btn-block") Return to app

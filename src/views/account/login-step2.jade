@@ -1,0 +1,10 @@
+extends ../templates/out-of-app
+
+block content
+  h3 Authentication Successfull
+  p
+    | You are successfully authenticated with Tumblr.
+    | As this app is using Instagram to serve you fresh media,
+    | you have to link your Instagram account as well.
+    
+  a(href="/api/instagram/auth" class="btn btn-info btn-block") Connect Instagram

@@ -5,3 +5,8 @@ user.json
 .cert
 _old
 .keys
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

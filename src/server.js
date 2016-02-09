@@ -1,23 +1,34 @@
 const express = require('express');
 const path = require('path');
-const logger = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoDBSessionStore = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose');
-const http = require('http');
+const https = require('https');
 const cors = require('cors');
 const passport = require('passport');
 const User = require('./models/user.js');
 const settings = require('../settings.json');
-// const util = require('util');
 const TumblrStrategy = require('passport-tumblr').Strategy;
-// const ensureAuth = require('../lib/ensureAuth');
+const helmet = require('helmet');
+const winston = require('winston');
+const fs = require('fs');
+
+// Logging with winston
+const logger = new (winston.Logger)({
+  level: 'silly',
+  transports: [
+    new (winston.transports.Console)()
+    // new (winston.transports.File)({ filename: 'somefile.log', level: 'error' })
+  ]
+});
+
+logger.info('Starting app', settings);
 
 // Connect to database
 mongoose.connect(settings.appSettings.mongodb, function (err) {
   if (err) {
-    console.error('Failed to connect to mongodb with connection string: %s', settings.appSettings.mongodb);
+    logger.error('Failed to connect to mongodb with connection string: %s', settings.appSettings.mongodb);
   }
 });
 
@@ -26,21 +37,27 @@ const app = express();
 app.set('views', __dirname);
 app.set('view engine', 'jade');
 
-app.disable('x-powered-by');
+// Helmet is a collection of nine smaller middleware functions that set security-related HTTP headers
+app.use(helmet());
 
-app.use(logger('dev'));
+// Log all requests
+app.use(function (req, res, next) {
+  logger.verbose('request', req.path);
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
-  secret: 'QK48y3xQXdvhYQVu5Sesc3kf4TcY2xkAnu43YckATnec32YJpqAMLEWzhnABvw7gztFt2',
+  secret: settings.appSettings.sessionSecret,
   cookie: {
-    // path: '/',
+    secure: true,
     httpOnly: true,
-    secure: false,
+    path: '/',
     // 2 weeks
     maxAge: 1000 * 60 * 60 * 24 * 7 * 2
   },
-  name: 'tumblagramme.sid',
+  name: settings.app.name + '-session',
   resave: false,
   rolling: true,
   saveUninitialized: true,
@@ -77,14 +94,14 @@ passport.use(
     callbackURL: settings.tumblr.callbackUrl
   },
   function (token, secret, profile, done) {
-    console.log(profile);
+    logger.log(profile);
     User.findOne({'tumblr.profile.name': profile.username}, function (err, user) {
       if (err) {
         return done(err);
       }
       if (!user) {
         user = new User();
-        console.log('Creating new user', profile.username);
+        logger.log('Creating new user', profile.username);
       }
       user.tumblr.token = token;
       user.tumblr.secret = secret;
@@ -100,8 +117,10 @@ passport.use(
 );
 
 // Static files
-app.use(require('less-middleware')(path.join(__dirname, 'public')));
-app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/css', require('less-middleware')(path.join(__dirname, 'public/css')));
+app.use('/css', express.static(path.join(__dirname, 'public/css'), {fallthrough: false}));
+app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
+app.use('/js', express.static(path.join(__dirname, 'public/js'), {fallthrough: false}));
 
 // aka onBeforePageInit hook
 app.use(function (req, res, next) {
@@ -109,15 +128,23 @@ app.use(function (req, res, next) {
     req.session.touch();
   }
 
+  res.locals.user = req.user;
+  res.locals.app = settings.app;
+
   res.locals.debug = {
     session: req.session,
     user: req.user
   };
-  console.log('user', req.user);
-  next();
+
+  return next();
+});
+
+app.get('/privacy', function (req, res) {
+  res.render('views/privacy-policy');
 });
 
 // Authentication and auth block
+// This router also halts middleware execution if auth is missing
 app.use('/', require('./routes/auth'));
 
 // JSON APIs
@@ -128,7 +155,6 @@ app.use('/api/tumblr', require('./routes/api/tumblr'));
 
 // Angular app and static assets
 // Should be added as the last routes, as angular takes control of routing itself
-app.use('/js/angular', express.static(path.join(__dirname, 'angular')));
 app.use('/js/angular', function (req, res) {
   // Produce designated 404 for all angular resources
   // as the angular app takes over control of routing
@@ -152,7 +178,7 @@ app.all(function (req, res) {
 // development error handler
 // will print stacktrace
 app.use(function (err, req, res, next) {
-  console.error(err);
+  logger.error(err);
   res.status(err.status || 500);
   res.render('views/error', {
     message: err.message,
@@ -162,15 +188,20 @@ app.use(function (err, req, res, next) {
   });
 });
 
+const httpsOptions = {
+  key: fs.readFileSync(settings.appSettings.https.keyPath),
+  cert: fs.readFileSync(settings.appSettings.https.certPath)
+};
+
 // Start server
-http.createServer(app).listen(
-  settings.appSettings.httpPort,
+https.createServer(httpsOptions, app).listen(
+  settings.appSettings.https.port,
   settings.appSettings.hostname,
   function () {
-    console.log(
-      'Express server listening on http://%s:%d',
+    logger.log(
+      'Express server listening on https://%s:%d',
       settings.appSettings.hostname,
-      settings.appSettings.httpPort
+      settings.appSettings.https.port
     );
   }
 );

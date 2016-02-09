@@ -18,7 +18,15 @@
         controller: 'IndexCtrl',
         templateUrl: '/templates/index.html'
       })
-      .when('/feed/:presetId', {
+      .when('/:presetId/instagram/user/:userId', {
+        controller: 'FeedCtrl',
+        templateUrl: '/templates/feed.html'
+      })
+      .when('/:presetId/instagram/tag/:tag', {
+        controller: 'FeedCtrl',
+        templateUrl: '/templates/feed.html'
+      })
+      .when('/:presetId/instagram', {
         controller: 'FeedCtrl',
         templateUrl: '/templates/feed.html'
       })

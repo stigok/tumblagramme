@@ -11,4 +11,4 @@ div(class="instagram-resource")
         li(role="menuitem")
           a(href="{{post.link}}" target="_blank") Open in Instagram
         li(role="menuitem")
-          a(href="#" ng-click="browseUser()") Browse more from user
+          a(href="/{{presetId}}/instagram/user/{{post.user.id}}") Browse more from user

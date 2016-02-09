@@ -30,9 +30,10 @@
       $rootScope.$broadcast(PresetEvents.updated, obj);
 
       // Redirect only if it's a new object
-      if (!$routeParams.presetId) {
-        $location.url('/preset/' + obj._id);
-      }
+      // if (!$routeParams.presetId) {
+      //   $location.url('/preset/' + obj._id);
+      // }
+      $location.url('/');
     }
 
     $scope.saveChanges = function () {

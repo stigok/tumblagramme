@@ -1,19 +1,25 @@
 {
+  "app": {
+    "name": "tumblagramme"
+  },
   "appSettings": {
-    "httpPort": 3000,
     "hostname": "localhost",
-    "certPath": ".cert/cert.pem",
-    "keyPath": ".cert/key.pem",
-    "mongodb": "mongodb://localhost/tumblagramme"
+    "mongodb": "mongodb://localhost/tumblagramme",
+    "sessionSecret": "secret",
+    "https": {
+      "port": 3777,
+      "certPath": ".cert/cert.pem",
+      "keyPath": ".cert/key.pem"
+    }
   },
   "tumblr": {
-    "consumerKey": "",
-    "consumerSecret": "",
-    "callbackUrl": "http://localhost:3000/api/tumblr/callback"
+    "consumerKey": "key",
+    "consumerSecret": "secret",
+    "callbackUrl": "https://localhost:3777/api/tumblr/callback"
   },
   "instagram": {
-    "consumerKey": "",
-    "consumerSecret": "",
-    "callbackUrl": "http://localhost:3000/api/instagram/callback"
+    "consumerKey": "key",
+    "consumerSecret": "secret",
+    "callbackUrl": "https://localhost:3777/api/instagram/callback"
   }
 }

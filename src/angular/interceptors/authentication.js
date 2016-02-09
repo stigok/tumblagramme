@@ -14,11 +14,11 @@
     $httpProvider.interceptors.push(function ($rootScope, $q, AuthEvent, $log) {
       return {
         responseError: function (rejection) {
-          var json = JSON.parse(rejection.data);
+          $log.error('Response error', rejection.data);
 
           // Replace string 'auth' with check for hostname of this server
-          if (rejection.status === 401 && json.provider === 'tumblagramme') {
-            $log.log('Login is required');
+          if (rejection.status === 401) {
+            $log.error('Login is required');
             $rootScope.$broadcast(AuthEvent.loginRequired, rejection);
           }
 
