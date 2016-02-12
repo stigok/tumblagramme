@@ -64,7 +64,7 @@ router.get('/callback', function (req, res, next) {
       if (err) {
         return next('Error saving instagram token', err);
       }
-      return res.redirect('/account');
+      return res.redirect('/login?instagramAuthSuccess=true');
     });
   });
 });

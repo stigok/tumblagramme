@@ -32,7 +32,7 @@ router.get('/logout', function (req, res) {
 router.get('/login', function (req, res) {
   // If user has authenticated with both Instagram and Tumblr
   if (res.locals.user.tumblr && res.locals.user.instagram) {
-    return res.redirect('/account');
+    return res.redirect('/');
   }
 
   // If user has authenticated only with Tumblr, render Instagram auth page

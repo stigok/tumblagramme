@@ -6,9 +6,9 @@ const passport = require('passport');
 router.get('/auth', passport.authenticate('tumblr'));
 
 router.get('/callback',
-  passport.authenticate('tumblr', {failureRedirect: '/login?from=tumblr_auth_failure'}),
+  passport.authenticate('tumblr', {failureRedirect: '/login?loginSuccess=false'}),
   function (req, res) {
-    return res.redirect('/account?from=tumblr_auth');
+    return res.redirect('/login?loginSuccess=true');
   }
 );
 
