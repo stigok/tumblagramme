@@ -80,9 +80,10 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
   User.findById(id, function (err, user) {
-    if (err) {
+    if (err || !user) {
       return done(err);
     }
+
     return done(null, user);
   });
 });
@@ -128,7 +129,6 @@ app.use(function (req, res, next) {
     req.session.touch();
   }
 
-  res.locals.user = req.user;
   res.locals.app = settings.app;
 
   res.locals.debug = {

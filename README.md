@@ -40,6 +40,7 @@ Settings are all around the code at the moment, so look around!
 - [ ] Delete unused session data, like the data saved when authenticating with OAuth
 - [ ] Ability to delete account
 - [ ] Replace character 'x' with caret icon from bootstrap in tagSelector
+- [ ] Logout link on out-of-app view
 
 ### Thoughts
 

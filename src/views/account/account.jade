@@ -4,10 +4,16 @@ block content
   h2 Account
   
   strong Tumblr
-  div.well.well-sm #{user.tumblr.profile.name}
+  if (user.tumblr)
+    div.well.well-sm #{user.tumblr.name}
+  else
+    div.well.well-sm Not authenticated (you shouldn't be able to be here, though :/)
   
   strong Instagram
-  div.well.well-sm #{user.instagram.profile.username} (##{user.instagram.profile.id})
+  if (user.instagram)
+    div.well.well-sm #{user.instagram.username} (##{user.instagram.id})
+  else
+    div.well.well-sm Not authenticated
   
   hr
   p
