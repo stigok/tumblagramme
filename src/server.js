@@ -23,7 +23,7 @@ const logger = new (winston.Logger)({
   ]
 });
 
-logger.info('Starting app', settings);
+logger.info('Starting app', JSON.stringify(settings, null, 2));
 
 // Connect to database
 mongoose.connect(settings.appSettings.mongodb, function (err) {
